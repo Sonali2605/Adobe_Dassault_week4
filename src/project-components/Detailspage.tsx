@@ -8,6 +8,7 @@ import ModalforSuccess from ".././common/Modal/Modal";
 import jsonData from "./resdata.json";
 import { apis } from '.././apiServices/apis'
 import axios from "axios";
+import FeedbackModal from "./FeedbackModal";
 interface Details {
   data?: {
     id?: string; // Add id property
@@ -73,8 +74,14 @@ const Detailspage = () => {
   const[dateData, setDateData] =  useState<string | null>(null);
   const[enrollmentData, setEnrollmentData]= useState<LearningObjectInstanceEnrollment>();
   const[author, setAuthor]= useState<LearningObjectInstanceEnrollment>();
+  const[isfeedback, setIsFeedback]= useState<LearningObjectInstanceEnrollment>();
   const[iId, setIId]= useState<LearningObjectInstanceEnrollment>();
   const { pathname } = location;
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+  const handleFeedbackClick = () => {
+    setShowFeedbackModal(true);
+  };
 
   // Split the URL by '/'
   const parts = pathname.split('/');
@@ -119,7 +126,7 @@ const Detailspage = () => {
         headers: { Authorization: `oauth ${res.access_token}` },
       };
       const response = await axios.get(
-        `https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:${courseId}?include=instances.loResources.resources%2Cskills.skillLevel.skill%2CsubLOs.instances.subLoInstances%2CsupplementaryLOs.instances.loResources.resources%2csubLOs.instances.loResources.resources%2CprerequisiteLOs%2cenrollment.learnerBadge.badge%2cauthors%2cauthors.account`,
+        `https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:${courseId}?include=instances.loResources.resources%2Cinstances.l1FeedbackInfo%2Cskills.skillLevel.skill%2CsubLOs.instances.subLoInstances%2CsupplementaryLOs.instances.loResources.resources%2csubLOs.instances.loResources.resources%2CprerequisiteLOs%2cenrollment.learnerBadge.badge%2cauthors%2cauthors.account`,
 
         config
       );
@@ -130,6 +137,11 @@ const Detailspage = () => {
       const author = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'user' && findData?.id === result?.data.relationships.authors?.data[0].id);
       setAuthor(author);
 
+      const instance = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
+      console.log("33333333333333333333",instance);
+      const feedback = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'feedbackInfo' && findData?.id === instance.relationships.l1FeedbackInfo?.data.id);
+      console.log("444444444444444444444",feedback);
+      setIsFeedback(feedback);
       const Iid = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
       console.log("+++++++++++++++++++++++++++++++",Iid);
       setIId(Iid.relationships?.loResources.data[0].id);
@@ -329,6 +341,15 @@ const Detailspage = () => {
                 ? "CONTINUE COURSE"
                 : "Go Back to Privious Page"}
             </button>
+            {isfeedback && (
+        <div>
+          <p className="give-feedback" onClick={handleFeedbackClick}>
+            Give Feedback
+          </p>
+        </div>
+      )}
+      {/* Feedback Modal */}
+      {showFeedbackModal && <FeedbackModal show={showFeedbackModal} handleClose={() => setShowFeedbackModal(false)} />}
             <p className="levels-achieved">Levels achieved after completion</p>
             <p className="levels-achieved-credit">
               Level 1 - Professional (Credit 3)
