@@ -7,7 +7,7 @@ import RegisterModal from './RegisterModel';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 import { useLocation } from 'react-router-dom'; // Import the useLocation hook
 import ".././styles/common.css";
-import logo from '../assets/images/logo-timbus-cloud 1.png'
+import logo from '../assets/images/3DExpEdu1920.png'
 const HeaderContainer = styled.div<{ isLogin: boolean }>`
   position: relative;
   z-index: 2;
@@ -15,9 +15,9 @@ const HeaderContainer = styled.div<{ isLogin: boolean }>`
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  color: #ffffff;
+  color: #333;
   height: 5rem;
-  background-color: ${(props) => (props.isLogin ? 'transparent' : '#000')}; /* Conditionally set background color */
+  background-color: ${(props) => (props.isLogin ? 'transparent' : '#fff')}; /* Conditionally set background color */
 `;
 
 const Logo = styled.div`
@@ -85,6 +85,8 @@ const Menu = styled.div`
 
 const MenuItem = styled.div`
   cursor: pointer;
+  font-size: 20px;
+  color: #005686;
 `;
 
 const ModalContainer = styled.div`
@@ -247,11 +249,11 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
       localStorage.setItem('userId', userId);
       // const isManager = userDataResponse.data?.data?.[0]?.attributes?.roles.includes('Manager');
 
-      const newPath =  '/dashboard';
+      const newPath = '/dashboard';
 
-     if (location.pathname !== newPath) {
+      if (location.pathname !== newPath) {
         window.location.href = newPath;
-      } 
+      }
 
       console.log('Login successful', response.data);
       setShowLoginModal(false);
@@ -272,113 +274,96 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
     setError('');
     setDashboard('');
     localStorage.clear();
-    window.location.href =  '/'
+    window.location.href = '/'
   }
   console.log(location.pathname.toLowerCase().includes('dashboardcustomer'))
   console.log(window.location.pathname.includes("/isCustomer=true/"))
+
+  const openHomePage = function () {
+    const newPath = '/dashboard';
+    if (location.pathname !== newPath) {
+     window.location.href = newPath;
+    }
+  }
+  const openAllCoursesPage = function () {
+    const newPath = '/allCourses';
+    if (location.pathname !== newPath) {
+     window.location.href = newPath;
+    }
+  }
+  const openMyLearningPage = function () {
+    const newPath = '/myLearnings';
+    if (location.pathname !== newPath) {
+     window.location.href = newPath;
+    }
+  }
+
   return (
     <HeaderContainer>
       {location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/") ? (
-         <> <Logo>
-          <img style={{width: '65%'}}
-          src={logo}
-          alt=''
+        <> <Logo>
+          <img style={{ width: '65%' }}
+            src={logo}
+            alt=''
           />
-         </Logo>
-         <Menu >
-           <MenuItem className='products-menu'>
-             PRODUCTS
-             <div className="submenu">
-               <MenuItem className=''>Product 1</MenuItem>
-               <MenuItem className=''>Product 2</MenuItem>
-               {/* Add more submenu items as needed */}
-             </div>
-           </MenuItem>
-   
-           <MenuItem className='  products-menu'>SOLUTIONS
-             <div className="submenu">
-               <MenuItem className=' '>Google</MenuItem>
-               <MenuItem className=' '>Microsoft</MenuItem>
-               {/* Add more submenu items as needed */}
-             </div>
-           </MenuItem>
-   
-           <MenuItem className='  products-menu'>DEVELOPER ACADEMY
-             <div className="submenu">
-               <MenuItem className=' '>Facebook</MenuItem>
-               <MenuItem className=' '>Twitter</MenuItem>
-               {/* Add more submenu items as needed */}
-             </div>
-           </MenuItem>
-           <MenuItem className='  products-menu'>PRICING
-             <div className="submenu">
-               <MenuItem className=' '>Pricing</MenuItem>
-               {/* Add more submenu items as needed */}
-             </div>
-           </MenuItem>
-           {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/")
-           ?
-           (<MenuItem className='products-menu' onClick={handleLogout}>LOGOUT</MenuItem>):
-           (
-            <MenuItem className='products-menu' onClick={() => setShowLoginModal(true)}>LOGIN</MenuItem>
-           )
-           }
-           
-         </Menu>
-         </>
-      
-      ):(
-        <> 
-              {location.pathname.toLowerCase().includes('dashboard') || window.location.pathname.includes("/isCustomer=false/") ? (
-                        <Logo style={{fontSize: '1.8rem'}}>Timbus Cloud Partner Pod</Logo>
-              ): (
-                <Logo>
-          <img style={{width: '65%'}}
-          src={logo}
-          alt=''
-          />
-          </Logo>
+        </Logo>
+          <Menu >
+            <MenuItem className='products-menu' onClick={openHomePage} id='HOME'>
+              HOME
+            </MenuItem>
 
+            <MenuItem className='  products-menu' onClick={openAllCoursesPage} id='ALL_COURSES'>
+              ALL COURSES
+            </MenuItem>
+
+            <MenuItem className='  products-menu' onClick={openMyLearningPage} id='MY_LEARNINGS'>
+              MY LEARNINGS
+            </MenuItem>
+
+            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/")
+              ?
+              (<MenuItem className='products-menu' onClick={handleLogout}>LOGOUT</MenuItem>) :
+              (
+                <MenuItem className='products-menu' onClick={() => setShowLoginModal(true)}>LOGIN</MenuItem>
               )
             }
-        <Menu >
-          <MenuItem className='products-menu'>
-            PRODUCTS
-            <div className="submenu">
-              <MenuItem className=''>Product 1</MenuItem>
-              <MenuItem className=''>Product 2</MenuItem>
-              {/* Add more submenu items as needed */}
-            </div>
-          </MenuItem>
-  
-          <MenuItem className='  products-menu'>SOLUTIONS
-            <div className="submenu">
-              <MenuItem className=' '>Google</MenuItem>
-              <MenuItem className=' '>Microsoft</MenuItem>
-              {/* Add more submenu items as needed */}
-            </div>
-          </MenuItem>
-  
-          <MenuItem className='  products-menu'>LEARNING
-            <div className="submenu">
-              <MenuItem className=' '>Facebook</MenuItem>
-              <MenuItem className=' '>Twitter</MenuItem>
-              {/* Add more submenu items as needed */}
-            </div>
-          </MenuItem>
+
+          </Menu>
+        </>
+
+      ) : (
+        <>
+          <Logo>
+              <img style={{ width: '65%' }}
+                src={logo}
+                alt=''
+              />
+            </Logo>
+          <Menu >
+            <MenuItem className='products-menu' onClick={openHomePage} id='HOME'>
+              HOME
+            </MenuItem>
+
+            <MenuItem className='  products-menu' onClick={openAllCoursesPage} id='ALL_COURSES'>
+              ALL COURSES
+            </MenuItem>
+
+            <MenuItem className='  products-menu' onClick={openMyLearningPage} id='MY_LEARNINGS'>
+              MY LEARNINGS
+            </MenuItem>
             {/* <div className="submenu">
               <MenuItem className=' '>Pricing</MenuItem>
             </div> */}
- {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=false/")
-           ?
-           (<MenuItem className='products-menu' onClick={handleLogout }>LOGOUT</MenuItem>):
-           (
-            <MenuItem className='products-menu' onClick={() => setShowLoginModal(true)}>LOGIN</MenuItem>
-           )
-           }        </Menu>
+            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=false/")
+              ?
+              (<MenuItem className='products-menu' onClick={handleLogout}>LOGOUT</MenuItem>) :
+              (
+                <MenuItem className='products-menu' onClick={() => setShowLoginModal(true)}>LOGIN</MenuItem>
+              )
+            }        </Menu>
         </>
       )}
-     
+
 
       {showLoginModal && (
         <ModalContainer>
@@ -395,7 +380,7 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
             <InputField className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
             <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-          {/*}  <LoginRadio>
+            {/*}  <LoginRadio>
             <label>
               <InputField 
                 type="radio" 
