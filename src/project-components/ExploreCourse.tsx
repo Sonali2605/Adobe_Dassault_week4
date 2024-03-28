@@ -43,6 +43,7 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
     .course-carousel-container {
       max-width: 100%;
       overflow-x: hidden;
+      width: 100%;
     }
 
     .course-carousel {
@@ -80,10 +81,11 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       text-align: center;
+      background-color:rgba(0,0,0,0.7);
     }
 
     .course-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       color: #fff;
     }
@@ -93,11 +95,11 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #007bff;
+      background-color: #005686;
       color: #fff;
       text-decoration: none;
       font-size: 16px;
-      border: 1px solid #007bff;
+      border: 1px solid #005686;
       padding: 5px 10px;
       border-radius: 4px;
     }
@@ -165,6 +167,7 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
       </>
        :
        <>
+       <div>
       <h2 className="text-lg font-bold mb-4">Courses to Explore</h2>
         <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "150px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
@@ -172,6 +175,7 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
         </div>
         <div  className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
         <button onClick={handleGoToExplore}>Go To Explore page</button>
+      </div>
       </div>
        </>
       }
