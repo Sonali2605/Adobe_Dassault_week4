@@ -1,0 +1,26 @@
+.modal {
+    width: 650px;
+    height: auto;
+  }
+  .modal-title{
+    text-align: center;
+  font: normal normal bold 38px/47px Adobe;
+  letter-spacing: 0.76px;
+  color: #202020;
+  opacity: 1;
+  margin-bottom: 42px;
+  }
+  .modal-text{
+    text-align: center;
+    font: normal normal normal 28px/35px Adobe;
+    letter-spacing: 0.56px;
+    color: #202020;
+    opacity: 1;
+    margin-bottom: 22px;
+  }
+  .modal-content {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  

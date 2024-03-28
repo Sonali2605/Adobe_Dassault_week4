@@ -1,0 +1,227 @@
+{
+    "links": {
+      "self": "https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:9180283?include=enrollment.learnerBadge.badge,enrollment.learningObject.skills.skillLevel.skill"
+    },
+    "data": {
+      "id": "course:9180283",
+      "type": "learningObject",
+      "attributes": {
+        "authorNames": [
+          "Sonali Dhiman",
+          "Ayush Gupta"
+        ],
+        "bannerUrl": "https://cpcontents.adobe.com/protected/account/107442/banners/courses/9180283/2024-03-05%2015:44:51.13dpagenew.jpg?cp_oauth_jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwIjoidXJsIiwicmFuZCI6ImFhMDA3MjUwMTVhNWNjMzIyMzYyN2IyMmY4N2ZlNmVkIiwidiI6IjEiLCJvcmlnaW5hbFVybEhhc2giOiIyOGI1Zjg3MWJmOTEyOTlmNjM5MjkyZmIyYjY2YmNhNWM1ZjVjNTNjIiwiZXhwIjoxNzEwMzI0NDE2LCJyaWQiOiIxNTMyMDgxMiIsImlhdCI6MTcwOTcxOTYxNiwiY2lkIjoiMSJ9.XW8wA9vTqigVTFhBZVncxjt5lLNRvZf1lALpmz-IINo",
+        "dateCreated": "2024-03-05T15:44:49.000Z",
+        "datePublished": "2024-03-05T15:46:27.000Z",
+        "dateUpdated": "2024-03-05T15:46:27.000Z",
+        "duration": 250,
+        "effectiveModifiedDate": "2024-03-06T05:11:50.000Z",
+        "enrollmentType": "Self Enroll",
+        "hasOptionalLoResources": false,
+        "hasPreview": false,
+        "instanceSwitchEnabled": false,
+        "isBookmarked": false,
+        "isExternal": false,
+        "isMqaEnabled": true,
+        "isPrerequisiteEnforced": false,
+        "isSubLoOrderEnforced": false,
+        "loFormat": "Self Paced",
+        "loResourceCompletionCount": 1,
+        "loType": "course",
+        "moduleResetEnabled": false,
+        "multienrollmentEnabled": false,
+        "state": "Published",
+        "unenrollmentAllowed": false,
+        "localizedMetadata": [
+          {
+            "description": "This course on Negotiations 101 for the Insurance sales industry is designed to provide a comprehensive overview of the negotiation process ",
+            "locale": "en-US",
+            "name": "Negotiation 101",
+            "overview": "This course on Negotiations 101 for the Insurance sales industry is designed to provide a comprehensive overview of the negotiation process and its application in the insurance sales context. Participants will learn key negotiation strategies, tactics, and techniques, as well as best practices for effective communication and building rapport with clients. Throughout the course, we will explore the psychology of negotiation barriers and objections. Participants will also learn how to develop a negotiation plan, establish and communicate value, and create win-win outcomes for both parties.",
+            "richTextOverview": "<p>This course on Negotiations 101 for the Insurance sales industry is designed to provide a comprehensive overview of the negotiation process and its application in the insurance sales context. Participants will learn key negotiation strategies, tactics, and techniques, as well as best practices for effective communication and building rapport with clients. Throughout the course, we will explore the psychology of negotiation barriers and objections. Participants will also learn how to develop a negotiation plan, establish and communicate value, and create win-win outcomes for both parties.</p>"
+          }
+        ],
+        "rating": {
+          "averageRating": 2,
+          "ratingsCount": 1
+        }
+      },
+      "relationships": {
+        "authors": {
+          "data": [
+            {
+              "id": "23175045",
+              "type": "user"
+            },
+            {
+              "id": "23647412",
+              "type": "user"
+            }
+          ]
+        },
+        "enrollment": {
+          "data": {
+            "id": "course:9180283_9851023_23647412",
+            "type": "learningObjectInstanceEnrollment"
+          }
+        },
+        "instances": {
+          "data": [
+            {
+              "id": "course:9180283_9851023",
+              "type": "learningObjectInstance"
+            }
+          ]
+        },
+        "skills": {
+          "data": [
+            {
+              "id": "course:9180283_272185",
+              "type": "learningObjectSkill"
+            }
+          ]
+        }
+      }
+    },
+    "included": [
+      {
+        "id": "1060119",
+        "type": "badge",
+        "attributes": {
+          "imageUrl": "https://cpcontents.adobe.com/public/account/107442/accountassets/107442/badges/8f41853356a8453d9e263f39d4377d74/badge_blackbelt.png",
+          "name": "BLACK BELT",
+          "state": "Active"
+        }
+      },
+      {
+        "id": "23647412_1060119_COURSE_9180283_9851023",
+        "type": "userBadge",
+        "attributes": {
+          "assertionUrl": "https://cpcontents.adobe.com/public/accountassets/107442/badges/assertions/93ece33eced747b6af27ef3ed9625b21_1709701459581.json",
+          "dateAchieved": "2024-03-06T05:04:14.000Z",
+          "modelType": "learningObject"
+        },
+        "relationships": {
+          "badge": {
+            "data": {
+              "id": "1060119",
+              "type": "badge"
+            }
+          },
+          "learner": {
+            "data": {
+              "id": "23647412",
+              "type": "user"
+            }
+          },
+          "model": {
+            "data": {
+              "id": "course:9180283",
+              "type": "learningObject"
+            }
+          }
+        }
+      },
+      {
+        "id": "course:9180283_272185",
+        "type": "learningObjectSkill",
+        "attributes": {
+          "credits": 100,
+          "learningObjectId": "course:9180283"
+        },
+        "relationships": {
+          "skillLevel": {
+            "data": {
+              "id": "272185_1",
+              "type": "skillLevel"
+            }
+          }
+        }
+      },
+      {
+        "id": "272185",
+        "type": "skill",
+        "attributes": {
+          "description": "Lightroom Fundamentals",
+          "name": "Lightroom",
+          "state": "Active"
+        },
+        "relationships": {
+          "levels": {
+            "data": [
+              {
+                "id": "272185_1",
+                "type": "skillLevel"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "272185_1",
+        "type": "skillLevel",
+        "attributes": {
+          "level": "1",
+          "maxCredits": 100,
+          "name": "Level 1"
+        },
+        "relationships": {
+          "skill": {
+            "data": {
+              "id": "272185",
+              "type": "skill"
+            }
+          }
+        }
+      },
+      {
+        "id": "course:9180283_9851023_23647412",
+        "type": "learningObjectInstanceEnrollment",
+        "attributes": {
+          "dateCompleted": "2024-03-06T05:04:14.000Z",
+          "dateEnrolled": "2024-03-06T05:00:20.000Z",
+          "dateStarted": "2024-03-06T05:04:14.000Z",
+          "enrollmentSource": "ADMIN_ENROLL",
+          "hasPassed": true,
+          "progressPercent": 100,
+          "rating": 2,
+          "score": 0,
+          "state": "COMPLETED"
+        },
+        "relationships": {
+          "learner": {
+            "data": {
+              "id": "23647412",
+              "type": "user"
+            }
+          },
+          "learnerBadge": {
+            "data": {
+              "id": "23647412_1060119_COURSE_9180283_9851023",
+              "type": "userBadge"
+            }
+          },
+          "learningObject": {
+            "data": {
+              "id": "course:9180283",
+              "type": "learningObject"
+            }
+          },
+          "loInstance": {
+            "data": {
+              "id": "course:9180283_9851023",
+              "type": "learningObjectInstance"
+            }
+          },
+          "loResourceGrades": {
+            "data": [
+              {
+                "id": "course:9180283_9851023_14647420_0_23647412",
+                "type": "learningObjectResourceGrade"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
