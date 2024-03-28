@@ -176,7 +176,7 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
        </>
       }
       <style>{customStyles}</style>
-      <div className="course-carousel-container customerExplore pt-4">
+      <div className="course-carousel-container customerExplore mt-4">
         <div className="course-carousel">
           {courseData.map((course, index) => (
             <div key={index} className="course-card">
