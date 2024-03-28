@@ -9,12 +9,14 @@ import DashboardCustomer from "./project-components/DashboardCustomer";
 import FluidicPlayer from "./project-components/FluidicPlayer";
 import AllCourses from "./project-components/AllCourses";
 import AllLearnings from "./project-components/AllLearnings";
+import Header from './project-components/Header';
 
 export default function App() {
   return (
     <>
       {/* <Login/> */}
       {/* <Dashboard/> */}
+      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
