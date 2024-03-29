@@ -126,14 +126,14 @@ function LanguageDropdown() {
                 //         setStoredLanguage(response?.data?.data?.attributes?.contentLocale ?? "en-US");
                 //     }
                 // }
-                
+
                 setFinalConfirmation(false);
             } catch (error) {
                 console.log(error)
             }
         }
     }, [finalConfirmation, language])
-//finalConfirmation, userId, language, router
+    //finalConfirmation, userId, language, router
     const handleLanguageChange = async (selectedOption: any) => {
         const storedLanguage = localStorage.getItem("selectedLanguage")
         setLanguage(selectedOption.value)
@@ -157,7 +157,9 @@ function LanguageDropdown() {
 
     return (
         <>
-            <Select options={languageOptions}
+            <Select
+                className='inline-block'
+                options={languageOptions}
                 classNamePrefix='select'
                 onChange={handleLanguageChange}
                 styles={customStyles}
