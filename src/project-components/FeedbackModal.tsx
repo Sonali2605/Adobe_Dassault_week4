@@ -178,7 +178,7 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
     {showFBModal && (
     <div className={show ? 'fixed inset-0 z-50 overflow-hidden flex justify-center items-center' : 'hidden'}>
       {!show && <div className="modal-overlay absolute inset-0 bg-black opacity-50"></div>}
-      <div className={`modal-content bg-white rounded-lg shadow-lg p-6 ${localStorage.getItem("selectedLanguage") === "en-US" ? 'w-1/2' :  'w-3/5'}`}>
+      <div className={`modal-content bg-white rounded-lg shadow-lg p-6 ${localStorage.getItem("selectedLanguage") === "en-US" ? 'w-1/2' :  'w-4/6'}`}>
         <div className="modal-header flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">{t('feedback')}</h2>
           <button className="close-button text-gray-500 hover:text-gray-700" onClick={handleClose}>

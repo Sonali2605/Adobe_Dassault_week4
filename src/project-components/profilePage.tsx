@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import LanguageDropdown from './LanguageDropdown';
+import logo from '../assets/images/LinkedIn_Logo.png'
 
 interface UserData {
   data?: {
@@ -36,6 +37,8 @@ const ProfilePage = () => {
   const [editedCellNumber, setEditedCellNumber] = useState('');
   const [editedDOB, setEditedDOB] = useState('');
   const [editedZipCode, setEditedZipCode] = useState('');
+  const [tooltipState, setTooltipState] = useState( false );
+
 
   //fields
 
@@ -57,10 +60,10 @@ const ProfilePage = () => {
         setUserData(response.data?.data);
         setAbout(response.data?.data.attributes.bio);
         setEditedEmail(response.data?.data.attributes.email);
-        setAddress(response.data?.data.attributes?.fields.Address)
-        setEditedCellNumber(response.data?.data.attributes?.fields["Cell Number"])
-        setEditedDOB(response.data?.data.attributes?.fields.DOB)
-        setEditedZipCode(response.data?.data.attributes?.fields["Zip Code"])
+        setAddress(response.data?.data.attributes.fields.Address)
+        setEditedCellNumber(response.data?.data.attributes.fields["Cell Number"])
+        setEditedDOB(response.data?.data.attributes.fields.DOB)
+        setEditedZipCode(response.data?.data.attributes.fields["Zip Code"])
 
 
       } catch (error) {
@@ -256,8 +259,12 @@ const ProfilePage = () => {
               <div className="flex flex-wrap">
                 {userBadges.map((badge) => (
                   <div key={badge.id} className="mb-4  ml-auto" style={{ width: "100px", position: "relative" }}>
-                    <a href="https://in.linkedin.com" target='_blank' className="href" title='Share on Lnked In' >
-                      
+                    <a href="https://in.linkedin.com" target='_blank' className="href" title='Share on Lnked In' onMouseEnter={() => document.getElementById("tooltip_"+badge.id).style.display = "block"} onMouseLeave={() => document.getElementById("tooltip_"+badge.id).style.display = "none"}>
+                    
+                      <div id={"tooltip_"+badge.id} className="tooltipEle" style={{display:"none", position:"absolute", top:"-50px", left:"0px", backgroundColor:"#fff", border:"1px solid #333", padding:"5px 10px"}}>
+                          <span>Share on </span><img src={logo} alt='' style={{width:"100%"}}></img> 
+                      </div>
+                     
                       <img src={badge.attributes.imageUrl} alt="Badge" className="w-full h-auto" />
                     </a>
                   </div>
