@@ -172,7 +172,7 @@ const ProfilePage = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div>
+            <div style={{ width: "400px" }}>            
               {isEditing ? (
                 <>
                   <input
@@ -181,26 +181,30 @@ const ProfilePage = () => {
                     onChange={(e) => setEditedName(e.target.value)}
                     className="text-xl font-semibold focus:outline-none"
                   />
-
-                  <LanguageDropdown />
+<div className="field"><label>Language: </label>
+                  <LanguageDropdown style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }}/>
+                  </div>
                 </>
               ) : (
                 <>
                   <h2 className="text-xl font-semibold">{userData && userData.attributes && userData.attributes.name}</h2>
-                  <p>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
+                  <div className="field"><label>Language: </label>
+                  <p style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }}>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
+                  </div>
                 </>
               )}
-              <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} />
-              <input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} />
-              <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} onChange={(e) => setEditedCellNumber(e.target.value)} />
-              <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} onChange={(e) => setEditedDOB(e.target.value)} />
-              <input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} onChange={(e) => setEditedZipCode(e.target.value)} />
+              <div className="field">
+                <label>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} />
+              </div>
 
+              <div className="field"><label>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} />
+              </div>
 
+              <div className="field"><label>CellNumber: </label> <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} onChange={(e) => setEditedCellNumber(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field"><label>DOB: </label> <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} onChange={(e) => setEditedDOB(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field"><label>ZipCode: </label><input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} onChange={(e) => setEditedZipCode(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} /></div>
 
-
-
-              <p>{userData && userData.attributes && userData.attributes.profile}</p>
+              <div className="field"><label>Profile: </label><p style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }}>{userData && userData.attributes && userData.attributes.profile}</p></div>
               {isEditing && (
                 <div>
                   <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2" style={{ backgroundColor: "#005686" }}>Save</button>
@@ -233,8 +237,8 @@ const ProfilePage = () => {
               <h3 className="text-lg font-semibold mb-4">Badges</h3>
               <div className="flex flex-wrap">
                 {userBadges.map((badge) => (
-                  <div key={badge.id} className="mb-4  ml-auto" style={{ width: "100px" }}>
-                    <a href="https://in.linkedin.com" target='_blank' className="href" title='Lnked In'>
+                  <div key={badge.id} className="mb-4  ml-auto" style={{ width: "100px", position: "relative" }}>
+                    <a href="https://in.linkedin.com" target='_blank' className="href" title='Share on Lnked In'>
                       <img src={badge.attributes.imageUrl} alt="Badge" className="w-full h-auto" />
                     </a>
                   </div>
