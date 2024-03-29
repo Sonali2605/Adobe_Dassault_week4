@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './Header';
+import LanguageDropdown from './LanguageDropdown';
 
 interface UserData {
   data?: {
@@ -147,14 +148,21 @@ const ProfilePage = () => {
             </div>
             <div>
               {isEditing ? (
+                <>
                 <input
                   type="text"
                   value={editedName}
                   onChange={(e) => setEditedName(e.target.value)}
                   className="text-xl font-semibold focus:outline-none"
                 />
+                
+                <LanguageDropdown/>
+                </>
               ) : (
+                <>
                 <h2 className="text-xl font-semibold">{userData && userData.attributes && userData.attributes.name}</h2>
+                <p>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
+                </>
               )}
               <p>{userData && userData.attributes && userData.attributes.profile}</p>
               {isEditing && (
