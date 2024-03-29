@@ -152,7 +152,9 @@ const ProfilePage = () => {
       console.error('Error saving user data:', error);
     }
   };
-
+  const showTooltip = (e) => {
+    console.log(e);
+  }
   // console.log("00000000000000000000000", userSkills)
   return (
     <>
@@ -161,50 +163,69 @@ const ProfilePage = () => {
       </div>
       <h1 style={{ fontSize: "25px", width: "100%", marginLeft: "10rem", marginBottom: "1rem" }}>User Profile</h1>
       <div className="flex justify-center">
+        <style>
 
+        </style>
         <div className="border border-gray-300 rounded-lg overflow-hidden w-3/4 p-6" style={{ backgroundColor: "#fff" }}>
-          <div className="flex items-center">
+          <div className="flex overflow-hidden" style={{ border: "1px solid #e7e6e6", borderRadius: "8px", position: "relative" }}>
 
-            <div className="rounded-full overflow-hidden mr-4" style={{ width: "200px" }}>
-              <img
-                src={isEditing ? editedAvatarUrl : (userData && userData.attributes && userData.attributes.avatarUrl)}
-                alt="Avatar"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div style={{ width: "400px" }}>            
-              {isEditing ? (
-                <>
+            <div className="mr-10 rounded-lg" style={{ width: "300px", backgroundColor: "#503fa6", color: "#fff", minHeight: "420px" }}>
+              <div className='imgDiv rounded-full overflow-hidden' style={{
+                position: "relative",
+                width: "50%",
+                textAlign: "center",
+                margin: "20px auto 10px"
+              }}>
+
+                <img
+                  src={isEditing ? editedAvatarUrl : (userData && userData.attributes && userData.attributes.avatarUrl)}
+                  alt="Avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="field text-center">
+
+
+                {isEditing ? (
                   <input
                     type="text"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
-                    className="text-xl font-semibold focus:outline-none"
+                    className="text-xl font-semibold focus:outline-none text-center"
+                    style={{ backgroundColor: "transparent" }}
                   />
-<div className="field"><label>Language: </label>
-                  <LanguageDropdown style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }}/>
-                  </div>
-                </>
-              ) : (
-                <>
+                ) : (
                   <h2 className="text-xl font-semibold">{userData && userData.attributes && userData.attributes.name}</h2>
-                  <div className="field"><label>Language: </label>
-                  <p style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }}>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
-                  </div>
-                </>
+                )}
+
+                <p style={{ padding: "2px 4px", display: "block" }}>{userData && userData.attributes && userData.attributes.profile}</p>
+
+              </div>
+            </div>
+            <div style={{ width: "calc(100% - 320px)", paddingTop: "20px" }}>
+              {isEditing ? (
+                <div className="field">
+                  <label style={{ minWidth: "124px", display: "inline-block" }}>Language: </label>
+                  <LanguageDropdown />
+                </div>
+              ) : (
+                <div className="field "><label style={{ minWidth: "130px", display: "inline-block" }}>Language: </label>
+                  <p style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }}>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
+                </div>
               )}
-              <div className="field">
-                <label>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} />
+              <div className="field ">
+                <label style={{ minWidth: "126px", display: "inline-block" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} />
               </div>
 
-              <div className="field"><label>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} />
+              <div className="field"><label style={{ minWidth: "130px", display: "inline-block" }}>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} />
               </div>
 
-              <div className="field"><label>CellNumber: </label> <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} onChange={(e) => setEditedCellNumber(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} /></div>
-              <div className="field"><label>DOB: </label> <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} onChange={(e) => setEditedDOB(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} /></div>
-              <div className="field"><label>ZipCode: </label><input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} onChange={(e) => setEditedZipCode(e.target.value)} style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }} /></div>
-
-              <div className="field"><label>Profile: </label><p style={{ padding: "2px 4px", margine: "0 10px 0 0", backgroundColor: "#fff", display: "inline-block" }}>{userData && userData.attributes && userData.attributes.profile}</p></div>
+              <div className="field"><label style={{ minWidth: "126px", display: "inline-block" }}>CellNumber: </label> <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} onChange={(e) => setEditedCellNumber(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field"><label style={{ minWidth: "127px", display: "inline-block" }}>DOB: </label> <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} onChange={(e) => setEditedDOB(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field"><label style={{ minWidth: "130px", display: "inline-block" }}>ZipCode: </label><input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} onChange={(e) => setEditedZipCode(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field mt-2 mb-4"><label style={{ minWidth: "135px", display: "inline-block" }}>Description: </label>
+                <textarea value={about} onChange={(e) => setAbout(e.target.value)} style={{ border: "none", padding: "0", margin: "", display: "inline-block", verticalAlign: "top", backgroundColor: "#fff", width: "calc(100% - 145px)" }} name="" id="about_bio" disabled={!isEditing} rows={"4"}></textarea>
+              </div>
               {isEditing && (
                 <div>
                   <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2" style={{ backgroundColor: "#005686" }}>Save</button>
@@ -213,17 +234,14 @@ const ProfilePage = () => {
               )}
             </div>
             {!isEditing && (
-              <button onClick={handleEdit} className="ml-auto px-4 py-2 text-white rounded-md" style={{ backgroundColor: "#005686" }}>Edit</button>
+              <button onClick={handleEdit} className="ml-auto px-4 py-2 text-white rounded-md" style={{
+                backgroundColor: "#005686", position: "absolute",
+                right: "15px",
+                top: "15px"
+              }}>Edit</button>
             )}
           </div>
-          <div className="bio-wrapper">
-            <div className="bio-title">
-              <h2>About</h2>
-            </div>
-            <div className="bio-text">
-              <textarea value={about} onChange={(e) => setAbout(e.target.value)} style={{ width: "100%", border: "2px solid #000", padding: "1px 4px" }} name="" id="about_bio" rows="4" disabled={!isEditing}></textarea>
-            </div>
-          </div>
+
           <div className="flex justify-between mt-6">
             <div className="w-1/2 p-6" style={{ border: "1px solid #e7e6e6", borderRadius: "8px", marginRight: "10px" }}>
               <h3 className="text-lg font-semibold mb-4">Skills</h3>
@@ -238,7 +256,8 @@ const ProfilePage = () => {
               <div className="flex flex-wrap">
                 {userBadges.map((badge) => (
                   <div key={badge.id} className="mb-4  ml-auto" style={{ width: "100px", position: "relative" }}>
-                    <a href="https://in.linkedin.com" target='_blank' className="href" title='Share on Lnked In'>
+                    <a href="https://in.linkedin.com" target='_blank' className="href" title='Share on Lnked In' >
+                      
                       <img src={badge.attributes.imageUrl} alt="Badge" className="w-full h-auto" />
                     </a>
                   </div>
