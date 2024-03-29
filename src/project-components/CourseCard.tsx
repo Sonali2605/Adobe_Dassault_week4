@@ -53,25 +53,32 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as lightBookmark } from '@fortawesome/free-regular-svg-icons';
-
+import { getLocalizedContent } from './utils/commanUtils';
+import { useTranslation } from 'react-i18next';
 interface CourseCardProps {
   course: LearningObjectInstanceEnrollment;
   EnrollHandle: (id: string) => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
+  console.log("111111111111111111111", course);
+  const content = getLocalizedContent(course?.attributes?.localizedMetadata)
+  console.log("222222222222",content)
   // Calculate progress percentage
   const progress = course.progressPercentage || 0;
-
+  const { t } = useTranslation();
   // Calculate duration in minutes and seconds
   const durationInSeconds = course.attributes?.duration || 0;
   const minutes = Math.floor(durationInSeconds / 60);
   const seconds = durationInSeconds % 60;
 
   // Get enrollment state
-  let enrollmentState = "ENROLL";
+  let enrollmentState = t('explore');
   if (course.id && course.state) {
-    enrollmentState = course.state;
+    if(course.state === "COMPLETED")
+      enrollmentState = t('completed');
+    else
+      enrollmentState = t('enrolled')
   }
 
   // State for bookmark status
@@ -105,7 +112,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
       <img
         className="course-image object-cover h-64 w-full"
         src={course?.attributes?.imageUrl}
-        alt={course?.attributes?.localizedMetadata?.[0]?.name || ""}
+        alt={content?.name || ""}
       />
       {enrollmentState !== "Explore" && (
         <div className="py-2  items-center">
@@ -136,22 +143,23 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
       <div className="px-6 py-4 flex-grow">
         <div className="font-bold text-xl mb-2 cursor-pointer overflow-hidden"
           style={{ maxHeight: '1.5em', whiteSpace: 'pre-wrap', textOverflow: 'ellipsis' }}
-          title={course?.attributes?.localizedMetadata?.[0]?.name}>
-          {course?.attributes?.localizedMetadata?.[0]?.name}
+          title={content.name}>
+          {content.name}
         </div>
         <p
           className="text-gray-700 text-base cursor-pointer overflow-hidden"
           style={{ maxHeight: '3em', whiteSpace: 'pre-wrap', textOverflow: 'ellipsis' }}
-          title={course?.attributes?.localizedMetadata?.[0]?.description}
+          title={content.description}
         >
-          {course?.attributes?.localizedMetadata?.[0]?.description}
+          {content.description}
         </p>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 ">
           <button
-            className="enroll-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="enroll-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline uppercase"
             onClick={() => EnrollHandle(course?.id || '')}
           >
             {enrollmentState}
+            {/* {t('hello')} */}
           </button>
         </div>
       </div>

@@ -1,0 +1,18 @@
+{
+    "hello": "hello",
+    "explore": "Explore",
+    "enrolled": "Enrolled",
+    "completed":"Completed",
+    "stronglyDisagree": "Strongly disagree",
+    "disagree":"Disagree",
+    "ok":"Ok",
+    "agree":"Agree",
+    "stronglyAgree": "Strongly agree",
+    "courseProgress":"Course Progress",
+    "modulesComplete": "modules completed",
+    "giveFeedback": "Give Feedback",
+    "author":"Author",
+    "feedback":"Feedback",
+    "cancel": "Cancel",
+    "submit":"Submit"
+}

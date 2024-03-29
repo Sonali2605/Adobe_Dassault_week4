@@ -7,6 +7,7 @@ import Failure1_Icon from "/images/Failure1_Icon.png";
 import { Modal } from "react-bootstrap";
 import { apis } from '.././apiServices/apis'
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
     const [questionsData, setQuestionsData] = useState(feedBack);
@@ -18,6 +19,7 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
     const [image, setImage] = useState(true);
     const [showErrorMsg , setShowErrorMsg] = useState(false)
 
+    const { t } = useTranslation();
     const handleOkDisplayMessage = () => {
         setShowModal(false);
     };
@@ -172,9 +174,9 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
     <>
     <div className={show ? 'fixed inset-0 z-50 overflow-hidden flex justify-center items-center' : 'hidden'}>
       {!show && <div className="modal-overlay absolute inset-0 bg-black opacity-50"></div>}
-      <div className="modal-content bg-white rounded-lg shadow-lg p-6 w-1/2">
+      <div className={`modal-content bg-white rounded-lg shadow-lg p-6 ${localStorage.getItem("selectedLanguage") === "en-US" ? 'w-1/2' :  'w-3/5'}`}>
         <div className="modal-header flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Feedback</h2>
+          <h2 className="text-xl font-bold">{t('feedback')}</h2>
           <button className="close-button text-gray-500 hover:text-gray-700" onClick={handleClose}>
             &times;
           </button>
@@ -193,10 +195,10 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
             Submit
           </button> */}
           <button className="btn btn-link m-2" onClick={handleClose}>
-                        Cancel
+                        {t('cancel')}
                     </button>
                     <button className="btn primary-btn primary-blue m-2" onClick={submitAns}>
-                        Submit
+                    {t('submit')}
                     </button>
         </div>
       </div>

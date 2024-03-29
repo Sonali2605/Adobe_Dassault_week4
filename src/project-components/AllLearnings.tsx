@@ -31,8 +31,15 @@ const AllLearnings = () => {
         headers: { Authorization: `oauth ${token}` },
       };
       let limit = 10;
+      const contentLocal= localStorage.getItem("selectedLanguage");
+      let language;
+      if(contentLocal === "en-US"){
+        language= "en-US"
+      } else{
+        language= "en-US,fr-FR"
+      }
       const response = await axios.get(
-        `https://learningmanager.adobe.com/primeapi/v2/learningObjects?include=enrollment,instances,instances.l1FeedbackInfo&page[limit]=${limit}&filter.catalogIds=174313&sort=name&filter.learnerState=enrolled&filter.learnerState=started&filter.learnerState=completed&filter.ignoreEnhancedLP=true`,
+        `https://learningmanager.adobe.com/primeapi/v2/learningObjects?include=enrollment,instances,instances.l1FeedbackInfo&page[limit]=${limit}&filter.catalogIds=174313&sort=name&filter.learnerState=enrolled&filter.learnerState=started&filter.learnerState=completed&filter.ignoreEnhancedLP=true&language=${language}`,
         config
       );
       const result = response?.data?.data;

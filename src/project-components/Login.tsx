@@ -185,7 +185,11 @@ const Login = () => {
         'access_token',
         tokenData.access_token
       );
-
+      const config = {
+        headers: { Authorization: `oauth ${ tokenData.access_token}` },
+      };
+      // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
+      // console.log
       const userDataResponse = await axios.get(
         `${base_adobe_url}/primeapi/v2/users?page[offset]=0&page[limit]=10&sort=id&ids=email:${username}`,
         {
@@ -196,7 +200,7 @@ const Login = () => {
       );
 
       const userId = userDataResponse.data?.data?.[0]?.id;
-
+console.log("user profile data", userDataResponse.data?.data);
       localStorage.setItem('userId', userId);
       // const isManager = userDataResponse.data?.data?.[0]?.attributes?.roles.includes('Manager');
 

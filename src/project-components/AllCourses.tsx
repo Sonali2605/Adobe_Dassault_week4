@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './Header';
 import CourseCard from './CourseCard'; // Create a CourseCard component to represent each course
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 interface Course {
   id: string; // Assuming 'id' is a required property in your data
@@ -18,7 +19,7 @@ interface Course {
 const AllCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
 
@@ -32,8 +33,15 @@ const AllCourses = () => {
       const config = {
         headers: { Authorization: `oauth ${token}` },
       };
+      const contentLocal= localStorage.getItem("selectedLanguage");
+      let language;
+      if(contentLocal === "en-US"){
+        language= "en-US"
+      } else{
+        language= "en-US,fr-FR"
+      }
       const response = await axios.get(
-        `https://learningmanager.adobe.com/primeapi/v2/learningObjects?page[limit]=20&filter.catalogIds=174313&sort=name&filter.learnerState=notenrolled&filter.ignoreEnhancedLP=true`,
+        `https://learningmanager.adobe.com/primeapi/v2/learningObjects?page[limit]=20&filter.catalogIds=174313&sort=name&filter.learnerState=notenrolled&filter.ignoreEnhancedLP=true&language=${language}`,
         config
       );
       const result = response?.data?.data;

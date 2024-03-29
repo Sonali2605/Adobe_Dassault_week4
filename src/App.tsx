@@ -10,7 +10,7 @@ import FluidicPlayer from "./project-components/FluidicPlayer";
 import AllCourses from "./project-components/AllCourses";
 import AllLearnings from "./project-components/AllLearnings";
 import Header from './project-components/Header';
-
+import "./i18n";
 export default function App() {
   return (
     <>
