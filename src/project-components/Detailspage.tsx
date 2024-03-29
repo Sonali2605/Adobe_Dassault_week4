@@ -349,7 +349,7 @@ const Detailspage = () => {
         </div>
       )}
       {/* Feedback Modal */}
-      {showFeedbackModal && <FeedbackModal show={showFeedbackModal} handleClose={() => setShowFeedbackModal(false)} />}
+      {showFeedbackModal && <FeedbackModal show={showFeedbackModal} handleClose={() => setShowFeedbackModal(false)} feedBack = {isfeedback} enrollmentId = {enrollmentData?.id}  />}
             <p className="levels-achieved">Levels achieved after completion</p>
             <p className="levels-achieved-credit">
               Level 1 - Professional (Credit 3)

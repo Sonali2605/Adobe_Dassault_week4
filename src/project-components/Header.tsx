@@ -7,7 +7,7 @@ import RegisterModal from './RegisterModel';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 import { useLocation } from 'react-router-dom'; // Import the useLocation hook
 import ".././styles/common.css";
-import logo from '../assets/images/3DExpEdu1920.png'
+import logo from '../assets/images/DS3logo.jpg'
 const HeaderContainer = styled.div<{ isLogin: boolean }>`
   position: relative;
   z-index: 2;
