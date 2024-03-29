@@ -214,7 +214,7 @@ const ProfilePage = () => {
                 </div>
               )}
               <div className="field ">
-                <label style={{ minWidth: "126px", display: "inline-block" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} />
+                <label style={{ minWidth: "126px", display: "inline-block" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
               </div>
 
               <div className="field"><label style={{ minWidth: "130px", display: "inline-block" }}>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} />
