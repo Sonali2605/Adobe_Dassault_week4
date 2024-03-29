@@ -9,6 +9,8 @@ import jsonData from "./resdata.json";
 import { apis } from '.././apiServices/apis'
 import axios from "axios";
 import FeedbackModal from "./FeedbackModal";
+import { getLocalizedContent } from "./utils/commanUtils";
+import { useTranslation } from 'react-i18next';
 interface Details {
   data?: {
     id?: string; // Add id property
@@ -76,9 +78,11 @@ const Detailspage = () => {
   const[author, setAuthor]= useState<LearningObjectInstanceEnrollment>();
   const[isfeedback, setIsFeedback]= useState<LearningObjectInstanceEnrollment>();
   const[iId, setIId]= useState<LearningObjectInstanceEnrollment>();
+  const[instanceObject, setInstanceObject] = useState<any>();
   const { pathname } = location;
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
+  const { t } = useTranslation();
   const handleFeedbackClick = () => {
     setShowFeedbackModal(true);
   };
@@ -125,8 +129,15 @@ const Detailspage = () => {
         // headers: { Authorization: "Bearer dea088ff9bbdca4e8cbbd5fa7de2d290" },
         headers: { Authorization: `oauth ${res.access_token}` },
       };
+      const contentLocal= localStorage.getItem("selectedLanguage");
+      let language;
+      if(contentLocal === "en-US"){
+        language= "en-US"
+      } else{
+        language= "en-US,fr-FR"
+      }
       const response = await axios.get(
-        `https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:${courseId}?include=instances.loResources.resources%2Cinstances.l1FeedbackInfo%2Cskills.skillLevel.skill%2CsubLOs.instances.subLoInstances%2CsupplementaryLOs.instances.loResources.resources%2csubLOs.instances.loResources.resources%2CprerequisiteLOs%2cenrollment.learnerBadge.badge%2cauthors%2cauthors.account`,
+        `https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:${courseId}?include=instances.loResources.resources%2Cinstances.l1FeedbackInfo%2Cskills.skillLevel.skill%2CsubLOs.instances.subLoInstances%2CsupplementaryLOs.instances.loResources.resources%2csubLOs.instances.loResources.resources%2CprerequisiteLOs%2cenrollment.learnerBadge.badge%2cauthors%2cauthors.account&language=${language}`,
 
         config
       );
@@ -144,6 +155,7 @@ const Detailspage = () => {
       setIsFeedback(feedback);
       const Iid = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
       console.log("+++++++++++++++++++++++++++++++",Iid);
+      setInstanceObject(Iid)
       setIId(Iid.relationships?.loResources.data[0].id);
       const effectiveModifiedDate = new Date(result?.data?.attributes?.effectiveModifiedDate);
 
@@ -219,7 +231,7 @@ const Detailspage = () => {
     setActiveTab(tabNumber);
   };
   console.log(enrollmentData,author, "progressPercentage");
-  console.log(isCustomerValue)
+  console.log("details", details?.data)
   return (
     <>
       <Header isLogin={false} />
@@ -232,11 +244,11 @@ const Detailspage = () => {
               {details?.data?.attributes?.loFormat}
             </p>
             <h1 className="heading">
-              {details?.data?.attributes?.localizedMetadata?.[0]?.name}
+              {getLocalizedContent(details?.data?.attributes?.localizedMetadata)?.name}
             </h1>
           </div>
           <p className="description-content">
-            {details?.data?.attributes?.localizedMetadata?.[0]?.overview}
+            {getLocalizedContent(details?.data?.attributes?.localizedMetadata)?.overview}
           </p>
           <div className="">
             <div className="">
@@ -277,8 +289,7 @@ const Detailspage = () => {
                         <div>
                           <span className="module-title">
                             {
-                              details?.data?.attributes?.localizedMetadata?.[0]
-                                .name
+                               getLocalizedContent(instanceObject?.attributes?.localizedMetadata)?.name
                             }
                           </span>
                         </div>
@@ -313,14 +324,14 @@ const Detailspage = () => {
         </div>
         <div className="card mr-0 mt-8 ">
           <div className="card-content pt-9">
-            <span className="course-progress">Course Progress</span>
+            <span className="course-progress">{t('courseProgress')}</span>
             <div className="flex justify-between mt-7 mb-5">
               <div>
-                <span className="modules-completed">1/1 modules completed</span>
+                <span className="modules-completed">1/1 {t('modulesComplete')}</span>
               </div>
               <div>
                 <span className="modules-completed">
-                  {enrollmentData?.attributes?.progressPercent}% Completed
+                  {enrollmentData?.attributes?.progressPercent}% {t('completed')}
                 </span>
               </div>
             </div>
@@ -344,7 +355,7 @@ const Detailspage = () => {
             {isfeedback && (
         <div>
           <p className="give-feedback" onClick={handleFeedbackClick}>
-            Give Feedback
+           {t('giveFeedback')}
           </p>
         </div>
       )}
@@ -356,7 +367,7 @@ const Detailspage = () => {
             </p>
 
             <div className="mt-5 ml-3">
-                <p className="author">Author</p></div>
+                <p className="author">{t('author')}</p></div>
             <div className="author-info">
               <img
                 src={author?.attributes?.avatarUrl}

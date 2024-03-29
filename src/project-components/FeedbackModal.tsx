@@ -7,6 +7,7 @@ import Failure1_Icon from "/images/Failure1_Icon.png";
 import { Modal } from "react-bootstrap";
 import { apis } from '.././apiServices/apis'
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
     const [questionsData, setQuestionsData] = useState(feedBack);
@@ -19,6 +20,7 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
     const [image, setImage] = useState(true);
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
+    const { t } = useTranslation();
     const handleOkDisplayMessage = () => {
         setShowModal(false);
         setShowFBModal(true);
@@ -170,52 +172,53 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
                 break;
         }
     };
-
-    return (
-        <>
-            {showFBModal && (<div className={show ? 'fixed inset-0 z-50 overflow-hidden flex justify-center items-center' : 'hidden'}>
-                {!show && <div className="modal-overlay absolute inset-0 bg-black opacity-50"></div>}
-                <div className="modal-content bg-white rounded-lg shadow-lg p-6 w-1/2">
-                    <div className="modal-header flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold">Feedback</h2>
-                        <button className="close-button text-gray-500 hover:text-gray-700" onClick={handleClose}>
-                            &times;
-                        </button>
-                    </div>
-                    <div className="modal-body mb-4">
-                        {/* <h5 className="fw-bold">{courseDetails?.attributes.localizedMetadata[0].name}</h5> */}
-                        {questionsData?.attributes.questions.map((e, i) => (
-                            <React.Fragment key={i}>{questionTypeUI(e, i)}</React.Fragment>
-                        ))}
-                        {showErrorMsg ? <>
-                            <div style={{ color: "red" }}>Please fill out all required questions</div>
-                        </> : <></>}
-                    </div>
-                    <div className="modal-footer text-right">
-                        {/* <button className="btn bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600" onClick={handleClose}>
+    
+  return (
+    <>
+    {showFBModal && (
+    <div className={show ? 'fixed inset-0 z-50 overflow-hidden flex justify-center items-center' : 'hidden'}>
+      {!show && <div className="modal-overlay absolute inset-0 bg-black opacity-50"></div>}
+      <div className={`modal-content bg-white rounded-lg shadow-lg p-6 ${localStorage.getItem("selectedLanguage") === "en-US" ? 'w-1/2' :  'w-3/5'}`}>
+        <div className="modal-header flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">{t('feedback')}</h2>
+          <button className="close-button text-gray-500 hover:text-gray-700" onClick={handleClose}>
+            &times;
+          </button>
+        </div>
+        <div className="modal-body mb-4">
+          {/* <h5 className="fw-bold">{courseDetails?.attributes.localizedMetadata[0].name}</h5> */}
+                    {questionsData?.attributes.questions.map((e, i) => (
+                        <React.Fragment key={i}>{questionTypeUI(e, i)}</React.Fragment>
+                    ))}
+                    { showErrorMsg ? <>
+                        <div style={{ color: "red" }}>Please fill out all required questions</div>
+                    </> : <></> }
+        </div>
+        <div className="modal-footer text-right">
+          {/* <button className="btn bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600" onClick={handleClose}>
             Submit
           </button> */}
-                        <button className="btn btn-link m-2" onClick={handleClose}>
-                            Cancel
-                        </button>
-                        <button className="btn primary-btn primary-blue m-2" onClick={submitAns}>
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </div>)}
-
-            {showModal && (
-                <div className="modal-container success-modal" style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "rgba(0,0,0,0.5)"
-                }}>
-                    <Modal centered show={showModal} style={{
-                        position: "absolute",
+          <button className="btn btn-link m-2" onClick={handleClose}>
+                        {t('cancel')}
+                    </button>
+                    <button className="btn primary-btn primary-blue m-2" onClick={submitAns}>
+                    {t('submit')}
+                    </button>
+        </div>
+      </div>
+    </div>
+    )}
+    {showModal &&(
+    <div className="modal-container success-modal" style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,0.5)"
+    }}>
+                <Modal centered show={showModal} style={{
+                        position: "fixed",
                         width: "50%",
                         height: "auto",
                         backgroundColor: "#fff",
@@ -223,19 +226,19 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
                         padding: "10px 40px",
                         top: "35%",
                         left: "23%"
-                    }}  >
-                        <Modal.Body className="my-5">
-                            <div className="success-modal-container text-center">
-                                {image ? (
-                                    <img className="failed-icon m-auto" src={Success_Icon} alt="Success" style={{ margin: "0 auto 20px", width: "60px" }}></img>
-                                ) : (
-                                    <img className="failed-icon" src={Failure1_Icon} alt="failed" style={{ margin: "0 auto 20px", width: "60px" }}></img>
-                                )}
-                                <div className="success-text-message2">{modalMessage}</div>
-                            </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button className="btn primary-btn primary-blue m-2" onClick={() => handleOkDisplayMessage()} style={{
+                    }} >
+                    <Modal.Body className="my-5">
+                        <div className="success-modal-container text-center">
+                            {image ? (
+                                <img className="failed-icon m-auto" src={Success_Icon} alt="Success" style={{ margin: "0 auto 20px", width: "60px" }}></img>
+                            ) : (
+                                <img className="failed-icon" src={Failure1_Icon} alt="failed" style={{ margin: "0 auto 20px", width: "60px" }}></img>
+                            )}
+                            <div className="success-text-message2">{modalMessage}</div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className="btn primary-btn primary-blue m-2" onClick={() => handleOkDisplayMessage()} style={{
                                 padding: "5px 20px",
                                 border: "1px solid #333",
                                 borderRadius: "4px",
@@ -243,13 +246,13 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
                                 position: "relative",
                                 left: "calc(50% - 30px)"
                             }}>
-                                Ok
-                            </button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>)}
-        </>
-    );
+              Ok
+                        </button>
+                    </Modal.Footer>
+                </Modal>
+            </div>)}
+    </>
+  );
 };
 
 export default FeedbackModal;

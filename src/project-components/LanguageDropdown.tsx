@@ -141,8 +141,10 @@ function LanguageDropdown() {
         if (selectedOption.value === storedLanguage) {
             return null;
         }
-        else {
-            localStorage.setItem("selectedLanguage", selectedOption.value)
+        else{
+            localStorage.setItem("selectedLanguage",selectedOption.value );
+            alert(`You have selected '${selectedOption.value === "en-US"? "English": "Français"}' as your new Language. This change will be applied ONLY TO YOU across the application. It will now refresh to apply this change  `);
+            window.location.reload();
         }
     };
 

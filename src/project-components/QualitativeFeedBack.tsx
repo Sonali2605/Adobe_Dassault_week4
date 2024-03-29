@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getLocalizedContent } from "./utils/commanUtils";
 
 function QualitativeFeedBack(props) {
     const [text, setText] = useState("");
@@ -16,7 +17,7 @@ function QualitativeFeedBack(props) {
         <React.Fragment>
             <div className="question-text mt-3 mb-2">
                 <span style={{ marginRight: "10px" }}>{props?.seq}.</span>
-                {props?.data?.localizedMetadata[0]?.name}
+                {getLocalizedContent(props?.data?.localizedMetadata)?.name}
                 {props?.data?.mandatory && (
                     <span style={{ color: "red" }}>*</span>
                 )}

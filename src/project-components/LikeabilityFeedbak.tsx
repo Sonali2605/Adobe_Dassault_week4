@@ -1,33 +1,34 @@
 // @ts-nocheck
 
 import React, { useState } from "react";
-// import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 // import "./LikeabilityFeedback.css";
+import { getLocalizedContent } from "./utils/commanUtils";
 
 function LikeabilityFeedback(props) {
 
-    // const {t} = useTranslation()
+    const {t} = useTranslation()
 
     let [LikeabilityFeedbackAns] = useState([
         {
             id: 1,
-            name: "Strongly disagree"
+            name: t('stronglyDisagree')
         },
         {
             id: 2,
-            name: "Disagree"
+            name: t("disagree")
         },
         {
             id: 3,
-            name: "Ok"
+            name: t("ok")
         },
         {
             id: 4,
-            name: "Agree"
+            name: t("agree")
         },
         {
             id: 5,
-            name: "Strongly agree"
+            name: t("stronglyAgree")
         },
     ])
 
@@ -49,7 +50,7 @@ function LikeabilityFeedback(props) {
         <React.Fragment className="Feedback">
             <div className='question-text fontSize14 mt-4 mb-2'>
                 <span style={{ marginRight: "10px" }}>{props?.seq}.</span>
-                {props.data.localizedMetadata[0].name}
+                {getLocalizedContent(props?.data?.localizedMetadata)?.name}
                 {props.data.mandatory && (
                     <span style={{ color: "red" }}>*</span>
                 )}

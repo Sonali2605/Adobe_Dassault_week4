@@ -1,10 +1,11 @@
 import React from "react";
+import { getLocalizedContent } from "./utils/commanUtils";
 
 function ScaleTenFeedBack(props) {
     return (
         <div className='question-text fontSize14 mt-4 mb-2'>
             <span style={{ marginRight: "10px" }}>{props?.seq}.</span>
-            {props?.data?.localizedMetadata[0].name}
+            {getLocalizedContent(props?.data?.localizedMetadata)?.name}
             {props?.data?.mandatory && (
                 <span style={{ color: "red" }}>*</span>
             )}

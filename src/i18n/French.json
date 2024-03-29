@@ -1,0 +1,18 @@
+{
+    "hello": "hola",
+    "explore": "Explorer",
+    "enrolled": "Inscrite",
+    "completed":"Complété",
+    "stronglyDisagree": "Fortement en désaccord",
+    "disagree":"Être en désaccord",
+    "ok":"D'accord",
+    "agree":"Accepter",
+    "stronglyAgree": "Tout à fait d'accord",
+    "courseProgress":"Progression du cours",
+    "modulesComplete": "modules terminés",
+    "giveFeedback": "Donner votre avis",
+    "author":"Auteure",
+    "feedback":"Retour",
+    "cancel": "Annuler",
+    "submit":"Soumettre"
+}
