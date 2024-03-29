@@ -31,6 +31,19 @@ const ProfilePage = () => {
   const [editedName, setEditedName] = useState('');
   const [about, setAbout] = useState('');
   const [editedAvatarUrl, setEditedAvatarUrl] = useState('');
+  const [editedEmail, setEditedEmail] = useState('');
+  const [editedAddress, setAddress] = useState('');
+  const [editedCellNumber, setEditedCellNumber] = useState('');
+  const [editedDOB, setEditedDOB] = useState('');
+  const [editedZipCode, setEditedZipCode] = useState('');
+
+  //fields
+
+
+
+
+
+
 
   useEffect(() => {
     // Fetch user data
@@ -43,6 +56,13 @@ const ProfilePage = () => {
         const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
         setUserData(response.data?.data);
         setAbout(response.data?.data.attributes.bio);
+        setEditedEmail(response.data?.data.attributes.email);
+        setAddress(response.data?.data.attributes?.fields.Address)
+        setEditedCellNumber(response.data?.data.attributes?.fields["Cell Number"])
+        setEditedDOB(response.data?.data.attributes?.fields.DOB)
+        setEditedZipCode(response.data?.data.attributes?.fields["Zip Code"])
+
+
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -108,7 +128,13 @@ const ProfilePage = () => {
           type: `${userData?.type}`,
           attributes: {
             name: `${editedName}`,
-            bio: `${about}`
+            bio: `${about}`,
+            email: `${editedEmail}`,
+            Address: `${editedAddress}`,
+            "Cell Number": `${editedCellNumber}`,
+            DOB: `${editedDOB}`,
+            "Zip Code": `${editedZipCode}`
+
           }
         }
       };
@@ -127,7 +153,7 @@ const ProfilePage = () => {
     }
   };
 
-  console.log("00000000000000000000000", userSkills)
+  // console.log("00000000000000000000000", userSkills)
   return (
     <>
       <div className='mb-5'>
@@ -149,21 +175,31 @@ const ProfilePage = () => {
             <div>
               {isEditing ? (
                 <>
-                <input
-                  type="text"
-                  value={editedName}
-                  onChange={(e) => setEditedName(e.target.value)}
-                  className="text-xl font-semibold focus:outline-none"
-                />
-                
-                <LanguageDropdown/>
+                  <input
+                    type="text"
+                    value={editedName}
+                    onChange={(e) => setEditedName(e.target.value)}
+                    className="text-xl font-semibold focus:outline-none"
+                  />
+
+                  <LanguageDropdown />
                 </>
               ) : (
                 <>
-                <h2 className="text-xl font-semibold">{userData && userData.attributes && userData.attributes.name}</h2>
-                <p>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
+                  <h2 className="text-xl font-semibold">{userData && userData.attributes && userData.attributes.name}</h2>
+                  <p>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
                 </>
               )}
+              <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} />
+              <input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} />
+              <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} onChange={(e) => setEditedCellNumber(e.target.value)} />
+              <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} onChange={(e) => setEditedDOB(e.target.value)} />
+              <input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} onChange={(e) => setEditedZipCode(e.target.value)} />
+
+
+
+
+
               <p>{userData && userData.attributes && userData.attributes.profile}</p>
               {isEditing && (
                 <div>
