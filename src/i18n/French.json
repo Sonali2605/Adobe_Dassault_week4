@@ -14,5 +14,8 @@
     "author":"Auteure",
     "feedback":"Retour",
     "cancel": "Annuler",
-    "submit":"Soumettre"
+    "submit":"Soumettre",
+    "allCourses": "Tous les cours",
+    "myLearnings":"Mes apprentissages",
+    "goToDashbaord":"Aller au tableau de bord"
 }

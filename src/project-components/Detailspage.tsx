@@ -323,7 +323,7 @@ const Detailspage = () => {
           </div>
         </div>
         <div className="card mr-0 mt-8 ">
-          <div className="card-content pt-9">
+          <div className="card-content">
             <span className="course-progress">{t('courseProgress')}</span>
             <div className="flex justify-between mt-7 mb-5">
               <div>
@@ -352,9 +352,9 @@ const Detailspage = () => {
                 ? "CONTINUE COURSE"
                 : "Go Back to Privious Page"}
             </button>
-            {isfeedback && (
+            {isfeedback &&  enrollmentData?.attributes?.progressPercent === 100 &&(
         <div>
-          <p className="give-feedback cursor-pointer" onClick={handleFeedbackClick}>
+          <p className="give-feedback mb-4 text-lg font-bold text-blue-500 cursor-pointer" onClick={handleFeedbackClick}>
            {t('giveFeedback')}
           </p>
         </div>
@@ -368,10 +368,11 @@ const Detailspage = () => {
 
             <div className="mt-5 ml-3">
                 <p className="author">{t('author')}</p></div>
-            <div className="author-info">
+            <div className="author-info mb-6">
               <img
                 src={author?.attributes?.avatarUrl}
                 alt="Logo"
+                className="rounded-full"
                 style={{ width: "54px", height: "53px" }}
               />
               <div>

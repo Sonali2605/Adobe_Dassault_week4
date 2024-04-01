@@ -128,11 +128,16 @@ const ProfilePage = () => {
             name: `${editedName}`,
             bio: `${about}`,
             email: `${editedEmail}`,
-            Address: `${editedAddress}`,
-            "Cell Number": `${editedCellNumber}`,
-            DOB: `${editedDOB}`,
-            "Zip Code": `${editedZipCode}`
-
+            contentLocale: localStorage.getItem("selectedLanguage"),
+            uiLocale: localStorage.getItem("selectedLanguage"),
+            fields: {
+              "Cell Number": [
+                `${editedCellNumber}`
+              ],
+              Address: `${editedAddress}`,
+              DOB: `${editedDOB}`,
+              "Zip Code": `${editedZipCode}`
+          },
           }
         }
       };
@@ -144,6 +149,8 @@ const ProfilePage = () => {
       const result = await axios.patch(`${url}`, BodyData, config);
       console.log("_____________________", url, result.data)
       setIsEditing(false);
+      localStorage.setItem("selectedLanguage",result?.data?.data?.attributes?.uiLocale )
+      window.location.reload();
       // Refresh page to reflect changes
       window.location.reload();
     } catch (error) {
@@ -211,8 +218,8 @@ const ProfilePage = () => {
                   <p style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }}>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
                 </div>
               )}
-              <div className="field mb-3">
-                <label style={{ minWidth: "126px", display: "inline-block" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
+              <div className="field ">
+                <label style={{ minWidth: "126px", display: "inline-block", marginLeft:"5px" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={true} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
               </div>
 
               <div className="field mb-3"><label style={{ minWidth: "130px", display: "inline-block" }}>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} className={isEditing?"editing-mode":""}  onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }} />
