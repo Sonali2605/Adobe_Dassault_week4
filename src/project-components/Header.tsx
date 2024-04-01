@@ -236,7 +236,7 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
       );
 
       const userDataResponse = await axios.get(
-        `${base_adobe_url}/primeapi/v2/users?page[offset]=0&page[limit]=10&sort=id&ids=email:${username}`,
+        `${base_adobe_url}/primeapi/v2/user`,
         {
           headers: {
             Authorization: `Bearer ${tokenData.access_token}`,
@@ -244,11 +244,30 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
         }
       );
 
-      const userId = userDataResponse.data?.data?.[0]?.id;
+      const userId = userDataResponse.data?.data?.id;
 
       localStorage.setItem('userId', userId);
       // const isManager = userDataResponse.data?.data?.[0]?.attributes?.roles.includes('Manager');
+      const config = {
+        headers: { Authorization: `oauth ${tokenData.access_token}` },
+      };
+      let contentLocale = "en-US";
+      const bodyData= {
+        data: {
+        id: userId,
+        type: 'user',
+        attributes: {
+          contentLocale: contentLocale,
+          uiLocale: contentLocale,
+        },
+      },
+    }
+      const responseData = await axios.patch(
+        `${base_adobe_url}/primeapi/v2/users/${userId}`,bodyData,config);
 
+      console.log("11111111111111Language", responseData)
+      
+      localStorage.setItem("selectedLanguage",responseData.data?.data?.attributes?.uiLocale )
       const newPath = '/dashboard';
 
       if (location.pathname !== newPath) {

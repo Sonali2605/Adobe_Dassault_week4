@@ -65,8 +65,8 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
             if (answeredQuestions.length !== 0 && !hasEmptyMandatoryField) {
                 const payload = {
                     data: {
-                        id: questionsData?.id,
-                        type: questionsData?.type,
+                        id: enrollmentId,
+                        type: "learningObjectInstanceEnrollment",
                         attributes: {
                             showAutomatically: questionsData?.attributes.showAutomatically,
                             score: parseInt(answeredQuestions[0].answer),
@@ -85,6 +85,7 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
                     // setlearnerToken(res.access_token)
                     let res;
                     if (payload) {
+                        console.log("Payload",payload)
                         try {
                             res = await axios.post(
                                 `https://learningmanager.adobe.com/primeapi/v2/enrollments/${enrollmentId}/l1Feedback`,
@@ -100,7 +101,7 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
 
                             console.log("Response:", res.data);
                         } catch (error) {
-                            console.error("Error:", error?.response.data);
+                            console.error("Error:", error);
                         }
 
                         // let res = await apis.sendL1FeedbackAnswersFromALearner(enrolledInstanceId, payload);
@@ -109,7 +110,6 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
                             setShowModal(true);
                             setModalMessage("Feedback submitted successfully.");
                             setShowFBModal(false);
-                            handleClose();
                         } else if (
                             res?.status === 400 &&
                             res?.data?.source?.info?.toLowerCase() == "feedback for the lo is already given."
@@ -119,7 +119,6 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
                             setModalMessage("You have already provided the feedback.");
                             setImage(false);
                             setShowFBModal(false);
-                            handleClose();
                         } else {
                             // alert("something went wrong please try again later")
                             setShowModal(true);

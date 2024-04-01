@@ -14,5 +14,8 @@
     "author":"Author",
     "feedback":"Feedback",
     "cancel": "Cancel",
-    "submit":"Submit"
+    "submit":"Submit",
+    "allCourses": "All Courses",
+    "myLearnings":"My Learnings",
+    "goToDashbaord":"Go To Dashboard"
 }
