@@ -236,11 +236,11 @@ console.log("user profile data", userDataResponse.data?.data);
       <div className="overflow-hidden relative">
         {/* Power up in the Cloud */}
         <div className="absolute inset-0 flex flex-col text-white">
-          <div className='mb-20'>
+          <div className='mb-6'>
             <Header isLogin={true} />
           </div>
           <div className='justify-center items-left mt-24 px-24'>
-            <h1 className="text-8xl font-bold mb-8">Power up in <br />the Cloud</h1>
+            <h1 className="text-7xl font-bold mb-8">Power up in <br />the Cloud</h1>
             <p className="text-3xl font-bold text-gray-400 mb-6">Host | Build | Deploy</p>
             <div className="flex space-x-4 mt-5">
               <button className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] text-white font-bold">Login with FB</button>
@@ -278,14 +278,14 @@ console.log("user profile data", userDataResponse.data?.data);
       </div>
       <div className="relative z-10 bg-[#3b7ceb] text-white text-center py-10">
 
-        <div className='text-7xl font-extrabold mb-3'>How real businesses use <br />Nimbus Cloud to grow faster?</div>
+        <div className='text-6xl font-extrabold mb-3'>How real businesses use <br />Dassault Cloud to grow faster?</div>
         <div className="flex justify-center items-center px-18 py-10">
           {/* Blue card */}
           <div className="bg-[#1a4789] text-white rounded-3xl px-8 py-20 mr-5">
             <div className="flex justify-center items-center mb-6">
               <img className="w-60 h-40" src="/images/Login/NC/Image3.png" alt="Person" />
               <div className="px-5 text-2xl">
-                <p className="font-bold ">CashCharge speeds up <br /> its payment systems <br />with Nimbus</p>
+                <p className="font-bold ">CashCharge speeds up <br /> its payment systems <br />with Dassault</p>
                 <p className="font-bold mt-4">Read the story here</p>
               </div>
             </div>
@@ -296,7 +296,7 @@ console.log("user profile data", userDataResponse.data?.data);
         </div>
       </div>
       <div className="relative z-10 bg-[#1a4789] text-white text-center py-10">
-        <div className='text-7xl font-extrabold mb-3'>Join the Nimbus Academy to build <br /> your expertise</div>
+        <div className='text-6xl font-extrabold mb-3'>Join the Dassault Systèmes to build <br /> your expertise</div>
 
         {/* Card grid */}
         <div className="grid grid-cols-3 gap-4 justify-center items-center px-24 mx-10">
@@ -314,7 +314,7 @@ console.log("user profile data", userDataResponse.data?.data);
                 </div>
                 <div className="flip-card-back">
                   <h1>Customer Data Security</h1>
-                  <p>Join the Nimbus Academy to build your expertise section </p>
+                  <p>Join the Dassault Systèmes to build your expertise section </p>
                 </div>
               </div>
             </div>
@@ -326,12 +326,12 @@ console.log("user profile data", userDataResponse.data?.data);
                 <div className="flip-card-front">
                   <img className="w-full h-36 object-cover" src="/images/Login/NC/Image6.png" alt="Card" />
                   <div className="p-2 bg-white">
-                    <p className="text-gray-800 font-bold">Cloud Security with Nimbus</p>
+                    <p className="text-gray-800 font-bold">Cloud Security with Dassault</p>
                   </div>
                 </div>
                 <div className="flip-card-back">
-                  <h1>Cloud Security with Nimbus</h1>
-                  <p>Join the Nimbus Academy to build your expertise section </p>
+                  <h1>Cloud Security with Dassault</h1>
+                  <p>Join the Dassault Systèmes to build your expertise section </p>
                 </div>
               </div>
             </div>
@@ -343,12 +343,12 @@ console.log("user profile data", userDataResponse.data?.data);
                 <div className="flip-card-front">
                   <img className="w-full h-36 object-cover" src="/images/Login/NC/Image6.png" alt="Card" />
                   <div className="p-2 bg-white">
-                    <p className="text-gray-800 font-bold">Building apps in Nimbus Cloud</p>
+                    <p className="text-gray-800 font-bold">Building apps in Dassault Cloud</p>
                   </div>
                 </div>
                 <div className="flip-card-back">
-                  <h1>Building apps in Nimbus Cloud</h1>
-                  <p>Join the Nimbus Academy to build your expertise section </p>
+                  <h1>Building apps in Dassault Cloud</h1>
+                  <p>Join the Dassault Systèmes to build your expertise section </p>
                 </div>
               </div>
             </div>
@@ -360,12 +360,12 @@ console.log("user profile data", userDataResponse.data?.data);
                 <div className="flip-card-front">
                   <img className="w-full h-36 object-cover" src="/images/Login/NC/Image7.png" alt="Card" />
                   <div className="p-2 bg-white">
-                    <p className="text-gray-800 font-bold">Building AI solutions in Nimbus Cloud</p>
+                    <p className="text-gray-800 font-bold">Building AI solutions in Dassault Cloud</p>
                   </div>
                 </div>
                 <div className="flip-card-back">
-                  <h1>Building AI solutions in Nimbus Cloud</h1>
-                  <p>Join the Nimbus Academy to build your expertise section </p>
+                  <h1>Building AI solutions in Dassault Cloud</h1>
+                  <p>Join the Dassault Systèmes to build your expertise section </p>
                 </div>
               </div>
             </div>
@@ -382,7 +382,7 @@ console.log("user profile data", userDataResponse.data?.data);
                 </div>
                 <div className="flip-card-back">
                   <h1>Achieving 100% customer satisfaction</h1>
-                  <p>Join the Nimbus Academy to build your expertise section </p>
+                  <p>Join the Dassault Systèmes to build your expertise section </p>
                 </div>
               </div>
             </div>
@@ -394,12 +394,12 @@ console.log("user profile data", userDataResponse.data?.data);
                 <div className="flip-card-front">
                   <img className="w-full h-36 object-cover" src="/images/Login/NC/Image9.png" alt="Card" />
                   <div className="p-2 bg-white">
-                    <p className="text-gray-800 font-bold">Exploring Nimbus Virtual Machines</p>
+                    <p className="text-gray-800 font-bold">Exploring Dassault Virtual Machines</p>
                   </div>
                 </div>
                 <div className="flip-card-back">
-                  <h1>Exploring Nimbus Virtual Machines</h1>
-                  <p>Join the Nimbus Academy to build your expertise section </p>
+                  <h1>Exploring Dassault Virtual Machines</h1>
+                  <p>Join the Dassault Systèmes to build your expertise section </p>
                 </div>
               </div>
             </div>
@@ -412,7 +412,7 @@ console.log("user profile data", userDataResponse.data?.data);
 
       {/* Our customer section */}
       <div className="relative z-10 bg-white text-black text-center py-10">
-        <div className='text-7xl font-extrabold mb-12'>Our Customers</div>
+        <div className='text-6xl font-extrabold mb-12'>Our Customers</div>
         <div className="flex justify-center items-center py-5 pl-20">
           <div className="grid grid-cols-4 gap-8 justify-center items-center">
             {/* First row of cards */}
@@ -436,37 +436,37 @@ console.log("user profile data", userDataResponse.data?.data);
         </div>
       </div>
 
-      {/* why choose Nimbus */}
+      {/* why choose Dassault */}
       <div className="relative z-10 bg-[#d0f8f8] text-center text-black py-10">
-        <div className='text-7xl font-extrabold mb-12'>Why choose Nimbus?</div>
+        <div className='text-6xl font-extrabold mb-12'>Why choose Dassault Systèmes?</div>
 
         <div className="grid grid-cols-3 gap-4 justify-center items-center px-10">
           {/* First row of cards */}
           <div className="col-span-1 rounded-lg overflow-hidden h-44">
             <div className="p-2">
               <p className="text-black-800 font-bold text-2xl">Managed hosting</p>
-              <p className='text-black-800 text-lg'>Nimbus Cloudpath is a fully-managed cloud hosting solution for digital agencies and e commerce businesses. Built to deliver performance without complexity</p>
+              <p className='text-black-800 text-lg'>Dassault Cloudpath is a fully-managed cloud hosting solution for digital agencies and e commerce businesses. Built to deliver performance without complexity</p>
             </div>
           </div>
           {/* Second card */}
           <div className="col-span-1 rounded-lg overflow-hidden h-44">
             <div className="p-2">
               <p className="text-black-800 font-bold text-2xl">Virtual Machines</p>
-              <p className='text-black-800 text-lg'>Nimbus Droplets are simple, scalable, virtual machines for all your web hosting and VPS hosting needs.</p>
+              <p className='text-black-800 text-lg'>Dassault Droplets are simple, scalable, virtual machines for all your web hosting and VPS hosting needs.</p>
             </div>
           </div>
           {/* Third card */}
           <div className="col-span-1 rounded-lg overflow-hidden h-44">
             <div className="p-2">
               <p className="text-black-800 font-bold text-2xl">Kubernetes</p>
-              <p className='text-black-800 text-lg'>Nimbus Kubernetes is a managed solution that is easy to scale and includes a 99.5% SLA for HA and free control plane</p>
+              <p className='text-black-800 text-lg'>Dassault Kubernetes is a managed solution that is easy to scale and includes a 99.5% SLA for HA and free control plane</p>
             </div>
           </div>
           {/* Fourth card */}
           <div className="col-span-1 rounded-lg overflow-hidden h-44">
             <div className="p-2">
               <p className="text-black-800 font-bold text-2xl">App Platform</p>
-              <p className='text-black-800 text-lg'>Build and deploy apps without managing infrastructure with Nimbus Cloud’s Platform as a Service.</p>
+              <p className='text-black-800 text-lg'>Build and deploy apps without managing infrastructure with Dassault Cloud’s Platform as a Service.</p>
             </div>
           </div>
           {/* Fifth card */}
@@ -487,9 +487,9 @@ console.log("user profile data", userDataResponse.data?.data);
       </div>
 
       <div className="relative z-10 bg-white text-center text-black py-10">
-        <div className='text-7xl font-extrabold mb-12'>Start Building Today</div>
+        <div className='text-6xl font-extrabold mb-12'>Start Building Today</div>
         <div>
-          <p className='text-3xl px-32 mx-32'>Sign up now and you will be up and running on Nimbus Cloud in a few minutes. Get upto $200 off on your first 60 days</p>
+          <p className='text-3xl px-32 mx-32'>Sign up now and you will be up and running on Dassault Cloud in a few minutes. Get upto $200 off on your first 60 days</p>
         </div>
         <button className="mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full" onClick={() => setShowRegisterModal(true)}>Sign up to get started</button>
       </div>
@@ -540,7 +540,7 @@ console.log("user profile data", userDataResponse.data?.data);
                 <p>CSS Tricks</p>
                 <p>Write for Donations</p>
                 <p>Hatch Startup Program</p>
-                <p>Deploy by Nimbus</p>
+                <p>Deploy by Dassault</p>
                 <p>Research Program</p>
                 <p>Open Source</p>
                 <p>Code of Conduct</p>

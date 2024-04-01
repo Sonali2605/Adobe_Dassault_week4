@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './Header';
 import LanguageDropdown from './LanguageDropdown';
 import logo from '../assets/images/LinkedIn_Logo.png'
+import ".././styles/common.css";
 
 interface UserData {
   data?: {
@@ -41,12 +42,6 @@ const ProfilePage = () => {
 
 
   //fields
-
-
-
-
-
-
 
   useEffect(() => {
     // Fetch user data
@@ -194,7 +189,7 @@ const ProfilePage = () => {
                     type="text"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
-                    className="text-xl font-semibold focus:outline-none text-center"
+                    className="text-xl font-semibold focus:outline-none text-center editing-mode"
                     style={{ backgroundColor: "transparent" }}
                   />
                 ) : (
@@ -205,40 +200,40 @@ const ProfilePage = () => {
 
               </div>
             </div>
-            <div style={{ width: "calc(100% - 320px)", paddingTop: "20px" }}>
+            <div className='mb-4' style={{ width: "calc(100% - 320px)", paddingTop: "20px" }}>
               {isEditing ? (
-                <div className="field">
+                <div className="field mb-3">
                   <label style={{ minWidth: "124px", display: "inline-block" }}>Language: </label>
                   <LanguageDropdown />
                 </div>
               ) : (
-                <div className="field "><label style={{ minWidth: "130px", display: "inline-block" }}>Language: </label>
-                  <p style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }}>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
+                <div className="field mb-3"><label style={{ minWidth: "130px", display: "inline-block" }}>Language: </label>
+                  <p style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }}>{localStorage.getItem("selectedLanguage") === "en-US" ? "English" : "Français"}</p>
                 </div>
               )}
-              <div className="field ">
-                <label style={{ minWidth: "126px", display: "inline-block" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
+              <div className="field mb-3">
+                <label style={{ minWidth: "126px", display: "inline-block" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={!isEditing} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
               </div>
 
-              <div className="field"><label style={{ minWidth: "130px", display: "inline-block" }}>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} />
+              <div className="field mb-3"><label style={{ minWidth: "130px", display: "inline-block" }}>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} className={isEditing?"editing-mode":""}  onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }} />
               </div>
 
-              <div className="field"><label style={{ minWidth: "126px", display: "inline-block" }}>CellNumber: </label> <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} onChange={(e) => setEditedCellNumber(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} /></div>
-              <div className="field"><label style={{ minWidth: "127px", display: "inline-block" }}>DOB: </label> <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} onChange={(e) => setEditedDOB(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} /></div>
-              <div className="field"><label style={{ minWidth: "130px", display: "inline-block" }}>ZipCode: </label><input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} onChange={(e) => setEditedZipCode(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block" }} /></div>
-              <div className="field mt-2 mb-4"><label style={{ minWidth: "135px", display: "inline-block" }}>Description: </label>
-                <textarea value={about} onChange={(e) => setAbout(e.target.value)} style={{ border: "none", padding: "0", margin: "", display: "inline-block", verticalAlign: "top", backgroundColor: "#fff", width: "calc(100% - 145px)" }} name="" id="about_bio" disabled={!isEditing} rows={"4"}></textarea>
+              <div className="field mb-3"><label style={{ minWidth: "126px", display: "inline-block" }}>Cell Number: </label> <input type="text" name="CellNumber" id="CellNumber" value={editedCellNumber} disabled={!isEditing} className={isEditing?"editing-mode":""} onChange={(e) => setEditedCellNumber(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field mb-3"><label style={{ minWidth: "127px", display: "inline-block" }}>DOB: </label> <input type="text" name="DOB" id="DOB" value={editedDOB} disabled={!isEditing} className={isEditing?"editing-mode":""} onChange={(e) => setEditedDOB(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field mb-3"><label style={{ minWidth: "130px", display: "inline-block" }}>Zip Code: </label><input type="text" name="ZipCode" id="ZipCode" value={editedZipCode} disabled={!isEditing} className={isEditing?"editing-mode":""} onChange={(e) => setEditedZipCode(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }} /></div>
+              <div className="field mt-2 mb-4"><label style={{ minWidth: "131px", display: "inline-block" }}>Description: </label>
+                <textarea value={about} onChange={(e) => setAbout(e.target.value)} style={{ border: "none", padding: "2px 10px", margin: "", display: "inline-block", verticalAlign: "top", backgroundColor: "#fff", width: "calc(100% - 145px)" }} name="" id="about_bio" className={isEditing?"editing-mode":""} disabled={!isEditing}  rows={"4"}></textarea>
               </div>
               {isEditing && (
                 <div>
-                  <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2" style={{ backgroundColor: "#005686" }}>Save</button>
+                  <button onClick={handleSave} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2" >Save</button>
                   <button onClick={() => setIsEditing(false)} className="px-4 py-2 bg-gray-500 text-white rounded-md">Cancel</button>
                 </div>
               )}
             </div>
             {!isEditing && (
-              <button onClick={handleEdit} className="ml-auto px-4 py-2 text-white rounded-md" style={{
-                backgroundColor: "#005686", position: "absolute",
+              <button onClick={handleEdit} className="ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" style={{
+                position: "absolute",
                 right: "15px",
                 top: "15px"
               }}>Edit</button>

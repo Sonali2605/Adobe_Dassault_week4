@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 // import { useTranslation } from 'react-i18next';
 import Select, { StylesConfig } from 'react-select';
+import ".././styles/common.css";
 // import { getStoredLanguage, setStoredLanguage } from 'utils/commonUtils';
 // import { Language, MultiLanguage } from 'types/languageDropdown';
 // import { useGlobalContext } from 'contexts'

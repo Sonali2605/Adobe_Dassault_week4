@@ -354,7 +354,7 @@ const Detailspage = () => {
             </button>
             {isfeedback && (
         <div>
-          <p className="give-feedback" onClick={handleFeedbackClick}>
+          <p className="give-feedback cursor-pointer" onClick={handleFeedbackClick}>
            {t('giveFeedback')}
           </p>
         </div>
