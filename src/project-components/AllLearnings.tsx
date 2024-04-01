@@ -92,7 +92,7 @@ const AllLearnings = () => {
   }
   return (
     <>
-      <div className='mb-20'>
+      <div className='mb-6'>
         <Header isLogin={true} />
       </div>
       <div className='px-6'>

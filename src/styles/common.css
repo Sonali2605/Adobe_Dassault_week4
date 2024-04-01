@@ -18,14 +18,15 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -44,7 +45,7 @@
   transform: rotateY(180deg);
 }
 
-.min-w-xs{
+.min-w-xs {
   min-width: 20rem;
 }
 
@@ -54,33 +55,39 @@
   gap: 24px;
   padding: 50px 30px 20px 30px;
 }
+
 .d-flex {
   display: flex;
 }
+
 .justify-content-center {
   justify-content: center;
 }
-.align-items-center{
+
+.align-items-center {
   align-items: center;
 }
+
 .userDetails {
   background-image: url(./images/customer_Heading1.png);
-    background-color: #131313;
-    padding: 26px 22px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-width: 22rem;    
-    height: 255px;
-    border-radius: 10px;
+  background-color: #131313;
+  padding: 26px 22px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 22rem;
+  height: 255px;
+  border-radius: 10px;
 }
+
 .userAvatar {
   width: 120px;
   height: 120px;
-border: 1px solid #707070;
-border-radius: 50%;
-margin-right: 35px;
+  border: 1px solid #707070;
+  border-radius: 50%;
+  margin-right: 35px;
 }
+
 .userDetails h1 {
   color: #fff;
   font-size: 25px;
@@ -95,24 +102,29 @@ margin-right: 35px;
   border-radius: 10px;
   padding: 1rem;
 }
+
 .myLearning {
   height: 280px;
   flex: 2;
   padding: 15px;
 }
+
 .myLearning .course-card {
   width: 100%;
   margin: 0;
   min-width: 14rem;
 }
+
 .cardView {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 47px;
 }
+
 .customCard {
   background: #fff;
 }
+
 .customCard h2 {
   font-size: 18px;
   color: #383838;
@@ -120,6 +132,7 @@ margin-right: 35px;
   font-weight: 600;
   letter-spacing: 1px;
 }
+
 .course-details {
   background-color: rgba(0, 0, 0, 0.5);
   min-height: 80px;
@@ -127,33 +140,41 @@ margin-right: 35px;
   align-items: center;
   justify-content: center;
 }
+
 .enroll-link {
   bottom: 15px !important;
 }
+
 .submenu {
   background-color: #ffffff !important;
 }
+
 .submenu .adobe-font {
   color: #000000 !important;
 }
+
 .recommended-course {
-   padding-left: 30px;
-   padding-right: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 /*** Dashboard Partnership Page CSS ***/
-.react-calendar__tile{
+.react-calendar__tile {
   padding: 3px 6.6667px !important;
 }
-.react-calendar__tile--now{
-color: #000000 !important;
-}  
-.react-calendar{
+
+.react-calendar__tile--now {
+  color: #000000 !important;
+}
+
+.react-calendar {
   border-radius: 8px !important;
 }
-.react-calendar__tile--active{
+
+.react-calendar__tile--active {
   color: #000000 !important;
-  }  
+}
+
 .calendar-dot {
   position: relative;
 }
@@ -169,4 +190,12 @@ color: #000000 !important;
   bottom: 0px;
   left: 53%;
   transform: translateX(-50%);
+}
+
+.editing-mode,
+.select__control,
+textarea.editing-mode,
+input.editing-mode {
+  border: 1px solid #D4D9DD!important;
+  background-color: #fff;
 }

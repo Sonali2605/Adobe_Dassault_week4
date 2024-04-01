@@ -175,12 +175,12 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
   return (
     <>
     {showFBModal && (
-    <div className={show ? 'fixed inset-0 z-50 overflow-hidden flex justify-center items-center' : 'hidden'}>
+    <div className={show ? 'fixed inset-0 z-50 overflow-hidden flex justify-center items-center' : 'hidden'} style={{backgroundColor:"rgba(0,0,0,0.5)"}}>
       {!show && <div className="modal-overlay absolute inset-0 bg-black opacity-50"></div>}
-      <div className={`modal-content bg-white rounded-lg shadow-lg p-6 ${localStorage.getItem("selectedLanguage") === "en-US" ? 'w-1/2' :  'w-4/6'}`}>
+      <div className={`modal-content bg-white rounded-lg shadow-lg p-6 pt-4 ${localStorage.getItem("selectedLanguage") === "en-US" ? 'w-1/2' :  'w-4/6'}`}>
         <div className="modal-header flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">{t('feedback')}</h2>
-          <button className="close-button text-gray-500 hover:text-gray-700" onClick={handleClose}>
+          <button className="close-button text-gray-500 hover:text-gray-700 text-3xl" onClick={handleClose}>
             &times;
           </button>
         </div>
@@ -197,10 +197,10 @@ const FeedbackModal = ({ show, handleClose, feedBack, enrollmentId }) => {
           {/* <button className="btn bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600" onClick={handleClose}>
             Submit
           </button> */}
-          <button className="btn btn-link m-2" onClick={handleClose}>
+          <button className="btn btn-link m-2 px-4 py-2 bg-gray-500 text-white rounded-md uppercase" onClick={handleClose}>
                         {t('cancel')}
                     </button>
-                    <button className="btn primary-btn primary-blue m-2" onClick={submitAns}>
+                    <button className="btn primary-btn primary-blue m-2 enroll-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline uppercase" onClick={submitAns}>
                     {t('submit')}
                     </button>
         </div>

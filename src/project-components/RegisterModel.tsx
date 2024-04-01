@@ -281,7 +281,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
           <ModalContent>
             <ModalHeader>
               <ModalCloseButton onClick={onClose}>&#10005;</ModalCloseButton>
-              <ModalTitle>Thanks for showing interest in the Nimbus Cloud Academy.
+              <ModalTitle>Thanks for showing interest in the Dassault Cloud Systèmes.
                 <br></br>Please fill in your details. </ModalTitle>
             </ModalHeader>
             <ModalSubheader>
