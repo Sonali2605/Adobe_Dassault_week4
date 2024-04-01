@@ -101,7 +101,7 @@ const CompletionPopup = ({ onClose, navigatedashboard }) => {
       <ModalContainer>
         <ModalContent>
           <ModalHeader>
-            <ModalTitle>Congrats on joining the Nimbus Academy. You can now start with your courses.</ModalTitle>
+            <ModalTitle>Congrats on joining the Dassault Systèmes. You can now start with your courses.</ModalTitle>
                        
             <SecondaryButton onClick={handleGoToAcademy}>Go to Academy</SecondaryButton>
           </ModalHeader>

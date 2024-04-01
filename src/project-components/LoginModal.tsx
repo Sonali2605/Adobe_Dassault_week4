@@ -205,7 +205,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
       <ModalContent>
         <ModalHeader>
           <ModalCloseButton onClick={onClose}>&#10005;</ModalCloseButton>
-          <ModalTitle>Thanks for showing interest in the Nimbus Cloud Academy. Please fill in your details</ModalTitle>
+          <ModalTitle>Thanks for showing interest in the Dassault Cloud Systèmes. Please fill in your details</ModalTitle>
           {/* <div className='w-full pt-4 pb-4'>
             <LoginLineLeft>&nbsp;</LoginLineLeft>
             <span className='text-black'>Login</span>
