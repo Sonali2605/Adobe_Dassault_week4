@@ -240,12 +240,13 @@ const Detailspage = () => {
       <div className="container flex ">
         <div className="my-8 flex-1 mx-5 mr-16">
           <div className="with-line">
-            <p className="description-self">
-              {details?.data?.attributes?.loFormat}
-            </p>
+            
             <h1 className="heading">
               {getLocalizedContent(details?.data?.attributes?.localizedMetadata)?.name}
             </h1>
+            <p className="description-self">
+              {details?.data?.attributes?.loFormat}
+            </p>
           </div>
           <p className="description-content">
             {getLocalizedContent(details?.data?.attributes?.localizedMetadata)?.overview}
@@ -343,14 +344,15 @@ const Detailspage = () => {
             </div>
             <button
               /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
+              style={{backgroundColor:"rgb(66, 162, 218)"}}
               className={`  ${enrollmentData?.attributes?.progressPercent === 100
-                ? "bg-green-500"
-                : "bg-blue-500"} rounded-lg w-full p-2 mb-8 text-white` }
+                ? ""
+                : ""} rounded-lg w-full p-2 mb-8 text-white uppercase` }
               onClick={() => handleplayer(details?.data?.id,)}
             >
               {enrollmentData?.attributes?.progressPercent !== 100
-                ? "CONTINUE COURSE"
-                : "Go Back to Privious Page"}
+                ? t('continueCourse')
+                : t('goBackToPreviousPage')}
             </button>
             {isfeedback &&  enrollmentData?.attributes?.progressPercent === 100 &&(
         <div>

@@ -174,7 +174,7 @@ const ProfilePage = () => {
         <div className="border border-gray-300 rounded-lg overflow-hidden w-3/4 p-6" style={{ backgroundColor: "#fff" }}>
           <div className="flex overflow-hidden" style={{ border: "1px solid #e7e6e6", borderRadius: "8px", position: "relative" }}>
 
-            <div className="mr-10 rounded-lg" style={{ width: "300px", backgroundColor: "#503fa6", color: "#fff", minHeight: "420px" }}>
+            <div className="mr-10 rounded-lg" style={{ width: "300px", backgroundColor: "rgb(66, 162, 218)", color: "#fff", minHeight: "420px" }}>
               <div className='imgDiv rounded-full overflow-hidden' style={{
                 position: "relative",
                 width: "50%",
@@ -219,7 +219,7 @@ const ProfilePage = () => {
                 </div>
               )}
               <div className="field ">
-                <label style={{ minWidth: "126px", display: "inline-block", marginLeft:"5px" }}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={true} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
+                <label style={{ minWidth: "126px", display: "inline-block"}}>Email: </label> <input type="email" name="Email" id="Email" value={editedEmail} disabled={true} onChange={(e) => setEditedEmail(e.target.value)} style={{ padding: "2px 4px", backgroundColor: "#fff", display: "inline-block", width: "calc(100% - 160px)" }} />
               </div>
 
               <div className="field mb-3"><label style={{ minWidth: "130px", display: "inline-block" }}>Address: </label><input type="text" name="Address" id="Address" value={editedAddress} disabled={!isEditing} className={isEditing?"editing-mode":""}  onChange={(e) => setAddress(e.target.value)} style={{ padding: "2px 10px", backgroundColor: "#fff", display: "inline-block" }} />

@@ -1,13 +1,15 @@
 // @ts-nocheck
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RegisterModal from './RegisterModel';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 import { useLocation } from 'react-router-dom'; // Import the useLocation hook
 import ".././styles/common.css";
-import logo from '../assets/images/DS3logo.jpg'
+import logo from '../assets/images/DS3logo.jpg';
+
+import { useTranslation } from 'react-i18next';
 const HeaderContainer = styled.div<{ isLogin: boolean }>`
   position: relative;
   z-index: 2;
@@ -58,7 +60,7 @@ const Menu = styled.div`
   .submenu {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0; /* Change this to left: 0 */
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -66,6 +68,7 @@ const Menu = styled.div`
     display: none;
     width: max-content;
   }
+  
 
   /* Submenu Text Color */
   .submenu .adobe-font {
@@ -197,7 +200,30 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
   const [error, setError] = useState<string>('');
   const [dashboard, setDashboard] = useState('customer'); // Default selection
   const location = useLocation(); // Get the current location
+  const [userData, setUserData] = useState<UserData | null>(null);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("access_token");
+        const config = {
+          headers: { Authorization: `oauth ${token}` },
+        };
+        const response = await axios.get<UserData>(
+          "https://learningmanager.adobe.com/primeapi/v2/user",
+          config
+        );
+        setUserData(response?.data?.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData(); // Call fetchUserData function
+  }, []); // Add an empty dependency array to run this effect only once
+
+
+  const { t } = useTranslation();
   const handleLogin = async () => {
     try {
       const response = await axios.post('https://viku.space/renault/reapi.php', {
@@ -295,6 +321,10 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
     localStorage.clear();
     window.location.href = '/'
   }
+
+  const openProfilePage= () =>{
+    window.location.href= '/profile'
+  }
   console.log(location.pathname.toLowerCase().includes('dashboardcustomer'))
   console.log(window.location.pathname.includes("/isCustomer=true/"))
 
@@ -327,23 +357,35 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
           />
         </Logo>
           <Menu >
-            <MenuItem className='products-menu' onClick={openHomePage} id='HOME'>
-              HOME
+            <MenuItem className='products-menu uppercase' onClick={openHomePage} id='HOME'>
+              {t('home')}
             </MenuItem>
 
-            <MenuItem className='  products-menu' onClick={openAllCoursesPage} id='ALL_COURSES'>
-              ALL COURSES
+            <MenuItem className='  products-menu uppercase' onClick={openAllCoursesPage} id='ALL_COURSES'>
+              {t('allCourses')}
             </MenuItem>
 
-            <MenuItem className='  products-menu' onClick={openMyLearningPage} id='MY_LEARNINGS'>
-              MY LEARNINGS
+            <MenuItem className='  products-menu uppercase' onClick={openMyLearningPage} id='MY_LEARNINGS'>
+              {t('myLearnings')}
             </MenuItem>
 
-            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/")
+            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/") || location.pathname.toLowerCase().includes('/myLearnings') || window.location.pathname.includes("/allCourses")
               ?
-              (<MenuItem className='products-menu' onClick={handleLogout}>LOGOUT</MenuItem>) :
+              ( <MenuItem className='products-menu uppercase'>
+              <img
+                     src={userData?.attributes?.avatarUrl}
+                     alt="Avatar"
+                     style={{marginTop:'-9px'}}
+                     className="w-10 h-10 object-cover rounded-full"
+                   />
+             <div className="submenu">
+               <MenuItem className='adobe-font' onClick={openProfilePage}>{userData?.attributes?.name}</MenuItem>
+               <MenuItem className='adobe-font' onClick={handleLogout}>{t('logout')}</MenuItem>
+               {/* Add more submenu items as needed */}
+             </div>
+           </MenuItem>):
               (
-                <MenuItem className='products-menu' onClick={() => setShowLoginModal(true)}>LOGIN</MenuItem>
+                <MenuItem className='products-menu uppercase' onClick={() => setShowLoginModal(true)}>{t('login')}</MenuItem>
               )
             }
 
@@ -359,25 +401,41 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
               />
             </Logo>
           <Menu >
-            <MenuItem className='products-menu' onClick={openHomePage} id='HOME'>
-              HOME
+            <MenuItem className='products-menu uppercase' onClick={openHomePage} id='HOME'>
+            {t('home')}
             </MenuItem>
 
-            <MenuItem className='  products-menu' onClick={openAllCoursesPage} id='ALL_COURSES'>
-              ALL COURSES
+            <MenuItem className='  products-menu uppercase' onClick={openAllCoursesPage} id='ALL_COURSES'>
+            {t('allCourses')}
             </MenuItem>
 
-            <MenuItem className='  products-menu' onClick={openMyLearningPage} id='MY_LEARNINGS'>
-              MY LEARNINGS
+            <MenuItem className='  products-menu uppercase' onClick={openMyLearningPage} id='MY_LEARNINGS'>
+            {t('myLearnings')}
             </MenuItem>
             {/* <div className="submenu">
               <MenuItem className=' '>Pricing</MenuItem>
             </div> */}
-            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=false/")
+            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/detailspage")|| location.pathname.toLowerCase().includes('/mylearnings') || window.location.pathname.toLowerCase().includes("/allcourses") || window.location.pathname.toLowerCase().includes("/profile")
               ?
-              (<MenuItem className='products-menu' onClick={handleLogout}>LOGOUT</MenuItem>) :
               (
-                <MenuItem className='products-menu' onClick={() => setShowLoginModal(true)}>LOGIN</MenuItem>
+              // <MenuItem className='products-menu uppercase' onClick={handleLogout}>{t('logout')}</MenuItem>
+              <MenuItem className='products-menu uppercase'>
+           <img
+                  src={userData?.attributes?.avatarUrl}
+                  alt="Avatar"
+                  style={{marginTop:'-9px'}}
+                  className="w-10 h-10 object-cover rounded-full"
+                />
+          <div className="submenu">
+            <MenuItem className='adobe-font' onClick={openProfilePage}>{userData?.attributes?.name}</MenuItem>
+            <MenuItem className='adobe-font' onClick={handleLogout}>{t('logout')}</MenuItem>
+            {/* Add more submenu items as needed */}
+          </div>
+        </MenuItem>
+              )
+               :
+              (
+                <MenuItem className='products-menu uppercase login' onClick={() => setShowLoginModal(true)}>{t('login')}</MenuItem>
               )
             }        </Menu>
         </>

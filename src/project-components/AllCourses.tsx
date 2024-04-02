@@ -93,7 +93,7 @@ const AllCourses = () => {
     <>
     
       <div className='mb-6'>
-            <Header isLogin={true} />
+               <Header isLogin={false} />
           </div>
     <div className='px-6'>
       <h1 className="text-2xl font-bold mb-4">{t('allCourses')}</h1>

@@ -17,5 +17,10 @@
     "submit":"Soumettre",
     "allCourses": "Tous les cours",
     "myLearnings":"Mes apprentissages",
-    "goToDashbaord":"Aller au tableau de bord"
+    "goToDashbaord":"Aller au tableau de bord",
+    "home":"maison",
+    "login":"se connecter",
+    "logout":"Se déconnecter",   
+    "goBackToPreviousPage":"Revenir à la page précédente",
+    "continueCourse":"Continuer le cours"
 }

@@ -17,5 +17,9 @@
     "submit":"Submit",
     "allCourses": "All Courses",
     "myLearnings":"My Learnings",
-    "goToDashbaord":"Go To Dashboard"
+    "home":"home",
+    "login":"login",
+    "logout":"logout",
+    "goBackToPreviousPage":"Go Back to Previous Page",
+    "continueCourse":"Continue Course"
 }
