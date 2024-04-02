@@ -55,6 +55,7 @@ import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as lightBookmark } from '@fortawesome/free-regular-svg-icons';
 import { getLocalizedContent } from './utils/commanUtils';
 import { useTranslation } from 'react-i18next';
+import CustomToast from './CustomToast'; 
 interface CourseCardProps {
   course: LearningObjectInstanceEnrollment;
   EnrollHandle: (id: string) => void;
@@ -83,7 +84,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
 
   // State for bookmark status
   const [isBookmarked, setIsBookmarked] = useState(course.attributes.isBookmarked);
-
+  const [showToast, setShowToast] = useState(false);
+const [toastMessage, setToastMessage] = useState('');
   // Function to handle bookmarking
   const handleBookmark = async (courseId: string) => {
     const token = localStorage.getItem("access_token");
@@ -96,12 +98,15 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
       if (isBookmarked) {
         // Remove bookmark
         await axios.delete(bookmarkUrl, config);
+        setToastMessage('Bookmark removed successfully');
       } else {
         // Add bookmark
         await axios.post(bookmarkUrl, {}, config);
+        setToastMessage('Bookmark added successfully');
       }
       // Toggle bookmark status
       setIsBookmarked(!isBookmarked);
+      setShowToast(true);
     } catch (error) {
       console.error("Error toggling bookmark:", error);
     }
@@ -163,6 +168,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
           </button>
         </div>
       </div>
+      {showToast && <CustomToast message={toastMessage} onClose={() => setShowToast(false)} />}
+
     </div>
   );
 };
