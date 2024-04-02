@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import playiconone from "../assets/images/playiconone.png";

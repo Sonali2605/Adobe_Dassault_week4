@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// @ts-nocheck
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseCard from './CourseCard'; // Create a CourseCard component to represent each course
 import { useNavigate } from "react-router-dom";

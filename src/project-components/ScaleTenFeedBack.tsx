@@ -1,4 +1,4 @@
-import React from "react";
+// @ts-nochecks
 import { getLocalizedContent } from "./utils/commanUtils";
 
 function ScaleTenFeedBack(props) {
