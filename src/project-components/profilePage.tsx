@@ -5,6 +5,7 @@ import Header from './Header';
 import LanguageDropdown from './LanguageDropdown';
 import logo from '../assets/images/LinkedIn_Logo.png'
 import ".././styles/common.css";
+import { base_adobe_url } from "../AppConfig"
 
 interface UserData {
   data?: {
@@ -116,9 +117,28 @@ const ProfilePage = () => {
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem("access_token");
+      const client_id = "449923a1-a01c-4bf5-b7c8-2137718d6d04";
+      const client_secret = "b1b22c3e-900c-4bd1-b010-daf95c01b968";
+      const refresh_token = "4022c902affc1b9527820308dfd0f56d";
+
+      const params = new URLSearchParams({
+        client_id,
+        client_secret,
+        refresh_token
+      });
+      const url = `${base_adobe_url}/oauth/token/refresh`;
+      const responseToken = await axios.post(
+        `${url}`,
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      const tokenData = responseToken.data;
       const config = {
-        headers: { Authorization: `oauth ${token}` },
+        headers: { Authorization: `oauth ${tokenData.access_token}` },
       };
       const BodyData = {
         data: {
@@ -126,14 +146,12 @@ const ProfilePage = () => {
           type: `${userData?.type}`,
           attributes: {
             name: `${editedName}`,
-            bio: `${about}`,
+            // bio: `${about}`,
             email: `${editedEmail}`,
-            contentLocale: localStorage.getItem("selectedLanguage"),
-            uiLocale: localStorage.getItem("selectedLanguage"),
+            // contentLocale: localStorage.getItem("selectedLanguage"),
+            // uiLocale: localStorage.getItem("selectedLanguage"),
             fields: {
-              "Cell Number": [
-                `${editedCellNumber}`
-              ],
+              "Cell Number": `${editedCellNumber}`,
               Address: `${editedAddress}`,
               DOB: `${editedDOB}`,
               "Zip Code": `${editedZipCode}`
@@ -141,13 +159,30 @@ const ProfilePage = () => {
           }
         }
       };
+
+      const BodyDataStatic = {
+        data: {
+          id: `${userData?.id}`,
+          type: `${userData?.type}`,
+          attributes: {
+            bio: `${about}`,
+            contentLocale: localStorage.getItem("selectedLanguage"),
+            uiLocale: localStorage.getItem("selectedLanguage"),
+          }
+        }
+      };
       // const updatedUserData = {data:{ ...userData }};
       // updatedUserData.data.attributes.name = editedName;
-      const url = `https://learningmanager.adobe.com/primeapi/v2/users/${userData.id}`;
+      const urlUser = `https://learningmanager.adobe.com/primeapi/v2/users/${userData.id}`;
 
       console.log("22222", BodyData, url)
-      const result = await axios.patch(`${url}`, BodyData, config);
-      console.log("_____________________", url, result.data)
+      const resultNonActive = await axios.patch(`${urlUser}`, BodyDataStatic, {
+        headers: { Authorization: `oauth ${localStorage.getItem("access_token")}` },
+      });
+      const result = await axios.patch(`${urlUser}`, BodyData, config);
+
+      console.log("checkReposnse", BodyDataStatic,resultNonActive);
+      console.log("_____________________", urlUser, result.data)
       setIsEditing(false);
       localStorage.setItem("selectedLanguage",result?.data?.data?.attributes?.uiLocale )
       window.location.reload();
