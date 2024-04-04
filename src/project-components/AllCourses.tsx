@@ -3,8 +3,9 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import CourseCard from './CourseCard'; // Create a CourseCard component to represent each course
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 
 interface Course {
   id: string;
@@ -24,7 +25,10 @@ const AllCourses = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const { t } = useTranslation();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const login = searchParams.get("login") || false;
+  console.log("login",login)
 
   useEffect(() => {
     getCoursestoExplore();
@@ -32,7 +36,32 @@ const AllCourses = () => {
 
   async function getCoursestoExplore() {
     try {
-      const token = localStorage.getItem("access_token");
+      let token;
+    if(login){
+      const client_id = clientId;
+      const client_secret = clientSecreat;
+      const refresh_token = refreshToken;
+
+      const params = new URLSearchParams({
+        client_id,
+        client_secret,
+        refresh_token
+      });
+      const url = `${base_adobe_url}/oauth/token/refresh`;
+      const responseToken = await axios.post(
+        `${url}`,
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      const tokenData = responseToken.data;
+      token = tokenData.access_token;
+    }else {
+      token = localStorage.getItem("access_token")
+    }
       const config = {
         headers: { Authorization: `oauth ${token}` },
       };
@@ -60,7 +89,32 @@ const AllCourses = () => {
     const Iid = course.relationships?.instances?.data?.[0].id;
 
     console.log("nnnnnnn", course, Iid)
-    const token = localStorage.getItem("access_token")
+    let token;
+    if(login){
+      const client_id = clientId;
+      const client_secret = clientSecreat;
+      const refresh_token = refreshToken;
+
+      const params = new URLSearchParams({
+        client_id,
+        client_secret,
+        refresh_token
+      });
+      const url = `${base_adobe_url}/oauth/token/refresh`;
+      const responseToken = await axios.post(
+        `${url}`,
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      const tokenData = responseToken.data;
+      token = tokenData.access_token;
+    }else {
+      token = localStorage.getItem("access_token")
+    }
     try {
       const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + cid + '&loInstanceId=' + encodeURIComponent(Iid), {
         method: 'POST',
@@ -90,11 +144,15 @@ const AllCourses = () => {
   const handleGoToExplore = () => {
     navigate('/dashboard')
   }
+
+  const handleGoBack = () => {
+    navigate('/')
+  }
   return (
     <>
     
       <div className='mb-6'>
-               <Header isLogin={false} />
+              {!login && <Header isLogin={false} />}
           </div>
     <div className='px-6'>
       <h1 className="text-2xl font-bold mb-4">{t('allCourses')}</h1>
@@ -105,12 +163,22 @@ const AllCourses = () => {
         onChange={handleSearch}
         className="border border-gray-300 rounded-md px-4 py-2 mb-4"
       />
-      <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-        <button onClick={handleGoToExplore}>{t('goToDashbaord')}</button>
-      </div>
+      {login ?
+      <>
+        <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
+        <button onClick={handleGoBack}>Go Back</button>
+        </div> 
+      </>
+    :
+      <>
+        <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
+          <button onClick={handleGoToExplore}>{t('goToDashbaord')}</button>
+        </div>
+      </>
+        }
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
         {filteredCourses.map((course) => (
-          <CourseCard key={course.id} course={course} EnrollHandle={EnrollHandle} />
+          <CourseCard key={course.id} course={course} EnrollHandle={EnrollHandle} login={login} />
         ))}
       </div>
     </div>

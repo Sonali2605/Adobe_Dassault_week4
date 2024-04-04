@@ -7,6 +7,9 @@ import RegisterModal from './RegisterModel';
 import axios from 'axios';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 
+import { useNavigate, useLocation } from "react-router-dom";
+
+
 // import LoginModal from './LoginModal';
 import ".././styles/common.css";
 
@@ -149,6 +152,7 @@ const Login = () => {
     // setShowCompletionPopup(true);
   }
 
+  const navigate = useNavigate();
   const handleLogin = async () => {
     try {
       const response = await axios.post('https://viku.space/renault/reapi.php', {
@@ -257,10 +261,8 @@ console.log("user profile data", userDataResponse.data?.data);
           </div>
           <div className='justify-center items-left mt-24 px-24'>
             <h1 className="text-7xl font-bold mb-8">Power up in <br />the Cloud</h1>
-            <p className="text-3xl font-bold text-gray-400 mb-6">Host | Build | Deploy</p>
             <div className="flex space-x-4 mt-5">
-              <button className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] text-white font-bold">Login with FB</button>
-              <button className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] font-bold">Login with Google</button>
+              <button className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] text-white font-bold"  onClick={() => navigate('/allCourses?login=true')}>Explore Courses</button>
             </div>
           </div>
         </div>

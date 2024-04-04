@@ -168,13 +168,13 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
        :
        <>
        <div>
-      <h2 className="text-lg font-bold mb-4">Courses to Explore</h2>
-        <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "150px"}}>
+      <h2 className="text-lg font-bold mb-4">Recomndation for you</h2>
+        <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "175px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
         </div>
         <div  className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-        <button onClick={handleGoToExplore}>Go To Explore page</button>
+        {/* <button onClick={handleGoToExplore}>Go To Explore page</button> */}
       </div>
       </div>
        </>

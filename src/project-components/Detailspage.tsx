@@ -150,12 +150,12 @@ const Detailspage = () => {
       setAuthor(author);
 
       const instance = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
-      console.log("33333333333333333333",instance);
+      
       const feedback = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'feedbackInfo' && findData?.id === instance.relationships.l1FeedbackInfo?.data.id);
-      console.log("444444444444444444444",feedback);
+     
       setIsFeedback(feedback);
       const Iid = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
-      console.log("+++++++++++++++++++++++++++++++",Iid);
+      
       setInstanceObject(Iid)
       setIId(Iid.relationships?.loResources.data[0].id);
       const effectiveModifiedDate = new Date(result?.data?.attributes?.effectiveModifiedDate);

@@ -61,7 +61,7 @@ interface CourseCardProps {
   EnrollHandle: (id: string) => void;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, EnrollHandle, login }) => {
   console.log("111111111111111111111", course);
   const content = getLocalizedContent(course?.attributes?.localizedMetadata)
   console.log("222222222222",content)
@@ -136,13 +136,20 @@ const [toastMessage, setToastMessage] = useState('');
             </div>
             <div className="text-sm text-right text-gray-600">{progress}%</div>
           </div>
-          <div className='text-right pr-2'>
-          <span
-            className="bookmark-icon ml-2 cursor-pointer"
+          <div className="px-2 flex justify-between mt-4">
+            <div className="text-sm text-gray-600">
+            {course?.attributes?.price ? "$ "+ course?.attributes?.price : "Free"}
+            </div>
+            {!login && (
+            <div className="text-sm text-right ">
+            <span
+            className="bookmark-icon ml-2"
             onClick={() => handleBookmark(course.id || '')}
           >
             <FontAwesomeIcon icon={isBookmarked ? solidBookmark : lightBookmark} />
           </span>
+            </div>
+            )}
           </div>
       </div>
       <div className="px-6 py-4 flex-grow">
