@@ -133,7 +133,7 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
     const Iid =  course.relationships?.instances?.data?.[0].id;
     
     try {
-          navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=${isCustomer}/detailspage`);
+          navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=${isCustomer}/login=false/detailspage`);
         
     } catch (error) {
       console.log("error")

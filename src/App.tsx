@@ -21,7 +21,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/learning_object/:courseId/instance/:instanceId/:isDashboard/:isCustomer/detailspage" element={<Detailspage />} />
+          <Route path="/learning_object/:courseId/instance/:instanceId/:isDashboard/:isCustomer/:login/detailspage" element={<Detailspage />} />
           <Route path="/managerDashboard" element={<ManagerDashboard />} />
           <Route path="/profile" element={<ProfilePage/>} />
           <Route path="/DashboardCustomer" element={<DashboardCustomer/>} />

@@ -74,7 +74,7 @@ const AllLearnings = () => {
     const Iid = course.relationships?.instances?.data?.[0].id;
 
     try {
-      navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=false/detailspage`);
+      navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=false/login=false/detailspage`);
 
     } catch (error) {
       console.log("error")

@@ -84,7 +84,7 @@ const Leaderboard = () => {
              navigate('/')
              throw new Error('Failed to enroll');
          } else {
-           navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=false/detailspage`);
+           navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=false/login=false/detailspage`);
          }
      } catch (error) {
          console.log(error)

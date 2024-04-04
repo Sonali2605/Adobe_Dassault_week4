@@ -448,44 +448,9 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
             <ModalHeader>
               <ModalCloseButton onClick={() => setShowLoginModal(false)}>&#10005;</ModalCloseButton>
               <ModalTitle>Login</ModalTitle>
-              {/* <div className='w-full pt-4 pb-4'>
-                <LoginLineLeft>&nbsp;</LoginLineLeft>
-                <span className='text-black'>Login</span>
-                <LoginLineRight>&nbsp;</LoginLineRight>
-              </div> */}
             </ModalHeader>
             <InputField className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
             <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-            {/*}  <LoginRadio>
-            <label>
-              <InputField 
-                type="radio" 
-                value="customer" 
-                checked={dashboard === 'customer'} 
-                onChange={() => setDashboard('customer')} 
-              />
-               Customer Dashboard
-              </label>
-              <label>
-
-              
-              <InputField 
-                type="radio" 
-                value="partnership" 
-                checked={dashboard === 'partnership'} 
-                onChange={() => setDashboard('partnership')} 
-              />
-              Partnership Dashboard
-              </label>
-            </LoginRadio>*/}
-
-            {/* <InputField className='border-2 rounded-md' type="text" placeholder="Dashboard" value={dashboard} onChange={(e) => setDashboard(e.target.value)} /> */}
-
-            {/* <InputField className='border-2 rounded-md' type="text" placeholder="Industry" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="text" placeholder="Company" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="text" placeholder="Designation" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="text" placeholder="Country" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} /> */}
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div className='text-center mt-3'>
               <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>

@@ -129,7 +129,7 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
             navigate('/')
             throw new Error('Failed to enroll');
         } else {
-          navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=${isCustomer}/detailspage`);
+          navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=${isCustomer}/login=false/detailspage`);
         }
     } catch (error) {
         console.log(error)
@@ -152,9 +152,9 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
     });
   };
 
-  const handleGoToExplore=()=>{
-    navigate('/allCourses')
-  }
+  // const handleGoToExplore=()=>{
+  //   navigate('/allCourses')
+  // }
   return (
     <div>
       {isCustomer? 
@@ -168,7 +168,7 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
        :
        <>
        <div>
-      <h2 className="text-lg font-bold mb-4">Recomndation for you</h2>
+      <h2 className="text-lg font-bold mb-4">Recommendation for you</h2>
         <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "175px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
