@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from './Header';
 import styled from 'styled-components';
 import RegisterModal from './RegisterModel';
+import LoginModalPage from './LoginModalPage';
 import axios from 'axios';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 
@@ -116,26 +117,6 @@ justify-content: center;
 }
 `
 
-// const LoginLineRight = styled.span`
-//   display: inline-block;
-//   width: 95px;
-//   height: 2px;
-//   background: linear-gradient(90deg, hsla(210, 39%, 75%, 1) 0%, hsla(0, 0%, 100%, 1) 100%, hsla(0, 0%, 100%, 1) 100%);
-//   opacity: 1;
-//   vertical-align: middle;
-//   margin: 0 10px;
-// `;
-
-// const LoginLineLeft = styled.span`
-//   display: inline-block;
-//   width: 95px;
-//   height: 2px;
-//   background: linear-gradient(90deg, hsla(0, 0%, 100%, 1) 0%, hsla(210, 39%, 75%, 1) 100%, hsla(0, 0%, 100%, 1) 100%);
-//   opacity: 1;
-//   vertical-align: middle;
-//   margin: 0 10px;
-// `;
-
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -188,9 +169,9 @@ const Login = () => {
       localStorage.setItem(
         'access_token',
         tokenData.access_token
-      );     
+      );
       const config = {
-        headers: { Authorization: `oauth ${ tokenData.access_token}` },
+        headers: { Authorization: `oauth ${tokenData.access_token}` },
       };
       // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
       // console.log
@@ -204,7 +185,7 @@ const Login = () => {
       );
 
       const userId = userDataResponse.data?.data?.[0]?.id;
-console.log("user profile data", userDataResponse.data?.data);
+      console.log("user profile data", userDataResponse.data?.data);
       localStorage.setItem('userId', userId);
       let contentLocale = "en-US"
       const responseData = await axios.patch(
@@ -224,11 +205,11 @@ console.log("user profile data", userDataResponse.data?.data);
       console.log("11111111111111Language", responseData)
       // const isManager = userDataResponse.data?.data?.[0]?.attributes?.roles.includes('Manager');
 
-      const newPath ='/dashboard';
+      const newPath = '/dashboard';
 
-     if (location.pathname !== newPath) {
+      if (location.pathname !== newPath) {
         window.location.href = newPath;
-      } 
+      }
 
       console.log('Login successful', response.data);
       setShowLoginModal(false);
@@ -262,7 +243,7 @@ console.log("user profile data", userDataResponse.data?.data);
           <div className='justify-center items-left mt-24 px-24'>
             <h1 className="text-7xl font-bold mb-8">Power up in <br />the Cloud</h1>
             <div className="flex space-x-4 mt-5">
-              <button className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] text-white font-bold"  onClick={() => navigate('/allCourses?login=true')}>Explore Courses</button>
+              <button className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] text-white font-bold" onClick={() => navigate('/allCourses?login=true')}>Explore Courses</button>
             </div>
           </div>
         </div>
@@ -276,19 +257,19 @@ console.log("user profile data", userDataResponse.data?.data);
         <div className="grid grid-cols-3 gap-4">
           <div className="col-span-1">
             <div className="bg-[#1a4789] text-white p-8">
-              <p style={{fontSize: '3rem', marginBottom: '0.6rem'}}>#1</p>
+              <p style={{ fontSize: '3rem', marginBottom: '0.6rem' }}>#1</p>
               <p>in IaaS usability</p>
             </div>
           </div>
           <div className="col-span-1">
             <div className="p-8">
-              <p style={{fontSize: '3rem', marginBottom: '0.6rem'}}>20</p>
+              <p style={{ fontSize: '3rem', marginBottom: '0.6rem' }}>20</p>
               <p>globally distributed data centers</p>
             </div>
           </div>
           <div className="col-span-1">
             <div className="bg-[#1a4789] text-white p-8">
-              <p style={{fontSize: '3rem', marginBottom: '0.6rem'}}>99.9%</p>
+              <p style={{ fontSize: '3rem', marginBottom: '0.6rem' }}>99.9%</p>
               <p>uptime SLA for droplets</p>
             </div>
           </div>
@@ -296,7 +277,10 @@ console.log("user profile data", userDataResponse.data?.data);
       </div>
       <div className="relative z-10 bg-[#3b7ceb] text-white text-center py-10">
 
-        <div className='text-6xl font-extrabold mb-3'>How real businesses use <br />Dassault Cloud to grow faster?</div>
+        <div className='font-extrabold mb-3' style={{
+          fontSize: "2.5rem",
+          lineHeight: "3rem"
+        }}>How real businesses use <br />Dassault Cloud to grow faster?</div>
         <div className="flex justify-center items-center px-18 py-10">
           {/* Blue card */}
           <div className="bg-[#1a4789] text-white rounded-3xl px-8 py-20 mr-5">
@@ -310,11 +294,14 @@ console.log("user profile data", userDataResponse.data?.data);
           </div>
 
           {/* Image */}
-          <img className="w-1/3 rounded-3xl" style={{height: '21.8rem'}} src="/images/Login/NC/Image11.jpg" alt="Image" />
+          <img className="w-1/3 rounded-3xl" style={{ height: '21.8rem' }} src="/images/Login/NC/Image11.jpg" alt="Image" />
         </div>
       </div>
       <div className="relative z-10 bg-[#1a4789] text-white text-center py-10">
-        <div className='text-6xl font-extrabold mb-3'>Join the Dassault Systèmes to build <br /> your expertise</div>
+        <div className='font-extrabold mb-3' style={{
+          fontSize: "2.5rem",
+          lineHeight: "3rem"
+        }}>Join the Dassault Systèmes to build <br /> your expertise</div>
 
         {/* Card grid */}
         <div className="grid grid-cols-3 gap-4 justify-center items-center px-24 mx-10">
@@ -430,7 +417,10 @@ console.log("user profile data", userDataResponse.data?.data);
 
       {/* Our customer section */}
       <div className="relative z-10 bg-white text-black text-center py-10">
-        <div className='text-6xl font-extrabold mb-12'>Our Customers</div>
+        <div className='font-extrabold mb-12' style={{
+          fontSize: "2.5rem",
+          lineHeight: "3rem"
+        }}>Our Customers</div>
         <div className="flex justify-center items-center py-5 pl-20">
           <div className="grid grid-cols-4 gap-8 justify-center items-center">
             {/* First row of cards */}
@@ -456,7 +446,10 @@ console.log("user profile data", userDataResponse.data?.data);
 
       {/* why choose Dassault */}
       <div className="relative z-10 bg-[#d0f8f8] text-center text-black py-10">
-        <div className='text-6xl font-extrabold mb-12'>Why choose Dassault Systèmes?</div>
+        <div className='font-extrabold mb-12' style={{
+          fontSize: "2.5rem",
+          lineHeight: "3rem"
+        }}>Why choose Dassault Systèmes?</div>
 
         <div className="grid grid-cols-3 gap-4 justify-center items-center px-10">
           {/* First row of cards */}
@@ -505,7 +498,10 @@ console.log("user profile data", userDataResponse.data?.data);
       </div>
 
       <div className="relative z-10 bg-white text-center text-black py-10">
-        <div className='text-6xl font-extrabold mb-12'>Start Building Today</div>
+        <div className='font-extrabold mb-12' style={{
+          fontSize: "2.5rem",
+          lineHeight: "3rem"
+        }}>Start Building Today</div>
         <div>
           <p className='text-3xl px-32 mx-32'>Sign up now and you will be up and running on Dassault Cloud in a few minutes. Get upto $200 off on your first 60 days</p>
         </div>
@@ -570,64 +566,8 @@ console.log("user profile data", userDataResponse.data?.data);
         </div>
       </div>
 
-
-
-      {/* Modal for Login */}
-      {/* {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
-      )} */}
-
-{showLoginModal && (
-        <ModalContainer>
-          <ModalContent>
-            <ModalHeader>
-              <ModalCloseButton onClick={() => setShowLoginModal(false)}>&#10005;</ModalCloseButton>
-              <ModalTitle>Login</ModalTitle>
-              {/* <div className='w-full pt-4 pb-4'>
-                <LoginLineLeft>&nbsp;</LoginLineLeft>
-                <span className='text-black'>Login</span>
-                <LoginLineRight>&nbsp;</LoginLineRight>
-              </div> */}
-            </ModalHeader>
-            <InputField className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-           {/*} <LoginRadio>
-            <label>
-              <InputField 
-                type="radio" 
-                value="customer" 
-                checked={dashboard === 'customer'} 
-                onChange={() => setDashboard('customer')} 
-              />
-               Customer Dashboard
-              </label>
-              <label>
-
-              
-              <InputField 
-                type="radio" 
-                value="partnership" 
-                checked={dashboard === 'partnership'} 
-                onChange={() => setDashboard('partnership')} 
-              />
-              Partnership Dashboard
-              </label>
-            </LoginRadio>*/}
-
-            {/* <InputField className='border-2 rounded-md' type="text" placeholder="Dashboard" value={dashboard} onChange={(e) => setDashboard(e.target.value)} /> */}
-
-            {/* <InputField className='border-2 rounded-md' type="text" placeholder="Industry" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="text" placeholder="Company" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="text" placeholder="Designation" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} />
-            <InputField className='border-2 rounded-md' type="text" placeholder="Country" value={agencyId} onChange={(e) => setAgencyId(e.target.value)} /> */}
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-            <div className='text-center mt-3'>
-              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>
-            </div>
-            <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
-          </ModalContent>
-        </ModalContainer>
+      {showLoginModal && (
+        <LoginModalPage></LoginModalPage>
       )}
       {/* Modal for Register */}
       {showRegisterModal && (
