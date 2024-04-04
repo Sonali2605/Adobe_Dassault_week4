@@ -5,6 +5,8 @@ import playiconone from "../assets/images/playiconone.png";
 import ".././styles/Detailspage.css";
 // import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import styled from 'styled-components';
 import ModalforSuccess from ".././common/Modal/Modal";
 import jsonData from "./resdata.json";
 import { apis } from '.././apiServices/apis'
@@ -12,6 +14,109 @@ import axios from "axios";
 import FeedbackModal from "./FeedbackModal";
 import { getLocalizedContent } from "./utils/commanUtils";
 import { useTranslation } from 'react-i18next';
+import RegisterModal from './RegisterModel';
+import ".././styles/common.css";
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index:9998;
+`;
+
+const ModalContent = styled.div`
+background-color: white;
+padding: 40px 20px;
+border-radius: 8px;
+width: 500px; /* Adjust the width as needed */
+`;
+
+const ModalHeader = styled.div`
+  position: relative;
+  text-align: center;
+`;
+
+const ModalCloseButton = styled.button`
+  position: absolute;
+  top: -30px;
+  right: -8px;
+  background: none;
+  border: 1px solid rgba(142, 161, 180, 1);
+  cursor: pointer;
+  font-size: 14px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(142, 161, 180, 1);
+`;
+
+const ModalTitle = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  font: normal normal normal 24px Impact;
+`;
+
+const InputField = styled.input`
+width: 80%;
+padding: 6px;
+margin-top: 10px;
+text-align: center;
+transform: translateX(12%);
+border: 1px solid #ada7a7;
+background: #fff;
+border-radius: 20px;
+color: #000;
+margin-bottom: 0.7rem
+`;
+
+const Button = styled.button`
+color: white;
+border: none;
+padding: 10px 20px;
+margin-top: 20px;
+cursor: pointer;
+border-radius: 4px;
+display: block;
+margin: 0 auto;
+margin-top: 20px;
+`;
+
+const PrimaryButton = styled(Button)`
+border-radius: 9999px;
+padding: 0.5rem 3rem;
+`;
+
+// const SecondaryButton = styled(Button)`
+//   background-color: #ffffff;
+//   color: #4471e8;
+//   border: 1px solid #4471e8;
+//   padding: 10px 40px;
+// `;
+
+
+const LoginRadio = styled.div`
+display: flex;
+color: #000;
+justify-content: center;
+& > label:nth-child(2) {
+  margin-left: 15px;
+}
+& > label > input {
+  width: auto;
+  margin-right: 8px;
+  top: 2px;
+  position: relative;
+}
+`
 interface Details {
   data?: {
     id?: string; // Add id property
@@ -82,18 +187,24 @@ const Detailspage = () => {
   const[instanceObject, setInstanceObject] = useState<any>();
   const { pathname } = location;
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string>('');
 
   const { t } = useTranslation();
   const handleFeedbackClick = () => {
     setShowFeedbackModal(true);
   };
+  
 
   // Split the URL by '/'
   const parts = pathname.split('/');
 
   // Find the part containing 'course:'
   const coursePart = parts.find(part => part.includes('course:'));
-
+console.log("coursePart", coursePart)
   // Extract the value after 'course:'
   const courseId = coursePart ? coursePart.split(':')[1] : '';
   
@@ -105,6 +216,11 @@ const Detailspage = () => {
 
 // Split the isCustomer part by "=" to get the value
    const isDashboardValue = isDashboardPart?.split("=")[1];
+
+   const loginPart = parts.find(part => part.includes("login"));
+   const loginValue = loginPart?.split("=")[1];
+
+   console.log("loginValue",loginValue, typeof(loginValue))
 
   const [showDateValidationModal, setShowDateValidationModal] = useState(false);
   const [title] = useState(
@@ -120,6 +236,114 @@ const Detailspage = () => {
 
   const navigate = useNavigate();
   const [details, setDetails] = useState<Details | undefined>();
+
+  const handleLogin = async () => {
+    localStorage.setItem("pathLogin",pathname);
+    try {
+      const response = await axios.post('https://viku.space/renault/reapi.php', {
+        action: 'login',
+        username: username,
+        password: password,
+      }, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InlhdGluIn0.SXp3ID7mgUcLGYMVkvb3RJgc_tJ1hGv2NR_08s5SYNM'
+        }
+      });
+      const client_id = clientId;
+      const client_secret = clientSecreat;
+      const refresh_token = refreshToken;
+
+      const params = new URLSearchParams({
+        client_id,
+        client_secret,
+        refresh_token
+      });
+      const url = `${base_adobe_url}/oauth/token/refresh`;
+      const responseToken = await axios.post(
+        `${url}`,
+        params,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      const tokenData = responseToken.data;
+      localStorage.setItem(
+        'access_token',
+        tokenData.access_token
+      );     
+      const config = {
+        headers: { Authorization: `oauth ${ tokenData.access_token}` },
+      };
+      // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
+      // console.log
+      const userDataResponse = await axios.get(
+        `${base_adobe_url}/primeapi/v2/v2/user`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenData.access_token}`,
+          },
+        }
+      );
+
+      const userId = userDataResponse.data?.data?.[0]?.id;
+console.log("user profile data", userDataResponse.data?.data);
+      localStorage.setItem('userId', userId);
+      let contentLocale = "en-US"
+      const responseData = await axios.patch(
+        `${base_adobe_url}/primeapi/v2/users/${userId}`,
+        {
+          data: {
+            id: userId,
+            type: 'user',
+            attributes: {
+              contentLocale: contentLocale,
+              uiLocale: contentLocale,
+            },
+          },
+        },
+      )
+
+      console.log("11111111111111Language", responseData)
+      // const isManager = userDataResponse.data?.data?.[0]?.attributes?.roles.includes('Manager');
+
+      try {
+        const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + cid + '&loInstanceId=' + encodeURIComponent(Iid), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        });
+  
+        if (!response.ok) {
+          navigate('/')
+          throw new Error('Failed to enroll');
+        } else {
+          navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+        } 
+      } catch (error) {
+        console.log(error)
+      }
+      const newPath ='/dashboard';
+
+     if (location.pathname !== newPath) {
+        window.location.href = newPath;
+      } 
+
+      console.log('Login successful', response.data);
+      setShowLoginModal(false);
+      setAgencyId('');
+      setUsername('');
+      setPassword('');
+      setError('');
+      setDashboard('');
+    } catch (error) {
+      setError("Issue with Login");
+    }
+  };
 
   async function getLearningObjects() {
     try {
@@ -219,7 +443,11 @@ const Detailspage = () => {
         }
       } else{
         if(isCustomerValue === "true"){
-          navigate('/allCourses')
+          if(loginValue === "true"){
+            navigate('/allCourses?login=true')
+          }else {
+            navigate('/allCourses')
+          }
         }else {
         navigate('/myLearnings')
         }
@@ -233,9 +461,21 @@ const Detailspage = () => {
   };
   console.log(enrollmentData,author, "progressPercentage");
   console.log("details", details?.data)
+
+  const handleGoBack = () => {
+    navigate('/allCourses?login=true')
+  }
   return (
     <>
+      {loginValue === "false" &&
       <Header isLogin={false} />
+      }
+      {loginValue === "true" &&
+      <div className="text-blue-500 my-5 mr-5" style={{ float: 'right'}}>
+      <button onClick={handleGoBack}>Go Back</button>
+      </div> 
+      }
+      
       <img src={details?.data?.attributes?.bannerUrl} alt="Logo" style={{ maxHeight: "200px",  width: "100%", display: "block", margin: "0 auto" }}/>
 
       <div className="container flex ">
@@ -326,6 +566,17 @@ const Detailspage = () => {
         </div>
         <div className="card mr-0 mt-8 ">
           <div className="card-content">
+            {loginValue === "true" ?
+            <button
+            /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
+            style={{backgroundColor:"rgb(66, 162, 218)"}}
+            className="rounded-lg w-full p-2 mb-8 text-white uppercase"
+            onClick={() => setShowLoginModal(true)}
+          >
+            Login to access course
+          </button>
+            :
+            <>
             <span className="course-progress">{t('courseProgress')}</span>
             <div className="flex justify-between mt-7 mb-5">
               <div>
@@ -349,12 +600,14 @@ const Detailspage = () => {
               className={`  ${enrollmentData?.attributes?.progressPercent === 100
                 ? ""
                 : ""} rounded-lg w-full p-2 mb-8 text-white uppercase` }
-              onClick={() => handleplayer(details?.data?.id,)}
+              onClick={() => handleplayer(details?.data?.id)}
             >
               {enrollmentData?.attributes?.progressPercent !== 100
                 ? t('continueCourse')
                 : t('goBackToPreviousPage')}
             </button>
+            </>
+          }
             {isfeedback &&  enrollmentData?.attributes?.progressPercent === 100 &&(
         <div>
           <p className="give-feedback mb-4 text-lg font-bold text-blue-500 cursor-pointer" onClick={handleFeedbackClick}>
@@ -396,6 +649,27 @@ const Detailspage = () => {
         title={title}
         imageUrl={img}
       />
+       {showLoginModal && (
+        <ModalContainer>
+          <ModalContent>
+            <ModalHeader>
+              <ModalCloseButton onClick={() => setShowLoginModal(false)}>&#10005;</ModalCloseButton>
+              <ModalTitle>Login</ModalTitle>
+            </ModalHeader>
+            <InputField className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            {error && <div style={{ color: 'red' }}>{error}</div>}
+            <div className='text-center mt-3'>
+              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>
+            </div>
+            <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
+          </ModalContent>
+        </ModalContainer>
+      )}
+
+      {showRegisterModal && (
+        <RegisterModal onClose={() => setShowRegisterModal(false)} />
+      )}
     </>
   );
 };

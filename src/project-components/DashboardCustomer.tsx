@@ -129,7 +129,7 @@ const DashboardCustomer = () => {
              navigate('/')
              throw new Error('Failed to enroll');
          } else {
-           navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=true/detailspage`);
+           navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=true/login=false/detailspage`);
          }
      } catch (error) {
          console.log(error)

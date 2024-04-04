@@ -89,32 +89,8 @@ const AllCourses = () => {
     const Iid = course.relationships?.instances?.data?.[0].id;
 
     console.log("nnnnnnn", course, Iid)
-    let token;
-    if(login){
-      const client_id = clientId;
-      const client_secret = clientSecreat;
-      const refresh_token = refreshToken;
-
-      const params = new URLSearchParams({
-        client_id,
-        client_secret,
-        refresh_token
-      });
-      const url = `${base_adobe_url}/oauth/token/refresh`;
-      const responseToken = await axios.post(
-        `${url}`,
-        params,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      const tokenData = responseToken.data;
-      token = tokenData.access_token;
-    }else {
-      token = localStorage.getItem("access_token")
-    }
+    if(!login){
+      const token = localStorage.getItem("access_token")
     try {
       const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + cid + '&loInstanceId=' + encodeURIComponent(Iid), {
         method: 'POST',
@@ -128,12 +104,15 @@ const AllCourses = () => {
         navigate('/')
         throw new Error('Failed to enroll');
       } else {
-        navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=true/detailspage`);
-      }
+        navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+      } 
     } catch (error) {
       console.log(error)
     }
 
+  } else {
+    navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=true/login=true/detailspage`);
+  }
   }
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
