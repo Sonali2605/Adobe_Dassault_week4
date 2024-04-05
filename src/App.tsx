@@ -1,5 +1,6 @@
 // @ts-nocheck
 import Login from "./project-components/Login";
+import LoginModalPage from "./project-components/LoginModalPage";
 import Dashboard from "./project-components/Dashboard";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Detailspage from "./project-components/Detailspage";
@@ -19,7 +20,8 @@ export default function App() {
       
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<LoginModalPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/learning_object/:courseId/instance/:instanceId/:isDashboard/:isCustomer/:login/detailspage" element={<Detailspage />} />
           <Route path="/managerDashboard" element={<ManagerDashboard />} />

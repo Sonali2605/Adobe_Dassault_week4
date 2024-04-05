@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RegisterModal from './RegisterModel';
+import LoginModalPage from './LoginModalPage';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 import { useLocation } from 'react-router-dom'; // Import the useLocation hook
 import ".././styles/common.css";
@@ -278,22 +279,22 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
         headers: { Authorization: `oauth ${tokenData.access_token}` },
       };
       let contentLocale = "en-US";
-      const bodyData= {
+      const bodyData = {
         data: {
-        id: userId,
-        type: 'user',
-        attributes: {
-          contentLocale: contentLocale,
-          uiLocale: contentLocale,
+          id: userId,
+          type: 'user',
+          attributes: {
+            contentLocale: contentLocale,
+            uiLocale: contentLocale,
+          },
         },
-      },
-    }
+      }
       const responseData = await axios.patch(
-        `${base_adobe_url}/primeapi/v2/users/${userId}`,bodyData,config);
+        `${base_adobe_url}/primeapi/v2/users/${userId}`, bodyData, config);
 
       console.log("11111111111111Language", responseData)
-      
-      localStorage.setItem("selectedLanguage",responseData.data?.data?.attributes?.uiLocale )
+
+      localStorage.setItem("selectedLanguage", responseData.data?.data?.attributes?.uiLocale)
       const newPath = '/dashboard';
 
       if (location.pathname !== newPath) {
@@ -322,8 +323,8 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
     window.location.href = '/'
   }
 
-  const openProfilePage= () =>{
-    window.location.href= '/profile'
+  const openProfilePage = () => {
+    window.location.href = '/profile'
   }
   console.log(location.pathname.toLowerCase().includes('dashboardcustomer'))
   console.log(window.location.pathname.includes("/isCustomer=true/"))
@@ -331,19 +332,19 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
   const openHomePage = function () {
     const newPath = '/dashboard';
     if (location.pathname !== newPath) {
-     window.location.href = newPath;
+      window.location.href = newPath;
     }
   }
   const openAllCoursesPage = function () {
     const newPath = '/allCourses';
     if (location.pathname !== newPath) {
-     window.location.href = newPath;
+      window.location.href = newPath;
     }
   }
   const openMyLearningPage = function () {
     const newPath = '/myLearnings';
     if (location.pathname !== newPath) {
-     window.location.href = newPath;
+      window.location.href = newPath;
     }
   }
 
@@ -353,106 +354,107 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
   }
 
   return (
-    <HeaderContainer>
-      {location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/") ? (
-        <> <Logo>
-          <img style={{ width: '65%' }}
-            src={logo}
-            alt=''
-          />
-        </Logo>
-          <Menu >
-            <MenuItem className='products-menu uppercase' onClick={openHomePage} id='HOME'>
-              {t('home')}
-            </MenuItem>
+    <>
+      <HeaderContainer>
+        {location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/") ? (
+          <> <Logo>
+            <img style={{ width: '65%' }}
+              src={logo}
+              alt=''
+            />
+          </Logo>
+            <Menu >
+              <MenuItem className='products-menu uppercase' onClick={openHomePage} id='HOME'>
+                {t('home')}
+              </MenuItem>
 
-            <MenuItem className='  products-menu uppercase' onClick={openAllCoursesPage} id='ALL_COURSES'>
-              {t('allCourses')}
-            </MenuItem>
+              <MenuItem className='  products-menu uppercase' onClick={openAllCoursesPage} id='ALL_COURSES'>
+                {t('allCourses')}
+              </MenuItem>
 
-            <MenuItem className='  products-menu uppercase' onClick={openMyLearningPage} id='MY_LEARNINGS'>
-              {t('myLearnings')}
-            </MenuItem>
+              <MenuItem className='  products-menu uppercase' onClick={openMyLearningPage} id='MY_LEARNINGS'>
+                {t('myLearnings')}
+              </MenuItem>
 
-            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/") || location.pathname.toLowerCase().includes('/myLearnings') || window.location.pathname.includes("/allCourses")
-              ?
-              ( <MenuItem className='products-menu uppercase'>
-              <img
-                     src={userData?.attributes?.avatarUrl}
-                     alt="Avatar"
-                     style={{marginTop:'-9px'}}
-                     className="w-10 h-10 object-cover rounded-full"
-                   />
-             <div className="submenu">
-               <MenuItem className='adobe-font' onClick={openProfilePage}>{userData?.attributes?.name}</MenuItem>
-               <MenuItem className='adobe-font' onClick={handleLogout}>{t('logout')}</MenuItem>
-               {/* Add more submenu items as needed */}
-             </div>
-           </MenuItem>):
-              (
-                <MenuItem className='products-menu uppercase' onClick={() => setShowLoginModal(true)}>{t('login')}</MenuItem>
-              )
-            }
+              {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/isCustomer=true/") || location.pathname.toLowerCase().includes('/myLearnings') || window.location.pathname.includes("/allCourses")
+                ?
+                (<MenuItem className='products-menu uppercase'>
+                  <img
+                    src={userData?.attributes?.avatarUrl}
+                    alt="Avatar"
+                    style={{ marginTop: '-9px' }}
+                    className="w-10 h-10 object-cover rounded-full"
+                  />
+                  <div className="submenu">
+                    <MenuItem className='adobe-font' onClick={openProfilePage}>{userData?.attributes?.name}</MenuItem>
+                    <MenuItem className='adobe-font' onClick={handleLogout}>{t('logout')}</MenuItem>
+                    {/* Add more submenu items as needed */}
+                  </div>
+                </MenuItem>) :
+                (
+                  <MenuItem className='products-menu uppercase' onClick={() => setShowLoginModal(true)}>{t('login')}</MenuItem>
+                )
+              }
 
-          </Menu>
-        </>
+            </Menu>
+          </>
 
-      ) : (
-        <>
-          <Logo>
+        ) : (
+          <>
+            <Logo>
               <img style={{ width: '65%' }}
                 src={logo}
                 alt=''
               />
             </Logo>
-          <Menu >
-            <MenuItem className='products-menu uppercase' onClick={openHomePage} id='HOME'>
-            {t('home')}
-            </MenuItem>
+            <Menu >
+              <MenuItem className='products-menu uppercase' onClick={openHomePage} id='HOME'>
+                {t('home')}
+              </MenuItem>
 
-            <MenuItem className='  products-menu uppercase' onClick={openAllCoursesPage} id='ALL_COURSES'>
-            {t('allCourses')}
-            </MenuItem>
+              <MenuItem className='  products-menu uppercase' onClick={openAllCoursesPage} id='ALL_COURSES'>
+                {t('allCourses')}
+              </MenuItem>
 
-            <MenuItem className='  products-menu uppercase' onClick={openMyLearningPage} id='MY_LEARNINGS'>
-            {t('myLearnings')}
-            </MenuItem>
-            {/* <div className="submenu">
+              <MenuItem className='  products-menu uppercase' onClick={openMyLearningPage} id='MY_LEARNINGS'>
+                {t('myLearnings')}
+              </MenuItem>
+              {/* <div className="submenu">
               <MenuItem className=' '>Pricing</MenuItem>
             </div> */}
-            {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/detailspage")|| location.pathname.toLowerCase().includes('/mylearnings') || window.location.pathname.toLowerCase().includes("/allcourses") || window.location.pathname.toLowerCase().includes("/profile")
-              ?
-              (
-              // <MenuItem className='products-menu uppercase' onClick={handleLogout}>{t('logout')}</MenuItem>
-              <MenuItem className='products-menu uppercase'>
-           <img
-                  src={userData?.attributes?.avatarUrl}
-                  alt="Avatar"
-                  style={{marginTop:'-9px'}}
-                  className="w-10 h-10 object-cover rounded-full"
-                />
-          <div className="submenu">
-            <MenuItem className='adobe-font' onClick={openProfilePage}>{userData?.attributes?.name}</MenuItem>
-            <MenuItem className='adobe-font' onClick={handleLogout}>{t('logout')}</MenuItem>
-            {/* Add more submenu items as needed */}
-          </div>
-        </MenuItem>
-              )
-               :
-              (
-                <MenuItem className='products-menu uppercase login' onClick={() => setShowLoginModal(true)}>{t('login')}</MenuItem>
-              )
-            }        </Menu>
-        </>
-      )}
+              {location.pathname.toLowerCase().includes('dashboard') || location.pathname.toLowerCase().includes('dashboardcustomer') || window.location.pathname.includes("/detailspage") || location.pathname.toLowerCase().includes('/mylearnings') || window.location.pathname.toLowerCase().includes("/allcourses") || window.location.pathname.toLowerCase().includes("/profile")
+                ?
+                (
+                  // <MenuItem className='products-menu uppercase' onClick={handleLogout}>{t('logout')}</MenuItem>
+                  <MenuItem className='products-menu uppercase'>
+                    <img
+                      src={userData?.attributes?.avatarUrl}
+                      alt="Avatar"
+                      style={{ marginTop: '-9px' }}
+                      className="w-10 h-10 object-cover rounded-full"
+                    />
+                    <div className="submenu">
+                      <MenuItem className='adobe-font' onClick={openProfilePage}>{userData?.attributes?.name}</MenuItem>
+                      <MenuItem className='adobe-font' onClick={handleLogout}>{t('logout')}</MenuItem>
+                      {/* Add more submenu items as needed */}
+                    </div>
+                  </MenuItem>
+                )
+                :
+                (
+                  <MenuItem className='products-menu uppercase login' onClick={() => setShowLoginModal(true)}>{t('login')}</MenuItem>
+                )
+              }        </Menu>
+          </>
+        )}
 
 
-      {showLoginModal && (
+        {/* {showLoginModal && (
         <ModalContainer>
           <ModalContent>
             <ModalHeader>
               <ModalCloseButton onClick={() => setShowLoginModal(false)}>&#10005;</ModalCloseButton>
-              <ModalTitle>Login</ModalTitle>
+              <ModalTitle>Login</ModalTitle>              
             </ModalHeader>
             <InputField className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
             <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -464,12 +466,15 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
             <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
           </ModalContent>
         </ModalContainer>
-      )}
+      )} */}
 
+      </HeaderContainer >
+      
       {showRegisterModal && (
         <RegisterModal onClose={() => setShowRegisterModal(false)} login= {false} />
       )}
-    </HeaderContainer >
+      {showLoginModal && (<LoginModalPage></LoginModalPage>)}
+    </>
   );
 };
 
