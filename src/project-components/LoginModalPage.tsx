@@ -56,7 +56,7 @@ transform: translateY(-50%);
 
 const TextRow = styled.div`  
   margin-bottom: 10px;
-  width:"100%";
+  width:100%;
   position:relative;
 `;
 
@@ -72,8 +72,6 @@ margin-top:6px;
 `;
 
 const Button = styled.button`
-color: white;
-border: none;
 padding: 10px 20px;
 margin-top: 20px;
 cursor: pointer;
@@ -84,9 +82,21 @@ margin-top: 20px;
 `;
 
 const PrimaryButton = styled(Button)`
+color: #fff;
 border-radius: 6px;
 padding: 0.5rem 3rem;
 width:100%;
+border: none;
+`;
+const SecondaryButton = styled(Button)`
+position: absolute;
+top: 20px;
+right: 0;
+border: 1px solid #000;
+padding: 2px 10px;
+margin: 0;
+font-size: 1.3rem;
+background-color:transparent;
 `;
 
 // const SecondaryButton = styled(Button)`
@@ -227,19 +237,20 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
             height: "100%",
             width: "auto",
             position: "relative",
-            top: "50%",
-            transform: "translateY(-50%)",
-
+            top: "45%",
+            transform: "translateY(-50%)"
           }} />
-
         </LeftContener >
         <RightContener >
           <TextBoxWrapper >
-            <img src="src/assets/images/3DExpEdu1920.png" alt="Login Logo" style={{
-              width: "260px",
-              height: "auto",
-              marginBottom: "30px"
-            }} />
+            <TextRow>
+              <img src="src/assets/images/3DExpEdu1920.png" alt="Login Logo" style={{
+                width: "260px",
+                height: "auto",
+                marginBottom: "30px"
+              }} />
+              <SecondaryButton className="font-bold text-2xl rounded-full" onClick={() => navigate('/allCourses?login=true')}>Explore Courses</SecondaryButton>
+            </TextRow>
             <TextRow>
               <span className='font-bold text-2xl text-black-800'>LOGIN</span>
             </TextRow>
@@ -259,9 +270,7 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
             <TextRow>
               <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
             </TextRow>
-            <TextRow>
-              <Button className="mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full" onClick={() => navigate('/allCourses?login=true')}>Explore Courses</Button>
-            </TextRow>
+
             <TextRow>
               <div className='text-center mt-3'>
                 <span className='text-gray-500'>New user?</span> <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer" onClick={() => setShowRegisterModal(true)}>Register Now</a>
