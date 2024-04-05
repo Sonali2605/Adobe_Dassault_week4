@@ -121,7 +121,7 @@ interface LoginModalPageProps {
 
 const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
 
-
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -219,52 +219,61 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
   };
 
   return (
-    <LoginContener >
-      <LeftContener >
-        <img src="src/assets/images/login-bg.png" alt="Login Image" style={{
-          maxWidth: "inherit",
-          height: "100%",
-          width: "auto",
-          position: "relative",
-          top: "50%",
-          transform: "translateY(-50%)",
+    <>
+      <LoginContener >
+        <LeftContener >
+          <img src="src/assets/images/login-bg.png" alt="Login Image" style={{
+            maxWidth: "inherit",
+            height: "100%",
+            width: "auto",
+            position: "relative",
+            top: "50%",
+            transform: "translateY(-50%)",
 
-        }} />
-      </LeftContener >
-      <RightContener >
-        <TextBoxWrapper >
-          <img src="src/assets/images/3DExpEdu1920.png" alt="Login Logo" style={{
-            width: "260px",
-            height: "auto",
-            marginBottom: "30px"
           }} />
-          <TextRow>
-            <span className='font-bold text-2xl text-black-800'>LOGIN</span>
-          </TextRow>
-          <TextRow>
-            <label htmlFor="emailInput">Username</label>
-            <InputField id="emailInput" className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </TextRow>
 
-          <TextRow>
-            <label htmlFor="passwordInput">Password</label>
-            <InputField id="passwordInput" className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </TextRow>
-          {error && <TextRow><div style={{ color: 'red' }}>{error}</div></TextRow>}
-          <div className='text-center mt-3'>
-            <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>
-          </div>
-          <TextRow>
-            <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
-          </TextRow>
-          <TextRow>
+        </LeftContener >
+        <RightContener >
+          <TextBoxWrapper >
+            <img src="src/assets/images/3DExpEdu1920.png" alt="Login Logo" style={{
+              width: "260px",
+              height: "auto",
+              marginBottom: "30px"
+            }} />
+            <TextRow>
+              <span className='font-bold text-2xl text-black-800'>LOGIN</span>
+            </TextRow>
+            <TextRow>
+              <label htmlFor="emailInput">Username</label>
+              <InputField id="emailInput" className='border-2 rounded-md' type="email" placeholder="Company email" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </TextRow>
+
+            <TextRow>
+              <label htmlFor="passwordInput">Password</label>
+              <InputField id="passwordInput" className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </TextRow>
+            {error && <TextRow><div style={{ color: 'red' }}>{error}</div></TextRow>}
             <div className='text-center mt-3'>
-              <span className='text-gray-500'>New user?</span> <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Register Now</a>
+              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>
             </div>
-          </TextRow>
-        </TextBoxWrapper >
-      </RightContener >
-    </LoginContener >
+            <TextRow>
+              <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
+            </TextRow>
+            <TextRow>
+              <Button className="mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full" onClick={() => navigate('/allCourses?login=true')}>Explore Courses</Button>
+            </TextRow>
+            <TextRow>
+              <div className='text-center mt-3'>
+                <span className='text-gray-500'>New user?</span> <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer" onClick={() => setShowRegisterModal(true)}>Register Now</a>
+              </div>
+            </TextRow>
+          </TextBoxWrapper >
+        </RightContener >
+      </LoginContener >
+      {showRegisterModal && (
+        <RegisterModal onClose={() => setShowRegisterModal(false)} login={false} />
+      )}
+    </>
   );
 };
 
