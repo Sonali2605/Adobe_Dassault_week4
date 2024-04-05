@@ -13,8 +13,12 @@ interface Course {
   };
   state?: string; // Define 'state' as an optional property
 }
+interface CourseExploreProps {
+  isCustomer: boolean;
+  isRecomdation: boolean; // Define the type for isRecomdation
+}
 
-const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
+const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation }) => {
   const [courseData, setCourseData] = useState<Course[]>([]);
   const navigate = useNavigate();
 
@@ -168,11 +172,26 @@ const CourseExplore = ({ isCustomer }: { isCustomer: boolean }) => {
        :
        <>
        <div>
-      <h2 className="text-lg font-bold mb-4">Recommendation for you</h2>
-        <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "175px"}}>
+      {isRecomdation ?
+      <>
+        <h2 className="text-lg font-bold mb-4">Recommendation for you</h2>
+      <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "200px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
         </div>
+      </>
+      
+      :
+      <>
+      <h2 className="text-lg font-bold mb-4">Courses to Explore</h2>
+      <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "175px"}}>
+          <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
+          <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
+        </div>
+      </>
+      
+    }
+        
         <div  className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
         {/* <button onClick={handleGoToExplore}>Go To Explore page</button> */}
       </div>

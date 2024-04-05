@@ -348,6 +348,11 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
     }
   }
 
+  const handleRegisterHere = ()=>{
+    setShowLoginModal(false);
+    setShowRegisterModal(true)
+  }
+
   return (
     <>
       <HeaderContainer>
@@ -455,7 +460,8 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
             <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div className='text-center mt-3'>
-              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>
+              New user?
+              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer"onClick={handleRegisterHere}>Register Here</a>
             </div>
             <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
           </ModalContent>
@@ -465,7 +471,7 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
       </HeaderContainer >
       
       {showRegisterModal && (
-        <RegisterModal onClose={() => setShowRegisterModal(false)} />
+        <RegisterModal onClose={() => setShowRegisterModal(false)} login= {false} />
       )}
       {showLoginModal && (<LoginModalPage></LoginModalPage>)}
     </>
