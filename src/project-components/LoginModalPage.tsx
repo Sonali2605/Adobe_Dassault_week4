@@ -22,10 +22,10 @@ const LoginContener = styled.div`
 `;
 
 const LeftContener = styled.div`
-  background-color: transparent;
+  background-color: #033c64;
  padding: 0; 
  margin:0; 
- width: 47%;
+ width: 53%;
  height: 100%;
  position:relative;
  display:inline-block;
@@ -37,7 +37,7 @@ const RightContener = styled.div`
 background-color: #fff;
 padding: 0;  
 margin:0;
-width: 53%;
+width: 47%;
 height: 100%;
 position:relative;
 display:inline-block;
@@ -63,7 +63,7 @@ const TextRow = styled.div`
 const InputField = styled.input`
 width: 100%;
 padding: 6px;
-text-align: center;
+text-align: left;
 border: 1px solid #ada7a7;
 background: #fff;
 border-radius: 4px;
@@ -198,7 +198,7 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
       const responseData = await axios.patch(
         `${base_adobe_url}/primeapi/v2/users/${userId}`, bodyData, config);
 
-      console.log("11111111111111Language", responseData)
+      // console.log("11111111111111Language", responseData)
 
       localStorage.setItem("selectedLanguage", responseData.data?.data?.attributes?.uiLocale)
       const newPath = '/dashboard';
@@ -223,7 +223,12 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
       <LeftContener >
         <img src="src/assets/images/login-bg.png" alt="Login Image" style={{
           maxWidth: "inherit",
-          height: "100%"
+          height: "100%",
+          width: "auto",
+          position: "relative",
+          top: "50%",
+          transform: "translateY(-50%)",
+
         }} />
       </LeftContener >
       <RightContener >
