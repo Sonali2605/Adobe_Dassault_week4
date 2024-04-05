@@ -159,9 +159,10 @@ const Dashboard = () => {
             <Network />
           </div>
           <div className="ml-4 flex-grow" style={{ marginTop: "-45px", maxWidth:"72%" }}>
+          <CourseExplore isCustomer={false} isRecomdation={true}/>
             <Leaderboard />
             <div className="mt-4">
-              <CourseExplore isCustomer={false} />
+              <CourseExplore isCustomer={false} isRecomdation={false}/>
             </div>
             <div className="mt-4">
               <MyLearning isCustomer={false} />

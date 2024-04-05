@@ -229,7 +229,7 @@ const DashboardCustomer = () => {
             </div>
             </div>
             <div className='mt-4 bg-[#1a4789] py-6 recommended-course'>
-              <CourseExplore isCustomer={true} />
+              <CourseExplore isCustomer={true} isRecomdation={false}/>
               <div className="mt-4">
                
                 <h2 className="text-2xl text-white font-bold mt-10 mb-8 text-left">Courses Taken By Your Peers</h2>

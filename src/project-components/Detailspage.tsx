@@ -16,6 +16,7 @@ import { getLocalizedContent } from "./utils/commanUtils";
 import { useTranslation } from 'react-i18next';
 import RegisterModal from './RegisterModel';
 import ".././styles/common.css";
+import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -280,7 +281,7 @@ console.log("coursePart", coursePart)
       // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
       // console.log
       const userDataResponse = await axios.get(
-        `${base_adobe_url}/primeapi/v2/v2/user`,
+        `${base_adobe_url}/primeapi/v2/user`,
         {
           headers: {
             Authorization: `Bearer ${tokenData.access_token}`,
@@ -288,52 +289,49 @@ console.log("coursePart", coursePart)
         }
       );
 
-      const userId = userDataResponse.data?.data?.[0]?.id;
+      const userId = userDataResponse.data?.data?.id;
 console.log("user profile data", userDataResponse.data?.data);
       localStorage.setItem('userId', userId);
-      let contentLocale = "en-US"
-      const responseData = await axios.patch(
-        `${base_adobe_url}/primeapi/v2/users/${userId}`,
-        {
-          data: {
-            id: userId,
-            type: 'user',
-            attributes: {
-              contentLocale: contentLocale,
-              uiLocale: contentLocale,
-            },
-          },
+      let contentLocale = "en-US";
+      const bodyData= {
+        data: {
+        id: userId,
+        type: 'user',
+        attributes: {
+          contentLocale: contentLocale,
+          uiLocale: contentLocale,
         },
-      )
+      },
+    }
+      const responseData = await axios.patch(
+        `${base_adobe_url}/primeapi/v2/users/${userId}`,bodyData,config);
 
       console.log("11111111111111Language", responseData)
-      // const isManager = userDataResponse.data?.data?.[0]?.attributes?.roles.includes('Manager');
-
+      
+      localStorage.setItem("selectedLanguage",responseData.data?.data?.attributes?.uiLocale )
+      // const parts = pathname.split('/');
+      const regex = /instance\/course:(\d+_?\d+)/;
+      const match = pathname.match(regex);
+      const courseInstanceId = match ? match[1] : null; // This will give you "9391878_10066226"
       try {
-        const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + cid + '&loInstanceId=' + encodeURIComponent(Iid), {
+        const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${tokenData.access_token}`
           },
         });
-  
         if (!response.ok) {
           navigate('/')
           throw new Error('Failed to enroll');
         } else {
-          navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+          navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+          window.location.reload();
         } 
       } catch (error) {
-        console.log(error)
+        console.log("error",error)
       }
-      const newPath ='/dashboard';
-
-     if (location.pathname !== newPath) {
-        window.location.href = newPath;
-      } 
-
-      console.log('Login successful', response.data);
+      
       setShowLoginModal(false);
       setAgencyId('');
       setUsername('');
@@ -427,7 +425,12 @@ console.log("user profile data", userDataResponse.data?.data);
   //   if (mid) {
   //     setIsCiid(mid);
   //   }
-  // };
+  // };\\
+
+  const handleRegisterHere = ()=>{
+    setShowLoginModal(false);
+    setShowRegisterModal(true)
+  }
 
   const handleplayer = (id: string | undefined) => {
     if (enrollmentData?.attributes?.progressPercent !== 100) {
@@ -576,6 +579,16 @@ console.log("user profile data", userDataResponse.data?.data);
             Login to access course
           </button>
             :
+          details?.data?.attributes?.price ?
+          <button
+          /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
+          style={{backgroundColor:"rgb(66, 162, 218)"}}
+          className="rounded-lg w-full p-2 mb-8 text-white uppercase"
+          onClick={() => setShowLoginModal(true)}
+        >
+          Pay to Enroll
+        </button>
+        :          
             <>
             <span className="course-progress">{t('courseProgress')}</span>
             <div className="flex justify-between mt-7 mb-5">
@@ -660,7 +673,8 @@ console.log("user profile data", userDataResponse.data?.data);
             <InputField className='border-2 rounded-md' type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div className='text-center mt-3'>
-              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer">Forgot Password?</a>
+              New user?
+              <a href="javascript:void(0)" className='text-blue-500' rel="noopener noreferrer"onClick={handleRegisterHere}>Register Here</a>
             </div>
             <PrimaryButton className='mt-5 bg-[#55c1e3] text-white font-bold text-2xl py-2 px-6 rounded-full' onClick={handleLogin}>Login</PrimaryButton>
           </ModalContent>
@@ -668,7 +682,7 @@ console.log("user profile data", userDataResponse.data?.data);
       )}
 
       {showRegisterModal && (
-        <RegisterModal onClose={() => setShowRegisterModal(false)} />
+        <RegisterModal onClose={() => setShowRegisterModal(false)} login = {true}/>
       )}
     </>
   );

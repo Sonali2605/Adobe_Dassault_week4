@@ -140,10 +140,11 @@ margin-bottom: 0.7rem
 // `;
 
 interface RegisterModalProps {
-  onClose: () => void; // Define the type of onClose prop
+  onClose: () => void; 
+  login: boolean
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ onClose , login}) => {
   const [showCompletionPopup, setShowCompletionPopup] = useState(false);
   const [selectedOption, setSelectedOption] = useState('customer');   
   
@@ -158,8 +159,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
     dashboardId: '',
     industryId: '',
     companyId: '',
-    designationId: '',
-    countryId: '',
 
 
   });
@@ -281,8 +280,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
           <ModalContent>
             <ModalHeader>
               <ModalCloseButton onClick={onClose}>&#10005;</ModalCloseButton>
-              <ModalTitle>Thanks for showing interest in the Dassault Cloud Systèmes.
-                <br></br>Please fill in your details. </ModalTitle>
+              <ModalTitle>Register Here. </ModalTitle>
             </ModalHeader>
             <ModalSubheader>
 
@@ -320,62 +318,12 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
               name="companyId"
               placeholder="Company"
             />
-            <InputField className='border-2 rounded-md'
-              type="text"
-              value={formData.designationId}
-              onChange={handleChange}
-              name="designationId"
-              placeholder="Designation"
-            />
-            <InputField className='border-2 rounded-md'
-              type="text"
-              value={formData.countryId}
-              onChange={handleChange}
-              name="countryId"
-              placeholder="Country"
-            />
-
-            <Select  name="dashboard" className='dropdown' value={selectedOption}onChange={(e)=> handleSelect(e.target.value)}>
-              <option selected value="customer"> Customer Dashboard </option>
-              <option  value="partnership">Partnership Dashboard</option>
-            </Select>
-
-{/* <LoginRadio>
-            <label>
-              <InputField 
-                type="radio" 
-                value="customer" 
-                checked={dashboard === 'customer'} 
-                onChange={() => setDashboard('customer')} 
-              />
-               Customer Dashboard
-              </label>
-              <label>
-
-              
-              <InputField 
-                type="radio" 
-                value="partnership" 
-                checked={dashboard === 'partnership'} 
-                onChange={() => setDashboard('partnership')} 
-              />
-              Partnership Dashboard
-              </label>
-            </LoginRadio>  */}
-            {/* <InputField className='border-2 rounded-md'
-          type="text"
-          value={formData.dashboardId}
-          onChange={handleChange}
-          name="dashboardId"
-          placeholder="Dashboard"
-        /> */}
-
             <SecondaryButton className="px-10 py-3 text-2xl rounded-full bg-[#55c1e3] text-white font-bold" onClick={handleSubmit}>Submit</SecondaryButton>
           </ModalContent>
         </ModalContainer>
       )}
       {showCompletionPopup && (
-        <CompletionPopup navigatedashboard={selectedOption} onClose={handleClosePopup} />
+        <CompletionPopup navigatedashboard={selectedOption} onClose={handleClosePopup}  login={login}/>
       )}
     </>
   );

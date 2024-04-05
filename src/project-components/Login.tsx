@@ -195,7 +195,7 @@ const Login = () => {
       // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
       // console.log
       const userDataResponse = await axios.get(
-        `${base_adobe_url}/primeapi/v2/v2/user`,
+        `${base_adobe_url}/primeapi/v2/user`,
         {
           headers: {
             Authorization: `Bearer ${tokenData.access_token}`,
