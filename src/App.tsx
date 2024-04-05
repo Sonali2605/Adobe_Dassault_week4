@@ -21,7 +21,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginModalPage />} />
-          {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/learning_object/:courseId/instance/:instanceId/:isDashboard/:isCustomer/:login/detailspage" element={<Detailspage />} />
           <Route path="/managerDashboard" element={<ManagerDashboard />} />
