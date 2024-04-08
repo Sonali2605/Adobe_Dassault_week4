@@ -117,20 +117,20 @@ const DashboardCustomer = () => {
      console.log("nnnnnnn", course, Iid)
      const token = localStorage.getItem("access_token")
      try {
-         const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + cid + '&loInstanceId=' + encodeURIComponent(Iid), {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-                 'Authorization': `Bearer ${token}`
-             },
-         });
+        //  const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + cid + '&loInstanceId=' + encodeURIComponent(Iid), {
+        //      method: 'POST',
+        //      headers: {
+        //          'Content-Type': 'application/json',
+        //          'Authorization': `Bearer ${token}`
+        //      },
+        //  });
  
-         if (!response.ok) {
-             navigate('/')
-             throw new Error('Failed to enroll');
-         } else {
+        //  if (!response.ok) {
+        //      navigate('/')
+        //      throw new Error('Failed to enroll');
+        //  } else {
            navigate(`/learning_object/${cid}/instance/${Iid}/isDashboard=true/isCustomer=true/login=false/detailspage`);
-         }
+        //  }
      } catch (error) {
          console.log(error)
      }
