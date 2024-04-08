@@ -153,8 +153,8 @@ const ProfileModal = ({ isOpen, onClose }) => {
     <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
       <div className="modal">
         <span className="close" onClick={onClose}>&times;</span>
-        <h1>Edit Profile</h1>
-        <form onSubmit={handleSubmit}>
+        <h1 id='heading'>Edit Profile</h1>
+        <form id="form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="name">Name:</label>
