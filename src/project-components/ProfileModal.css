@@ -57,12 +57,12 @@
   
   .form-group {
     flex: 1;
-    margin-right: 10px;
-    input{
-      width: 60%;
-      padding: 5px;
-    }
-    
+    margin-right: 10px; 
+  }
+
+  .form-group input{
+    width: 60%;
+    padding: 5px;
   }
   
   label {
