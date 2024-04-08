@@ -196,6 +196,7 @@ const Detailspage = () => {
   const [error, setError] = useState<string>('');
   const [showProfileModal, setShowProfileModal] = useState(false);
   const[loResouceData, setloResouceData]= useState<LearningObjectInstanceEnrollment>();
+  const[loResoucesGrade, setLoResoucesGrade]= useState<LearningObjectInstanceEnrollment>();
 
   const { t } = useTranslation();
   const handleFeedbackClick = () => {
@@ -364,13 +365,29 @@ console.log("user profile data", userDataResponse.data?.data);
         language= "en-US,fr-FR"
       }
       const response = await axios.get(
-        `https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:${courseId}?include=instances.loResources.resources%2Cinstances.l1FeedbackInfo%2Cskills.skillLevel.skill%2CsubLOs.instances.subLoInstances%2CsupplementaryLOs.instances.loResources.resources%2csubLOs.instances.loResources.resources%2CprerequisiteLOs%2cenrollment.learnerBadge.badge%2cauthors%2cauthors.account&language=${language}`,
+        `https://learningmanager.adobe.com/primeapi/v2/learningObjects/course:${courseId}?include=enrollment.loResourceGrades%2CsubLOs.enrollment.loResourceGrades%2Cenrollment.loInstance.loResources.resources%2Cinstances.loResources.resources%2Cinstances.l1FeedbackInfo%2Cskills.skillLevel.skill%2CsubLOs.instances.subLoInstances%2CsupplementaryLOs.instances.loResources.resources%2csubLOs.instances.loResources.resources%2CprerequisiteLOs%2cenrollment.learnerBadge.badge%2cauthors%2cauthors.account&language=${language}`,
 
         config
       );
       const result = response?.data;
       const enrollment = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstanceEnrollment' && findData?.id === result?.data.relationships.enrollment?.data.id);
       setEnrollmentData(enrollment);
+      console.log("222222222222222222222222222222eb", enrollment)
+
+      const loGradeArray= enrollment?.relationships?.loResourceGrades?.data;
+      let loresourceDataArray= [];      
+      let resourceDatacount = 0;      
+      let resourceDataObj={}
+      for( let i = 0 ; i < loGradeArray?.length ; i++){
+        let resourceData =  result?.included.find((ele: LearningObjectInstanceEnrollment) =>ele?.id === loGradeArray[i]?.id);
+        if(resourceData?.attributes?.hasPassed)
+          resourceDatacount += 1;
+      }
+      resourceDataObj.hasPassedCount= resourceDatacount;
+      resourceDataObj.totalModule = loGradeArray?.length;
+
+      setLoResoucesGrade(resourceDataObj);
+      console.log("neww",resourceDataObj)
 
       const author = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'user' && findData?.id === result?.data.relationships.authors?.data[0].id);
       setAuthor(author);
@@ -448,6 +465,9 @@ console.log("user profile data", userDataResponse.data?.data);
     setShowRegisterModal(true)
   }
 
+  const handlePlayerPreview= (id: string | undefined) => {
+    navigate(`/fludicPlayer?cid=${id}&back_url=${window.location.pathname}`)
+  }
   const handleplayer = (id: string | undefined) => {
     if (enrollmentData?.attributes?.progressPercent !== 100) {
       // setIsPlayCourse(true);
@@ -482,6 +502,7 @@ console.log("user profile data", userDataResponse.data?.data);
   console.log("details", details?.data)
 
   const handleGoBack = () => {
+    localStorage.clear();
     navigate('/allCourses?login=true')
   }
   const handleProfileClose = () =>{
@@ -507,7 +528,10 @@ console.log("user profile data", userDataResponse.data?.data);
   
   }
 
-  console.log("final lo", loResouceData)
+  console.log("final lo", loResouceData);
+  
+  console.log("neww",loResoucesGrade)
+
   return (
     <>
       {loginValue === "false" &&
@@ -597,7 +621,7 @@ console.log("user profile data", userDataResponse.data?.data);
                     </span>
                   </div>
                 </div>
-                  ))};
+                  ))}
                 </div>
                 <div
                   className={activeTab === 2 ? "" : "hidden"}
@@ -635,7 +659,7 @@ console.log("user profile data", userDataResponse.data?.data);
             <span className="course-progress">{t('courseProgress')}</span>
             <div className="flex justify-between mt-7 mb-5">
               <div>
-                <span className="modules-completed">1/1 {t('modulesComplete')}</span>
+                <span className="modules-completed">{ `${loResoucesGrade?.hasPassedCount }/${loResoucesGrade?.totalModule}`} {t('modulesComplete')}</span>
               </div>
               <div>
                 <span className="modules-completed">
@@ -663,15 +687,16 @@ console.log("user profile data", userDataResponse.data?.data);
             </button>
             </>
           }
-          {/* { details?.data?.attributes?.hasPreview && ( */}
+          { localStorage.getItem("access_token") && details?.data?.attributes?.hasPreview && (
              <button
              /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
              style={{backgroundColor:"rgb(66, 162, 218)"}}
              className="rounded-lg w-full p-2 mb-8 text-white uppercase"
-             onClick={() => handleplayer(details?.data?.id)}
+             onClick={() => handlePlayerPreview(details?.data?.id)}
            >
-             Priview
+             Preview
            </button>
+          )}
           {/* )
             
           } */}
