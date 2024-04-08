@@ -197,6 +197,7 @@ const Detailspage = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const[loResouceData, setloResouceData]= useState<LearningObjectInstanceEnrollment>();
   const[loResoucesGrade, setLoResoucesGrade]= useState<LearningObjectInstanceEnrollment>();
+  const [isEnroll, setIsEnroll]= useState(false);
 
   const { t } = useTranslation();
   const handleFeedbackClick = () => {
@@ -318,21 +319,21 @@ console.log("user profile data", userDataResponse.data?.data);
       const match = pathname.match(regex);
       const courseInstanceId = match ? match[1] : null; // This will give you "9391878_10066226"
       try {
-        const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tokenData.access_token}`
-          },
-        });
-        if (!response.ok) {
-          navigate('/')
-          throw new Error('Failed to enroll');
-        } else {
+        // const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Authorization': `Bearer ${tokenData.access_token}`
+        //   },
+        // });
+        // if (!response.ok) {
+        //   navigate('/')
+        //   throw new Error('Failed to enroll');
+        // } else {
           setShowProfileModal(true);
           // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
           // window.location.reload();
-        } 
+        // } 
       } catch (error) {
         console.log("error",error)
       }
@@ -448,9 +449,7 @@ console.log("user profile data", userDataResponse.data?.data);
     console.log(jsonData, "jsonData");
     // detailsPageApi();
     getLearningObjects();
-    
-    
-  }, []);
+  }, [isEnroll]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // const playCourse = (cid: string, mid?: string) => {
@@ -527,10 +526,38 @@ console.log("user profile data", userDataResponse.data?.data);
     }
   
   }
+  
+  const handleEnroll= async()=>{
+    console.log("Inside enroll")
+    try{
+      const regex = /instance\/course:(\d+_?\d+)/;
+      const match = pathname.match(regex);
+      const courseInstanceId = match ? match[1] : null; 
+     const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem(
+              'access_token')}`
+          },
+        });
+        if (!response.ok) {
+          setIsEnroll(false);
+          navigate('/')
+          throw new Error('Failed to enroll');
+        } else {
+          setIsEnroll(true);
+          navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+          window.location.reload();
+        }
+      }catch(error){
+        console.log(error)
+      }
+  }
 
   console.log("final lo", loResouceData);
   
-  console.log("neww",loResoucesGrade)
+  console.log("neww",details?.data?.relationships?.enrollment)
 
   return (
     <>
@@ -645,7 +672,7 @@ console.log("user profile data", userDataResponse.data?.data);
             Login to access course
           </button>
             :
-          details?.data?.attributes?.price ?
+          details?.data?.attributes?.price && !details?.data?.relationships?.enrollment ?
           <button
           /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
           style={{backgroundColor:"rgb(66, 162, 218)"}}
@@ -654,7 +681,8 @@ console.log("user profile data", userDataResponse.data?.data);
         >
           Pay to Enroll
         </button>
-        :          
+        :    
+            details?.data?.relationships?.enrollment ?
             <>
             <span className="course-progress">{t('courseProgress')}</span>
             <div className="flex justify-between mt-7 mb-5">
@@ -686,8 +714,17 @@ console.log("user profile data", userDataResponse.data?.data);
                 : t('goBackToPreviousPage')}
             </button>
             </>
+            :
+            <button
+          /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
+          style={{backgroundColor:"rgb(66, 162, 218)"}}
+          className="rounded-lg w-full p-2 mb-8 text-white uppercase"
+         onClick={()=>handleEnroll()}
+        >
+         Enroll
+        </button>
           }
-          { localStorage.getItem("access_token") && details?.data?.attributes?.hasPreview && (
+          { localStorage.getItem("access_token") && !details?.data?.relationships?.enrollment && details?.data?.attributes?.hasPreview && (
              <button
              /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
              style={{backgroundColor:"rgb(66, 162, 218)"}}

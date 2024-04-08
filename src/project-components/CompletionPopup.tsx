@@ -301,22 +301,22 @@ console.log("user profile data", userDataResponse.data?.data);
       const match2 = pathname.match(regex2);
       const courseId = match2 ? match2[1] : null;
       try {
-        const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tokenData.access_token}`
-          },
-        });
-        if (!response.ok) {
-          navigate('/')
-          throw new Error('Failed to enroll');
-        } else {
+        // const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Authorization': `Bearer ${tokenData.access_token}`
+        //   },
+        // });
+        // if (!response.ok) {
+        //   navigate('/')
+        //   throw new Error('Failed to enroll');
+        // } else {
           setShowProfileModal(true);
          
           // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
           // window.location.reload();
-        } 
+        // } 
       } catch (error) {
         console.log("error",error)
       }
