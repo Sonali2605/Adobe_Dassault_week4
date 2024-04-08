@@ -13,7 +13,10 @@ const ProfileModal = ({ isOpen, onClose }) => {
   const [dob, setDob] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Updated type
+  const [error, setError] = useState<string | null>(null);
+  const [skill, setSkill] = useState<any>([]);
+  const [selectedValue, setSelectedValue] = useState('');
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,6 +32,9 @@ const ProfileModal = ({ isOpen, onClose }) => {
         setAddress(response.data?.data?.attributes?.fields?.Address || '');
         setDob(response.data?.data?.attributes?.fields?.DOB || '');
         setZipCode(response.data?.data?.attributes?.fields?.["Zip Code"] || '');
+
+        const skills = await axios.get("https://learningmanager.adobe.com/primeapi/v2/skills?page[offset]=0&page[limit]=100&sort=name",config);
+        setSkill(skills?.data?.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
         setError('An error occurred. Please try again later.'); // Update error state
@@ -45,34 +51,10 @@ const ProfileModal = ({ isOpen, onClose }) => {
     setIsLoading(true);
 
     try {
-    //   const token = localStorage.getItem("access_token");
-    //   const config = {
-    //     headers: { Authorization: `oauth ${token}` },
-    //   };
 
-    //   const response = await axios.patch(`https://learningmanager.adobe.com/primeapi/v2/users/${userData.id}`, {
-    //     data: {
-    //       id: userData?.id,
-    //       type: userData?.type,
-    //       attributes: {
-    //         name,
-    //         language,
-    //         fields: {
-    //           cellNumber,
-    //           address,
-    //           dob,
-    //           zipCode
-    //         }
-    //       }
-    //     }
-    //   }, config);
+      const skillUpdate = await axios.post(`https://learningmanager.adobe.com/primeapi/v2/users/${localStorage.getItem('userId')}/skillInterest/${selectedValue}?filter.skillInterestTypes=ADMIN_DEFINED`);
+      console.log("****************", skillUpdate)
 
-    //   console.log('API response:', response.data);
-
-    //   setIsLoading(false);
-    //   setError(null);
-    //   alert('Profile updated successfully!');
-    //   onClose();
       const client_id = "449923a1-a01c-4bf5-b7c8-2137718d6d04";
       const client_secret = "b1b22c3e-900c-4bd1-b010-daf95c01b968";
       const refresh_token = "4022c902affc1b9527820308dfd0f56d";
@@ -144,11 +126,17 @@ const ProfileModal = ({ isOpen, onClose }) => {
    
     } catch (error) {
       console.error('Error updating profile:', error);
+      alert('Profile not updated!');
       setError('An error occurred. Please try again later.'); // Update error state
       setIsLoading(false);
     }
   };
 
+  const handleSelectChange = (event) => {
+    console.log(event.target.value)
+    setSelectedValue(event.target.value);
+  };
+  console.log("NNNNNNNNNNNNNNNNNNNNNNNNNNN", skill);
   return (
     <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
       <div className="modal">
@@ -167,28 +155,28 @@ const ProfileModal = ({ isOpen, onClose }) => {
               <LanguageDropdown/>
             </div>
           </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="cellNumber">Cell Number:</label>
-              <input type="text" id="cellNumber" value={cellNumber} onChange={(e) => setCellNumber(e.target.value)} required />
-            </div>
-            </div>
             <div className="form-row">
             <div className="form-group">
-              <label htmlFor="address">Address:</label>
-              <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
+              <label htmlFor="role">Role:</label>
+              {userData?.attributes?.roles.map((item, index) => (
+        <span key={index}>
+          {item}
+          {/* Adding a comma after each item, except the last one */}
+          {index !== userData?.attributes?.roles.length - 1 ? ', ' : ''}
+        </span>
+      ))}
+
             </div>
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="dob">Date of Birth:</label>
-              <input type="text" id="dob" value={dob} onChange={(e) => setDob(e.target.value)} required />
-            </div>
-            </div>
-            <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="zipCode">Zip Code:</label>
-              <input type="text" id="zipCode" value={zipCode} onChange={(e) => setZipCode(e.target.value)} required />
+              <label htmlFor="language">Skill Intrest:</label>
+              <select value={selectedValue} onChange={handleSelectChange}>
+              <option value="">Select an option</option>
+                {skill.length && skill?.map(ele =>{
+                  return <option value={ele?.id}>{ele?.attributes?.name}</option>
+                })}
+            </select>
             </div>
           </div>
           <div className="button-container">

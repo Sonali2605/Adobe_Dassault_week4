@@ -137,7 +137,7 @@ const [toastMessage, setToastMessage] = useState('');
             <div className="text-sm text-right text-gray-600">{progress}%</div>
           </div>
           <div className="px-2 flex justify-between mt-4">
-            <div className="text-sm text-gray-600">
+            <div className="text-md text-gray-600 font-bold">
             {course?.attributes?.price ? "$ "+ course?.attributes?.price : "Free"}
             </div>
             {!login && (

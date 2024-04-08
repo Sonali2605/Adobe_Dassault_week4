@@ -244,8 +244,8 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
         <RightContener >
           <TextBoxWrapper >
             <TextRow>
-              <img src="src/assets/images/3DExpEdu1920.png" alt="Login Logo" style={{
-                width: "260px",
+              <img src="src/assets/images/DS3logo.jpg" alt="Login Logo" style={{
+                width: "180px",
                 height: "auto",
                 marginBottom: "30px"
               }} />

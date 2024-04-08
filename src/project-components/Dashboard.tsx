@@ -132,40 +132,50 @@ const Dashboard = () => {
     <>
       <Header isLogin={false} />
       <div className="mt-5">
-        <DashboardHeading />
+        {/* <DashboardHeading /> */}
         <div className="grid grid-rows-3 grid-flow-col gap-4 px-10 ">
           <div className="row-start-1 row-span-4 max-w-xs">
             <ProfileCard name="Olivia Clarke" />
             <Badges />
-            {certificate && (
-              <CertificateCard
-                imageUrl={certificate.imageUrl}
-                name={certificate.name}
-                description={certificate.description}
-              />
-            )}
+            <div className="mt-4">
+              <ComplianceTraining />
+            </div>
+            <div className="mt-4">
+              <SkillProgress />
+            </div>
           </div>
           <div className="row-start-1 row-end-4">
-            <LineChart />
-            <NewProduct />
-          </div>
-          <div className="row-start-1 row-end-4">
-            <ComplianceTraining />
-            <SkillProgress />
-          </div>
-        </div>
-        <div className="flex mt-4 px-10">
-          <div className="min-w-xs">
-            <Network />
-          </div>
-          <div className="ml-4 flex-grow" style={{ marginTop: "-45px", maxWidth:"72%" }}>
-          <CourseExplore isCustomer={false} isRecomdation={true}/>
-            <Leaderboard />
+            <div className="mt-4">
+              <MyLearning isCustomer={false} />
+            </div>
             <div className="mt-4">
               <CourseExplore isCustomer={false} isRecomdation={false}/>
             </div>
             <div className="mt-4">
               <MyLearning isCustomer={false} />
+            </div>
+            <div className="mt-4">
+            <CourseExplore isCustomer={false} isRecomdation={true}/>
+            </div>
+          </div>
+          {/* <div className="row-start-1 row-end-4">
+            <ComplianceTraining />
+            <SkillProgress />
+          </div> */}
+        </div>
+        <div className="flex mt-4 px-10">
+          <div className="min-w-xs">
+            {/* <Network /> */}
+          </div>
+          {/* <div className="ml-4 flex-grow" style={{ marginTop: "-45px", maxWidth:"72%" }}>
+            <div className="mt-4">
+              <CourseExplore isCustomer={false} isRecomdation={false}/>
+            </div>
+            <div className="mt-4">
+              <MyLearning isCustomer={false} />
+            </div>
+            <div className="mt-4">
+            <CourseExplore isCustomer={false} isRecomdation={true}/>
             </div>
             <div className="mt-4 mb-10" style={{ display: "flex" }}>
               <div style={{ minWidth: '20rem', width: "40%", marginRight: "10px" }}>
@@ -187,7 +197,7 @@ const Dashboard = () => {
               />
         </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

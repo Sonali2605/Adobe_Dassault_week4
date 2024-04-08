@@ -303,7 +303,8 @@ console.log("user profile data", userDataResponse.data?.data);
         //   navigate('/')
         //   throw new Error('Failed to enroll');
         // } else {
-          setShowProfileModal(true);
+          if(response?.data?.success)
+            setShowProfileModal(true);
          
           // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
           // window.location.reload();
