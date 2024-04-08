@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import RegisterModal from './RegisterModel';
 import ".././styles/common.css";
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
+import ProfileModal from "./ProfileModal";
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -193,6 +194,8 @@ const Detailspage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>('');
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const[loResouceData, setloResouceData]= useState<LearningObjectInstanceEnrollment>();
 
   const { t } = useTranslation();
   const handleFeedbackClick = () => {
@@ -325,8 +328,9 @@ console.log("user profile data", userDataResponse.data?.data);
           navigate('/')
           throw new Error('Failed to enroll');
         } else {
-          navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
-          window.location.reload();
+          setShowProfileModal(true);
+          // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+          // window.location.reload();
         } 
       } catch (error) {
         console.log("error",error)
@@ -376,10 +380,22 @@ console.log("user profile data", userDataResponse.data?.data);
       const feedback = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'feedbackInfo' && findData?.id === instance.relationships.l1FeedbackInfo?.data.id);
      
       setIsFeedback(feedback);
-      const Iid = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
+      const Iids = result?.included.find((findData: LearningObjectInstanceEnrollment) => findData.type === 'learningObjectInstance' && findData?.id === result?.data.relationships.instances?.data[0].id);
       
-      setInstanceObject(Iid)
-      setIId(Iid.relationships?.loResources.data[0].id);
+      setInstanceObject(Iids);
+      const loResourceData = Iids.relationships?.loResources;
+
+      let resourceDataArray= [];
+      for( let i = 0 ; i < loResourceData?.data?.length ; i++){
+        let resourceDataObj={}
+        let resourceData =  result?.included.find((ele: LearningObjectInstanceEnrollment) =>ele?.id === loResourceData.data[i].id);
+        resourceDataObj.name= getLocalizedContent(resourceData?.attributes?.localizedMetadata)?.name;
+        resourceDataObj.id = resourceData?.id;
+        resourceDataObj.previewEnabled= resourceData?.attributes?.previewEnabled;
+        resourceDataArray.push(resourceDataObj);
+      }
+      setloResouceData(resourceDataArray);
+      // setIId(Iid.relationships?.loResources.data[0].id);
       const effectiveModifiedDate = new Date(result?.data?.attributes?.effectiveModifiedDate);
 
     // Current date
@@ -468,6 +484,30 @@ console.log("user profile data", userDataResponse.data?.data);
   const handleGoBack = () => {
     navigate('/allCourses?login=true')
   }
+  const handleProfileClose = () =>{
+   setShowProfileModal(false);
+   const regex = /instance\/course:(\d+_?\d+)/;
+   const match = pathname.match(regex);
+   const courseInstanceId = match ? match[1] : null;
+   navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
+   window.location.reload();
+  }
+
+  const loHandleClick = (courseId, moduleId) =>{
+    if(localStorage.getItem("access_token")){
+      if(details?.data?.attributes?.price ){
+        alert("This content cannot be viewed. Please click on Pay to enroll before accessing the content")
+      }else {
+      setIId(moduleId);
+      navigate(`/fludicPlayer?cid=${courseId}&mid=${moduleId}&back_url=${window.location.pathname}`)
+      }
+    } else{
+      alert("This content cannot be viewed. Please login and enroll in the training before playing this content")
+    }
+  
+  }
+
+  console.log("final lo", loResouceData)
   return (
     <>
       {loginValue === "false" &&
@@ -521,41 +561,43 @@ console.log("user profile data", userDataResponse.data?.data);
                   id="tab-content-1"
                 >
                   <p className="core-content">Core Content</p>
-                  <div className="rounded-lg bg-gray-200 flex justify-between p-6 pl-7">
-                    <div className="flex">
-                      <span className="mr-6">
-                        <img
-                          src={playiconone}
-                          alt="Logo"
-                          style={{ width: "54px", height: "53px" }}
-                        />
-                      </span>
-                      <span className="">
-                        <div>
-                          <span className="module-title">
-                            {
-                               getLocalizedContent(instanceObject?.attributes?.localizedMetadata)?.name
-                            }
-                          </span>
-                        </div>
-                        <div>
-                          <span className="module-type">
-                            {details?.data?.attributes?.loFormat}
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                    <div className="flex">
-                      <span className="">
-                        <div>
-                          <span className="module-title">Last visited</span>
-                        </div>
-                        <div>
-                          <span className="module-type">{dateData}</span>
-                        </div>
-                      </span>
-                    </div>
+                  {loResouceData?.map(item => (
+                  <div className="rounded-lg bg-gray-200 flex justify-between p-6 pl-7 my-4 cursor-pointer" onClick={() =>loHandleClick(details?.data?.id, item?.id)}>
+                  <div className="flex">
+                    <span className="mr-6">
+                      <img
+                        src={playiconone}
+                        alt="Logo"
+                        style={{ width: "54px", height: "53px" }}
+                      />
+                    </span>
+                    <span className="">
+                      <div>
+                        <span className="module-title">
+                          {
+                             item?.name
+                          }
+                        </span>
+                      </div>
+                      <div>
+                        <span className="module-type">
+                          {details?.data?.attributes?.loFormat}
+                        </span>
+                      </div>
+                    </span>
                   </div>
+                  <div className="flex">
+                    <span className="">
+                      <div>
+                        <span className="module-title">Last visited</span>
+                      </div>
+                      <div>
+                        <span className="module-type">{dateData}</span>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                  ))};
                 </div>
                 <div
                   className={activeTab === 2 ? "" : "hidden"}
@@ -584,7 +626,7 @@ console.log("user profile data", userDataResponse.data?.data);
           /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
           style={{backgroundColor:"rgb(66, 162, 218)"}}
           className="rounded-lg w-full p-2 mb-8 text-white uppercase"
-          onClick={() => setShowLoginModal(true)}
+         
         >
           Pay to Enroll
         </button>
@@ -621,6 +663,18 @@ console.log("user profile data", userDataResponse.data?.data);
             </button>
             </>
           }
+          {/* { details?.data?.attributes?.hasPreview && ( */}
+             <button
+             /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
+             style={{backgroundColor:"rgb(66, 162, 218)"}}
+             className="rounded-lg w-full p-2 mb-8 text-white uppercase"
+             onClick={() => handleplayer(details?.data?.id)}
+           >
+             Priview
+           </button>
+          {/* )
+            
+          } */}
             {isfeedback &&  enrollmentData?.attributes?.progressPercent === 100 &&(
         <div>
           <p className="give-feedback mb-4 text-lg font-bold text-blue-500 cursor-pointer" onClick={handleFeedbackClick}>
@@ -683,6 +737,9 @@ console.log("user profile data", userDataResponse.data?.data);
 
       {showRegisterModal && (
         <RegisterModal onClose={() => setShowRegisterModal(false)} login = {true}/>
+      )}
+      {showProfileModal && (
+        <ProfileModal isOpen={showProfileModal} onClose={handleProfileClose} />
       )}
     </>
   );

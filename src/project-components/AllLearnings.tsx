@@ -97,7 +97,9 @@ const AllLearnings = () => {
         <Header isLogin={true} />
       </div>
       <div className='px-6'>
-
+      <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
+          <button onClick={handleGoToExplore}>{t('goToDashbaord')}</button>
+        </div>
         <h1 className="text-2xl font-bold mb-4">{t('myLearnings')}</h1>
         <input
           type="text"
@@ -106,9 +108,6 @@ const AllLearnings = () => {
           onChange={handleSearch}
           className="border border-gray-300 rounded-md px-4 py-2 mb-4"
         />
-        <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-          <button onClick={handleGoToExplore}>{t('goToDashbaord')}</button>
-        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
           {filteredCourses.map((course) => (
             <CourseCard key={course.id} course={course} EnrollHandle={EnrollHandle} />

@@ -133,8 +133,23 @@ const AllCourses = () => {
       <div className='mb-6'>
               {!login && <Header isLogin={false} />}
           </div>
+      
+          {login ?
+      <>
+        <div className="text-blue-500 mt-2" style={{ float: 'right'}}>
+        <button onClick={handleGoBack}>Go Back</button>
+        </div> 
+      </>
+    :
+      <>
+        <div className="text-blue-500 mt-2" style={{ float: 'right'}}>
+          <button onClick={handleGoToExplore}>{t('goToDashbaord')}</button>
+        </div>
+      </>
+        }
     <div className='px-6'>
-      <h1 className="text-2xl font-bold mb-4">{t('allCourses')}</h1>
+      <div>
+      <h1 className="text-2xl font-bold mb-4 " >{t('allCourses')}</h1>
       <input
         type="text"
         placeholder="Search courses..."
@@ -142,19 +157,8 @@ const AllCourses = () => {
         onChange={handleSearch}
         className="border border-gray-300 rounded-md px-4 py-2 mb-4"
       />
-      {login ?
-      <>
-        <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-        <button onClick={handleGoBack}>Go Back</button>
-        </div> 
-      </>
-    :
-      <>
-        <div className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-          <button onClick={handleGoToExplore}>{t('goToDashbaord')}</button>
-        </div>
-      </>
-        }
+      </div>
+              
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
         {filteredCourses.map((course) => (
           <CourseCard key={course.id} course={course} EnrollHandle={EnrollHandle} login={login} />

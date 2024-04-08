@@ -145,6 +145,7 @@ interface RegisterModalProps {
 }
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ onClose , login}) => {
+  const [showRegister, setShowRegisterModal]= useState(true)
   const [showCompletionPopup, setShowCompletionPopup] = useState(false);
   const [selectedOption, setSelectedOption] = useState('customer');   
   
@@ -260,6 +261,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose , login}) => {
       // Close modal and show success message if API call is successful
       if (response.data.success) {
         // onClose(); // Close modal
+        setShowRegisterModal(false);
         setShowCompletionPopup(true);
         alert('Registration successful!');
       } else {
@@ -275,7 +277,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose , login}) => {
 
   return (
     <>
-      {!showCompletionPopup && (
+    {showRegister && (
         <ModalContainer>
           <ModalContent>
             <ModalHeader>
