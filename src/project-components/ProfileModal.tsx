@@ -170,7 +170,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="language">Skill Intrest:</label>
+              <label htmlFor="language">Skill Interest:</label>
               <select value={selectedValue} onChange={handleSelectChange}>
               <option value="">Select an option</option>
                 {skill.length && skill?.map(ele =>{

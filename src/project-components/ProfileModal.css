@@ -60,9 +60,10 @@
     margin-right: 10px; 
   }
 
-  .form-group input{
-    width: 60%;
-    padding: 5px;
+  .form-group input,
+  .form-group select {
+      width: 60%;
+      padding: 5px;
   }
   
   label {
