@@ -212,7 +212,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
                 <div className="course-details">
                   <h2 className="course-title">{course?.attributes?.localizedMetadata?.[0]?.name}</h2>
                 </div>
-                <button className="enroll-link" onClick={()=>EnrollHandle(course?.id)}>ENROLL</button>
+                <button className="enroll-link" onClick={()=>EnrollHandle(course?.id)}>EXPLORE</button>
               </div>
             </div>
           ))}

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import playiconone from "../assets/images/playiconone.png";
+import pdficon from "../assets/images/pdf.png";
 import ".././styles/Detailspage.css";
 // import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -318,7 +319,7 @@ console.log("user profile data", userDataResponse.data?.data);
       const regex = /instance\/course:(\d+_?\d+)/;
       const match = pathname.match(regex);
       const courseInstanceId = match ? match[1] : null; // This will give you "9391878_10066226"
-      try {
+      // try {
         // const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
         //   method: 'POST',
         //   headers: {
@@ -334,9 +335,9 @@ console.log("user profile data", userDataResponse.data?.data);
           // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
           // window.location.reload();
         // } 
-      } catch (error) {
-        console.log("error",error)
-      }
+      // } catch (error) {
+      //   console.log("error",error)
+      // }
       
       setShowLoginModal(false);
       setAgencyId('');
@@ -410,9 +411,14 @@ console.log("user profile data", userDataResponse.data?.data);
         resourceDataObj.name= getLocalizedContent(resourceData?.attributes?.localizedMetadata)?.name;
         resourceDataObj.id = resourceData?.id;
         resourceDataObj.previewEnabled= resourceData?.attributes?.previewEnabled;
+        console.log("PPPPPPPPPPPPPPPPPPPPPPPPPP",resourceData?.relationships?.resources?.data[0]);
+        let resourceDetails =  result?.included.find((ele: LearningObjectInstanceEnrollment) =>ele?.id === resourceData?.relationships?.resources?.data[0]?.id);
+        console.log("qqqqqqqqqqqqqqqqqqqqq",resourceDetails);
+        resourceDataObj.contentType = resourceDetails?.attributes?.contentType;
         resourceDataArray.push(resourceDataObj);
       }
       setloResouceData(resourceDataArray);
+      
       // setIId(Iid.relationships?.loResources.data[0].id);
       const effectiveModifiedDate = new Date(result?.data?.attributes?.effectiveModifiedDate);
 
@@ -617,7 +623,7 @@ console.log("user profile data", userDataResponse.data?.data);
                   <div className="flex">
                     <span className="mr-6">
                       <img
-                        src={playiconone}
+                        src={item.contentType === "VIDEO" ? playiconone : pdficon}
                         alt="Logo"
                         style={{ width: "54px", height: "53px" }}
                       />

@@ -228,17 +228,14 @@ const CompletionPopup = ({ onClose, navigatedashboard, login }) => {
           'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InlhdGluIn0.SXp3ID7mgUcLGYMVkvb3RJgc_tJ1hGv2NR_08s5SYNM'
         }
       });
-      console.log("11111111")
       const client_id = clientId;
       const client_secret = clientSecreat;
       const refresh_token = refreshToken;
-      console.log("11111111")
       const params = new URLSearchParams({
         client_id,
         client_secret,
         refresh_token
       });
-      console.log("2222222")
       const url = `${base_adobe_url}/oauth/token/refresh`;
       const responseToken = await axios.post(
         `${url}`,
@@ -249,19 +246,15 @@ const CompletionPopup = ({ onClose, navigatedashboard, login }) => {
           },
         }
       );
-      console.log("333333333")
       const tokenData = responseToken.data;
       localStorage.setItem(
         'access_token',
         tokenData.access_token
       );     
-      console.log("44444444")
       const config = {
         headers: { Authorization: `oauth ${ tokenData.access_token}` },
       };
-      // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config);
-      // console.log
-      console.log("55555555555555555555555555555555")
+      // const response = await axios.get('https://learningmanager.adobe.com/primeapi/v2/user', config)
       const userDataResponse = await axios.get(
         `${base_adobe_url}/primeapi/v2/user`,
         {
@@ -270,7 +263,6 @@ const CompletionPopup = ({ onClose, navigatedashboard, login }) => {
           },
         }
       );
-      console.log("666666")
       const userId = userDataResponse.data?.data?.id;
 console.log("user profile data", userDataResponse.data?.data);
       localStorage.setItem('userId', userId);
@@ -285,7 +277,6 @@ console.log("user profile data", userDataResponse.data?.data);
         },
       },
     }
-    console.log("77777")
       const responseData = await axios.patch(
         `${base_adobe_url}/primeapi/v2/users/${userId}`,bodyData,config);
 
@@ -300,7 +291,7 @@ console.log("user profile data", userDataResponse.data?.data);
       const regex2 = /course:(\d+)/;
       const match2 = pathname.match(regex2);
       const courseId = match2 ? match2[1] : null;
-      try {
+      // try {
         // const response = await fetch('https://learningmanager.adobe.com/primeapi/v2/enrollments?loId=' + "course:"+courseId + '&loInstanceId=' + encodeURIComponent("course:"+courseInstanceId), {
         //   method: 'POST',
         //   headers: {
@@ -317,9 +308,9 @@ console.log("user profile data", userDataResponse.data?.data);
           // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
           // window.location.reload();
         // } 
-      } catch (error) {
-        console.log("error",error)
-      }
+      // } catch (error) {
+      //   console.log("error",error)
+      // }
       
       // onClose();
       setShowLoginModal(false);
