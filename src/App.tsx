@@ -12,6 +12,8 @@ import AllCourses from "./project-components/AllCourses";
 import AllLearnings from "./project-components/AllLearnings";
 import Header from './project-components/Header';
 import "./i18n";
+import { jwtInterceptor } from "./project-components/utils/services";
+jwtInterceptor()
 export default function App() {
   return (
     <>

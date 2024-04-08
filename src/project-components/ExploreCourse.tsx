@@ -174,8 +174,8 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
        <div>
       {isRecomdation ?
       <>
-        <h2 className="text-lg font-bold mb-4">Recommendation for you</h2>
-      <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "200px"}}>
+        <h2 className="text-lg font-bold mb-4">Recommendations based on area of intreast</h2>
+      <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "345px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
         </div>

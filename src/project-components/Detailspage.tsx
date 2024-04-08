@@ -331,7 +331,8 @@ console.log("user profile data", userDataResponse.data?.data);
         //   navigate('/')
         //   throw new Error('Failed to enroll');
         // } else {
-          setShowProfileModal(true);
+          if(response?.data?.success)
+            setShowProfileModal(true);
           // navigate(`/learning_object/course:${courseId}/instance/course:${courseInstanceId}/isDashboard=false/isCustomer=true/login=false/detailspage`);
           // window.location.reload();
         // } 
@@ -685,7 +686,7 @@ console.log("user profile data", userDataResponse.data?.data);
           className="rounded-lg w-full p-2 mb-8 text-white uppercase"
          
         >
-          Pay to Enroll
+          BUY NOW |  ${details?.data?.attributes?.price}
         </button>
         :    
             details?.data?.relationships?.enrollment ?
