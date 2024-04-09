@@ -209,8 +209,8 @@ const AllCourses = () => {
           </div>
           {login ?
       <>
-        <div className="text-blue-500 mt-2" style={{ float: 'right'}}>
-        <button onClick={handleGoBack}>Go Back</button>
+        <div style={{ float: 'right'}}>
+        <button className ="text-blue-500  mr-4 adobe-font hover:bg-transparent text-blue-500 font-normal py-1 px-5 rounded-md" onClick={handleGoBack}>Go Back</button>
         </div> 
       </>
     :

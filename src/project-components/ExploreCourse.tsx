@@ -65,7 +65,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
 
     .course-card {
       width:  calc(20% + 25px); /* Adjust spacing between cards as needed */
-      margin-right: 20px;
+      margin-right: 40px;
       flex-shrink: 0;
       position: relative;
     }
@@ -100,19 +100,12 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #005686;
-      color: #fff;
       text-decoration: none;
       font-size: 16px;
-      border: 1px solid #005686;
       padding: 5px 10px;
       border-radius: 4px;
     }
 
-    .enroll-link:hover {
-      background-color: #0056b3;
-      color: #fff;
-    }
   `;
 
   const  EnrollHandle = async(cid:string) =>{
@@ -213,7 +206,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
                 <div className="course-details">
                   <h2 className="course-title">{course?.attributes?.localizedMetadata?.[0]?.name}</h2>
                 </div>
-                <button className="enroll-link" onClick={()=>EnrollHandle(course?.id)}>EXPLORE</button>
+                <button className="enroll-link adobe-font bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-5 rounded-mds" onClick={()=>EnrollHandle(course?.id)}>EXPLORE</button>
               </div>
             </div>
           ))}

@@ -79,7 +79,7 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
 
     .course-card {
       width: calc(20% + 25px); /* Adjust spacing between cards as needed */
-      margin-right: 20px;
+      margin-right: 40px;
       flex-shrink: 0;
       position: relative;
     }
@@ -113,19 +113,12 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background-color: #007bff;
-      color: #fff;
       text-decoration: none;
       font-size: 16px;
-      border: 1px solid #007bff;
       padding: 5px 10px;
       border-radius: 4px;
     }
 
-    .enroll-link:hover {
-      background-color: #0056b3;
-      color: #fff;
-    }
   `;
 
   const  EnrollHandle = async(cid:string) =>{
@@ -196,7 +189,7 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
               <div className="course-details">
                 <h2 className="course-title">{course?.attributes?.localizedMetadata?.[0]?.name}</h2>
               </div>
-              <button className="enroll-link" onClick={()=>EnrollHandle(course?.id)}>{course?.state}</button>
+              <button className="enroll-link adobe-font bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-5 rounded-md" onClick={()=>EnrollHandle(course?.id)}>{course?.state}</button>
             </div>
           ))}
         </div>

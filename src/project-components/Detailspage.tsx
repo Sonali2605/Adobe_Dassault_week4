@@ -572,8 +572,8 @@ console.log("user profile data", userDataResponse.data?.data);
       <Header isLogin={false} />
       }
       {loginValue === "true" &&
-      <div className="text-blue-500 my-5 mr-5" style={{ float: 'right'}}>
-      <button onClick={handleGoBack}>Go Back</button>
+      <div style={{ float: 'right'}}>
+      <button className ="text-blue-500 my-5 mr-4 adobe-font hover:bg-transparent text-blue-500 font-normal py-1 px-5 rounded-md" onClick={handleGoBack}>Go Back</button>
       </div> 
       }
       
@@ -581,7 +581,7 @@ console.log("user profile data", userDataResponse.data?.data);
 
       <div className="container flex ">
         <div className="my-8 flex-1 mx-5 mr-16">
-          <div className="with-line">
+          <div className="">
             
             <h1 className="heading">
               {getLocalizedContent(details?.data?.attributes?.localizedMetadata)?.name}

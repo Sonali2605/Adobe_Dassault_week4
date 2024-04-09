@@ -137,7 +137,7 @@ const [toastMessage, setToastMessage] = useState('');
             <div className="text-sm text-right text-gray-600">{progress}%</div>
           </div>
           <div className="px-2 flex justify-between mt-4">
-            <div className="text-md text-gray-600 font-bold">
+            <div className="text-lg text-blue-500 font-bold">
             {course?.attributes?.price ? "$ "+ course?.attributes?.price : "Free"}
             </div>
             {!login && (
@@ -167,7 +167,7 @@ const [toastMessage, setToastMessage] = useState('');
         </p>
         <div className="flex justify-center mt-4 ">
           <button
-            className="enroll-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline uppercase"
+            className="enroll-link adobe-font bg-blue-500 hover:bg-blue-700 text-white font-normal py-1 px-5 rounded-md focus:outline-none focus:shadow-outline uppercase"
             onClick={() => EnrollHandle(course?.id || '')}
           >
             {enrollmentState}

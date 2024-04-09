@@ -134,6 +134,7 @@ const Dashboard = () => {
       <Header isLogin={false} />
       <div className="mt-5">
         {/* <DashboardHeading /> */}
+        <img src="/images/mast2_f1.png" className= "mt-0 mb-6" alt="Level" />
         <div className="grid grid-rows-3 grid-flow-col gap-4 px-10 ">
           <div className="row-start-1 row-span-4 max-w-xs">
             <ProfileCard name="Olivia Clarke" />
