@@ -13,27 +13,26 @@ interface Course {
   };
   state?: string; // Define 'state' as an optional property
 }
-interface CourseExploreProps {
+interface TrendingNetworksProps {
   isCustomer: boolean;
-  isRecomdation: boolean; // Define the type for isRecomdation
 }
 
-const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation }) => {
+const TrendingNetworks: React.FC<TrendingNetworksProps> = ({ isCustomer }) => {
   const [courseData, setCourseData] = useState<Course[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCoursestoExplore();
+    getCoursesByPeers();
   }, []);
 
-  async function getCoursestoExplore() {
+  async function getCoursesByPeers() {
     try {
       const token = localStorage.getItem("access_token");
       const config = {
         headers: { Authorization: `oauth ${token}` },
       };
       const response = await axios.get(
-        `https://learningmanager.adobe.com/primeapi/v2/learningObjects?page[limit]=20&filter.catalogIds=174313&sort=name&filter.learnerState=notenrolled&filter.ignoreEnhancedLP=true`,
+        `https://learningmanager.adobe.com/primeapi/v2/learningObjects?page[limit]=20&filter.catalogIds=174772&sort=name&filter.ignoreEnhancedLP=true`,
         config
       );
       const result = response?.data?.data;
@@ -161,43 +160,14 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
   // }
   return (
     <div>
-      {isCustomer? 
       <>
-       <h2 className="text-2xl text-white font-bold mt-10 mb-8 text-left">Recommended by Timbus</h2> 
-       <div className="scroll-arrows" style={{marginTop: "-57px",marginLeft: "280px", textAlign:"left", color:"white"}}>
-          <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
-          <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
-        </div>
-      </>
-       :
-       <>
-       <div>
-      {isRecomdation ?
-      <>
-        <h2 className="text-lg font-bold mb-4">Recommendations based on area of interest</h2>
-      <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "345px"}}>
+       <h2 className="text-lg font-bold mb-4">Trending in your Networks</h2> 
+       <div className="scroll-arrows" style={{marginTop: "-42px",marginLeft: "240px", textAlign:"left"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
         </div>
       </>
       
-      :
-      <>
-      <h2 className="text-lg font-bold mb-4">Recommended by 3Ds</h2>
-      <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "175px"}}>
-          <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
-          <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
-        </div>
-      </>
-      
-    }
-        
-        <div  className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-        {/* <button onClick={handleGoToExplore}>Go To Explore page</button> */}
-      </div>
-      </div>
-       </>
-      }
       <style>{customStyles}</style>
       <div className="course-carousel-container customerExplore mt-4">
         <div className="course-carousel">
@@ -222,4 +192,4 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
   );
 };
 
-export default CourseExplore;
+export default TrendingNetworks;

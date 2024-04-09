@@ -21,6 +21,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import ".././styles/common.css";
 import MyLearning from "./MyLearning";
+import TrendingNetworks from "./TrendingNetworks";
 
 interface Certificate {
   imageUrl: string;
@@ -149,55 +150,15 @@ const Dashboard = () => {
               <MyLearning isCustomer={false} />
             </div>
             <div className="mt-4">
-              <CourseExplore isCustomer={false} isRecomdation={false}/>
+              <TrendingNetworks isCustomer={false} />
             </div>
             <div className="mt-4">
-              <MyLearning isCustomer={false} />
+              <CourseExplore isCustomer={false} isRecomdation={true}/>
             </div>
             <div className="mt-4">
-            <CourseExplore isCustomer={false} isRecomdation={true}/>
+            <CourseExplore isCustomer={false} isRecomdation={false}/>
             </div>
           </div>
-          {/* <div className="row-start-1 row-end-4">
-            <ComplianceTraining />
-            <SkillProgress />
-          </div> */}
-        </div>
-        <div className="flex mt-4 px-10">
-          <div className="min-w-xs">
-            {/* <Network /> */}
-          </div>
-          {/* <div className="ml-4 flex-grow" style={{ marginTop: "-45px", maxWidth:"72%" }}>
-            <div className="mt-4">
-              <CourseExplore isCustomer={false} isRecomdation={false}/>
-            </div>
-            <div className="mt-4">
-              <MyLearning isCustomer={false} />
-            </div>
-            <div className="mt-4">
-            <CourseExplore isCustomer={false} isRecomdation={true}/>
-            </div>
-            <div className="mt-4 mb-10" style={{ display: "flex" }}>
-              <div style={{ minWidth: '20rem', width: "40%", marginRight: "10px" }}>
-                {selectedDate && (
-              <CalendarCourse
-                selectedDate={selectedDate}
-                selectedCourse={getSelectedCourse()}
-              />
-            )}
-              </div>
-              <div style={{ width: '40%', marginTop: '5%', padding: '15px' }}>
-              <Calendar
-              onChange={handleDateChange}
-              value={selectedDate}
-              calendarType="US"
-              locale="en-US"
-              // Add custom tileClassName prop to apply styles based on isDottedDate
-              tileClassName={tileClassName}            
-              />
-        </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

@@ -27,8 +27,8 @@
   
   .close {
     position: absolute;
-    top: 14%;
-    right: 35%;
+    top: 25%;
+    right: 30%;
     font-size: 24px;
     cursor: pointer;
   }

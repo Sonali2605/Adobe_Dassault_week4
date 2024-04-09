@@ -49,11 +49,11 @@ const ProfileModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    let skillUpdate;
     try {
 
-      const skillUpdate = await axios.post(`https://learningmanager.adobe.com/primeapi/v2/users/${localStorage.getItem('userId')}/skillInterest/${selectedValue}?filter.skillInterestTypes=ADMIN_DEFINED`);
-      console.log("****************", skillUpdate)
+      skillUpdate = await axios.post(`https://learningmanager.adobe.com/primeapi/v2/users/${localStorage.getItem('userId')}/skillInterest/${selectedValue}?filter.skillInterestTypes=ADMIN_DEFINED`);
+      console.log("****************", skillUpdate);
 
       const client_id = "449923a1-a01c-4bf5-b7c8-2137718d6d04";
       const client_secret = "b1b22c3e-900c-4bd1-b010-daf95c01b968";
@@ -84,9 +84,6 @@ const ProfileModal = ({ isOpen, onClose }) => {
           type: `${userData?.type}`,
           attributes: {
             name: `${name}`,
-            // bio: `${about}`,
-            // contentLocale: localStorage.getItem("selectedLanguage"),
-            // uiLocale: localStorage.getItem("selectedLanguage"),
             fields: {
               "Cell Number": `${cellNumber}`,
               Address: `${address}`,
@@ -107,8 +104,7 @@ const ProfileModal = ({ isOpen, onClose }) => {
           }
         }
       };
-      // const updatedUserData = {data:{ ...userData }};
-      // updatedUserData.data.attributes.name = editedName;
+
       const urlUser = `https://learningmanager.adobe.com/primeapi/v2/users/${userData.id}`;
 
       console.log("22222", BodyData, url)
@@ -124,10 +120,14 @@ const ProfileModal = ({ isOpen, onClose }) => {
       alert('Profile updated successfully!');
       onClose();
    
-    } catch (error) {
+    } catch (error:any) {
       console.error('Error updating profile:', error);
       alert('Profile not updated!');
-      setError('An error occurred. Please try again later.'); // Update error state
+      if (error?.response?.status === 400) {
+        setError("This skill interest is already added for the user");
+      } else {
+        setError('An error occurred. Please try again later.');
+      }
       setIsLoading(false);
     }
   };
