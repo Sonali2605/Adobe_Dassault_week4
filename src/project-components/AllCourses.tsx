@@ -3,6 +3,7 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import CourseCard from './CourseCard'; // Create a CourseCard component to represent each course
+import Sidebar from '@/common/Modal/SideBar';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
@@ -22,7 +23,7 @@ interface Course {
 
 const AllCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');  
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,86 +31,6 @@ const AllCourses = () => {
   const login = searchParams.get("login") || false;
   const [selectedFilter, setSelectedFilter] = useState('');
   console.log("login",login)
-
-  function Sidebar({ handleFilterChange }) {
-    return (
-      <div style={{ float: 'left', marginRight: '20px' }}>
-        <h2  className='font-bold mb-8'>Filter</h2>
-        <div className = "my-8" style={{borderBottom: "1px solid rgb(204, 204, 204)"}}></div>
-    
-        {/* Type */}
-        <h3 style={{ color: 'blue' }}>Type</h3>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Courses')} />
-          <span style={{ marginLeft: '5px' }}>Courses</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Learning Paths')} />
-          <span style={{ marginLeft: '5px' }}>Learning Paths</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Learning Paths')} />
-          <span style={{ marginLeft: '5px' }}>Learning Paths</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Learning Paths')} />
-          <span style={{ marginLeft: '5px' }}>Job Aids</span>
-        </label>
-        <div className = "my-8" style={{borderBottom: "1px solid rgb(204, 204, 204)"}}></div>
-
-        <h3 style={{ color: 'blue' }}>Format</h3>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Activity')} />
-          <span style={{ marginLeft: '5px' }}>Activity</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Blended')} />
-          <span style={{ marginLeft: '5px' }}>Blended</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Blended')} />
-          <span style={{ marginLeft: '5px' }}>Classroom</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Blended')} />
-          <span style={{ marginLeft: '5px' }}>Self Paced</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Blended')} />
-          <span style={{ marginLeft: '5px' }}>Virtual Classroom</span>
-        </label>
-        <div className = "my-8" style={{borderBottom: "1px solid rgb(204, 204, 204)"}}></div>
-
-        <h3 style={{ color: 'blue' }}>Duration</h3>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('30 mins or less')} />
-          <span style={{ marginLeft: '5px' }}>30 mins or less</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('31 mins to 2 hours')} />
-          <span style={{ marginLeft: '5px' }}>31 mins to 2 hours</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('31 mins to 2 hours')} />
-          <span style={{ marginLeft: '5px' }}>2 hours+</span>
-        </label>
-        <div className = "my-8" style={{borderBottom: "1px solid rgb(204, 204, 204)"}}></div>
-    
-        {/* Skills */}
-        <h3 style={{ color: 'blue' }}>Skills</h3>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('My Skills')} />
-          <span style={{ marginLeft: '5px' }}>My Skills</span>
-        </label>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          <input type="checkbox" onChange={() => handleFilterChange('Training Skill')} />
-          <span style={{ marginLeft: '5px' }}>Training Skill</span>
-        </label>
-        <div className = "my-8" style={{borderBottom: "1px solid rgb(204, 204, 204)"}}></div>
-        {/* Add more skills options if needed */}
-      </div>
-    );
-  }
   
   
   const handleFilterChange = (filterOption: string) => {
@@ -237,11 +158,11 @@ const AllCourses = () => {
       />
       </div>
       <div style={{ display: 'flex' }}>
-      {login && (
+      
         <div style={{ width: '300px', marginRight: '20px', borderRight: '1px solid #ccc', padding: '0 20px' }}>
           <Sidebar handleFilterChange={handleFilterChange} />
         </div>
-      )}      
+         
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
         {filteredCourses.map((course) => (
           <CourseCard key={course.id} course={course} EnrollHandle={EnrollHandle} login={login} />

@@ -5,6 +5,7 @@ import CourseCard from './CourseCard'; // Create a CourseCard component to repre
 import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import { useTranslation } from 'react-i18next';
+import Sidebar from '@/common/Modal/SideBar';
 interface Course {
   id: string;
   attributes: {
@@ -22,6 +23,7 @@ interface Course {
 const AllLearnings = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState('');
   const navigate = useNavigate();
   const { t } = useTranslation();
   useEffect(() => {
@@ -91,6 +93,9 @@ const AllLearnings = () => {
   const handleGoToExplore = () => {
     navigate('/dashboard')
   }
+  const handleFilterChange = (filterOption: string) => {
+    setSelectedFilter(filterOption);
+  };
   return (
     <>
       <div className='mb-6'>
@@ -108,12 +113,18 @@ const AllLearnings = () => {
           onChange={handleSearch}
           className="border border-gray-300 rounded-md px-4 py-2 mb-4"
         />
+        
+        <div style={{ display: 'flex' }}>
+      <div style={{ width: '300px', marginRight: '20px', borderRight: '1px solid #ccc', padding: '0 20px' }}>
+        <Sidebar handleFilterChange={handleFilterChange} />
+      </div>
+      
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
           {filteredCourses.map((course) => (
             <CourseCard key={course.id} course={course} EnrollHandle={EnrollHandle} />
           ))}
         </div>
-        
+        </div>
       </div>  </>
   );
 };
