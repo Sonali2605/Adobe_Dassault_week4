@@ -79,7 +79,7 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
 
     .course-card {
       width: calc(20% + 25px); /* Adjust spacing between cards as needed */
-      margin-right: 40px;
+      margin-right: 28px;
       flex-shrink: 0;
       position: relative;
     }
@@ -158,7 +158,7 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
     <div>
       {isCustomer ?
       <>
-      <h2 className="font-bold text-left" style={{marginBottom:"18px", fontSize: '1.5rem'}}>My Learning List</h2>
+      <h2 className="font-bold text-left" style={{marginBottom:"18px", fontSize: '1.5rem, '}}>My Learning List</h2>
       <div className="scroll-arrows" style={{marginTop: "-46px",marginLeft: "-446px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
@@ -166,14 +166,15 @@ const MyLearning = ({ isCustomer }: { isCustomer: boolean }) => {
       </>
       :
       <>
-      <h2 className="text-lg font-bold mb-4" >My Learning</h2>
+       <div  className="text-blue-500 pt-4" style={{ float: 'right', marginTop: '-20px' }}>
+        <button onClick={handleGoToExplore}>Go To My Learning</button>
+      </div>
+      <h2 className="text-lg font-bold mb-4"  style = {{borderBottom: "1px solid rgb(204, 204, 204)"}}>My Learning</h2>
       <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "108px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
       </div>
-      <div  className="text-blue-500" style={{ float: 'right', marginTop: '-20px' }}>
-        <button onClick={handleGoToExplore}>Go To My Learning</button>
-      </div>
+     
       </>
       }
       <style>{customStyles}</style>

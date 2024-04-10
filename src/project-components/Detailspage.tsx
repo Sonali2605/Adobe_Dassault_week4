@@ -577,7 +577,7 @@ console.log("user profile data", userDataResponse.data?.data);
       </div> 
       }
       
-      <img src={details?.data?.attributes?.bannerUrl} alt="Logo" style={{ maxHeight: "200px",  width: "100%", display: "block", margin: "0 auto" }}/>
+      <img src={details?.data?.attributes?.bannerUrl} alt="Logo" style={{ maxHeight: "360px",  width: "100%", display: "block", margin: "0 auto" }}/>
 
       <div className="container flex ">
         <div className="my-8 flex-1 mx-5 mr-16">

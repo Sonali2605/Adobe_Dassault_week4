@@ -64,7 +64,7 @@ const TrendingNetworks: React.FC<TrendingNetworksProps> = ({ isCustomer }) => {
 
     .course-card {
       width:  calc(20% + 25px); /* Adjust spacing between cards as needed */
-      margin-right: 40px;
+      margin-right: 28px;
       flex-shrink: 0;
       position: relative;
     }
@@ -157,7 +157,7 @@ const TrendingNetworks: React.FC<TrendingNetworksProps> = ({ isCustomer }) => {
   return (
     <div>
       <>
-       <h2 className="text-lg font-bold mb-4">Trending in your Network</h2> 
+       <h2 className="text-lg font-bold mb-4" style = {{borderBottom: "1px solid rgb(204, 204, 204)"}}>Trending in your Network</h2> 
        <div className="scroll-arrows" style={{marginTop: "-42px",marginLeft: "240px", textAlign:"left"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />

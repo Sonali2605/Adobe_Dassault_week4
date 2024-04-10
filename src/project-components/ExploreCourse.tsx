@@ -65,7 +65,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
 
     .course-card {
       width:  calc(20% + 25px); /* Adjust spacing between cards as needed */
-      margin-right: 40px;
+      margin-right: 28px;
       flex-shrink: 0;
       position: relative;
     }
@@ -157,7 +157,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
     <div>
       {isCustomer? 
       <>
-       <h2 className="text-2xl text-white font-bold mt-10 mb-8 text-left">Recommended by Timbus</h2> 
+       <h2 className="text-2xl text-white font-bold mt-10 mb-8 text-left" style = {{borderBottom: "1px solid rgb(204, 204, 204)"}}>Recommended by Timbus</h2> 
        <div className="scroll-arrows" style={{marginTop: "-57px",marginLeft: "280px", textAlign:"left", color:"white"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
@@ -168,7 +168,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
        <div>
       {isRecomdation ?
       <>
-        <h2 className="text-lg font-bold mb-4">Recommendations based on area of interest</h2>
+        <h2 className="text-lg font-bold mb-4" style = {{borderBottom: "1px solid rgb(204, 204, 204)"}}>Recommendations based on area of interest</h2>
       <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "345px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />
@@ -177,7 +177,7 @@ const CourseExplore: React.FC<CourseExploreProps> = ({ isCustomer, isRecomdation
       
       :
       <>
-      <h2 className="text-lg font-bold mb-4">Recommended by 3Ds</h2>
+      <h2 className="text-lg font-bold mb-4" style = {{borderBottom: "1px solid rgb(204, 204, 204)"}}>Recommended by 3Ds</h2>
       <div className="scroll-arrows" style={{marginTop: "-40px",marginLeft: "175px"}}>
           <FontAwesomeIcon icon={faChevronLeft} onClick={scrollLeft} />
           <FontAwesomeIcon icon={faChevronRight} onClick={scrollRight} />

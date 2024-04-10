@@ -134,7 +134,7 @@ const Dashboard = () => {
       <Header isLogin={false} />
       <div className="mt-5">
         {/* <DashboardHeading /> */}
-        <img src="/images/mast2_f1.png" className= "mt-0 mb-6" alt="Level" />
+        <img src="/images/mast2_f1.png"  style ={{width:"100%"}} className= "mt-0 mb-6" alt="Level" />
         <div className="grid grid-rows-3 grid-flow-col gap-4 px-10 ">
           <div className="row-start-1 row-span-4 max-w-xs">
             <ProfileCard name="Olivia Clarke" />
@@ -147,16 +147,16 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="row-start-1 row-end-4">
-            <div className="pb-8" style ={{marginTop:"-8px", borderBottom: "2px solid rgb(204, 204, 204)"}}>
+            <div className="pb-8">
               <MyLearning isCustomer={false} />
             </div>
-            <div className="mt-4 pb-8" style ={{borderBottom: "2px solid rgb(204, 204, 204)"}}>
+            <div className="mt-4 pb-8">
               <TrendingNetworks isCustomer={false} />
             </div>
-            <div className="mt-4 pb-8" style ={{borderBottom: "2px solid rgb(204, 204, 204)"}}>
+            <div className="mt-4 pb-8">
               <CourseExplore isCustomer={false} isRecomdation={true}/>
             </div>
-            <div className="mt-4 pb-8" style ={{borderBottom: "2px solid rgb(204, 204, 204)"}}>
+            <div className="mt-4 pb-8">
             <CourseExplore isCustomer={false} isRecomdation={false}/>
             </div>
           </div>

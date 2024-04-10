@@ -9,7 +9,8 @@ import ".././styles/common.css";
 
 import { clientId, clientSecreat, refreshToken, base_adobe_url } from "../AppConfig"
 import { useTranslation } from 'react-i18next';
-
+import logo from '../assets/images/DS3logo.jpg';
+import banner from '../assets/images/login-bg.png';
 const LoginContener = styled.div`
   position: fixed;
   top: 0;
@@ -233,7 +234,7 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
     <>
       <LoginContener >
         <LeftContener >
-          <img src="src/assets/images/login-bg.png" alt="Login Image" style={{
+          <img src={banner} alt="Login Image" style={{
             maxWidth: "inherit",
             height: "100%",
             width: "auto",
@@ -245,7 +246,7 @@ const LoginModalPage: React.FC<LoginModalPageProps> = ({ onClose }) => {
         <RightContener >
           <TextBoxWrapper >
             <TextRow>
-              <img src="src/assets/images/DS3logo.jpg" alt="Login Logo" style={{
+              <img src= {logo} alt="Login Logo" style={{
                 width: "180px",
                 height: "auto",
                 marginBottom: "30px"
