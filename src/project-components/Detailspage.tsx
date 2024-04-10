@@ -626,7 +626,7 @@ console.log("user profile data", userDataResponse.data?.data);
                       <img
                         src={item.contentType === "VIDEO" ? playiconone : pdficon}
                         alt="Logo"
-                        style={{ width: "54px", height: "53px" }}
+                        style={item.contentType === "VIDEO" ? {width: "54px", height: "53px" } : {width: "50px", height: "53px" }}
                       />
                     </span>
                     <span className="">
