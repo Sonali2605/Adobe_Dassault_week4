@@ -147,16 +147,16 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="row-start-1 row-end-4">
-            <div className="mt-4">
+            <div className="pb-8" style ={{marginTop:"-8px", borderBottom: "2px solid rgb(204, 204, 204)"}}>
               <MyLearning isCustomer={false} />
             </div>
-            <div className="mt-4">
+            <div className="mt-4 pb-8" style ={{borderBottom: "2px solid rgb(204, 204, 204)"}}>
               <TrendingNetworks isCustomer={false} />
             </div>
-            <div className="mt-4">
+            <div className="mt-4 pb-8" style ={{borderBottom: "2px solid rgb(204, 204, 204)"}}>
               <CourseExplore isCustomer={false} isRecomdation={true}/>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 pb-8" style ={{borderBottom: "2px solid rgb(204, 204, 204)"}}>
             <CourseExplore isCustomer={false} isRecomdation={false}/>
             </div>
           </div>
