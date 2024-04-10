@@ -670,6 +670,10 @@ console.log("user profile data", userDataResponse.data?.data);
         <div className="card mr-0 mt-8 ">
           <div className="card-content">
             {loginValue === "true" ?
+            <>
+             <div className="text-lg font-bold mb-4" style={{color:"rgb(66, 162, 218)", marginLeft: "auto", float:"right"}}>
+            {details?.data?.attributes?.price ? "$ "+ details?.data?.attributes?.price : "Free"}
+            </div>
             <button
             /* className="bg-blue-300 rounded-lg w-full p-2 mb-8" */
             style={{backgroundColor:"rgb(66, 162, 218)"}}
@@ -678,6 +682,7 @@ console.log("user profile data", userDataResponse.data?.data);
           >
             Login to access course
           </button>
+          </>
             :
           details?.data?.attributes?.price && !details?.data?.relationships?.enrollment ?
           <button
